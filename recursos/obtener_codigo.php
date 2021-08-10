@@ -1,0 +1,28 @@
+<?php 
+
+require 'recursos/factura/phpqrcode/qrlib.php';
+
+
+$numfac = $_POST['numfac'];
+$cntdo = $_POST['contenido'];
+$dir = 'images/qrcodes/';
+if(!file_exists($dir))
+	mkdir($dir);
+
+$filename = $dir.''.$numfac.'.png';
+
+$tamanio = 10;
+$level = 'M';
+$frameSize = 3;
+$contenido = $cntdo;
+
+
+QRcode::png($contenido,$filename,$level,$tamanio,$frameSize);
+
+
+
+
+die($filename);
+
+
+?>
