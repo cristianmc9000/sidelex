@@ -17,8 +17,14 @@ require('recursos/conexion.php');
 $Sql = "SELECT * FROM usuario";
 $Busq = $conexion->query($Sql);
 ?>
-<!doctype html>
-<html>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ES">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/index.css">
