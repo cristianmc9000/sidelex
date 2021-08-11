@@ -30,9 +30,11 @@ $Busq = $conexion->query($Sql);
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/datatable.css">
     <link rel="stylesheet" type="text/css" href="css/materialize.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
     <script src="js/jquery-3.0.0.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/datatable.js"></script>
+    <script type="text/javascript" src="js/vfs_fonts.js"></script>
     <script src="js/num2text.js"></script>
     <script src="js/jsPDF.min.js"></script>
     <title> RCR. Delicias Express., Número de teléfono(s): 76191403, E-mail: rcrdelexo@hotmail.com</title>
@@ -44,10 +46,13 @@ $Busq = $conexion->query($Sql);
 
     nav ul a:hover {
     background-color: rgba(0, 0, 0, 0.2) !important;
-    font-size: 120%;
+    /*font-size: 120%;*/
     }
     .mg{
-      margin-top: -20px;
+      /*margin-top: -20px;*/
+      vertical-align: middle;
+
+      padding-bottom: 10px;
     }
 
     table.highlight > tbody > tr:hover {
@@ -58,7 +63,7 @@ $Busq = $conexion->query($Sql);
     }
     li a{
     color: white !important;
-    font-size: 14px;
+    /*font-size: 14px;*/
     }
     header, body, footer {
     padding-left: 280px;
@@ -87,34 +92,37 @@ $Busq = $conexion->query($Sql);
           <li><?php echo $salir; ?></li>
         </ul>
         
-        <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons-outlined">menu</i></a>
         <ul class="side-nav fixed"  onmouseover="overhid();" onmouseout="overshow();" style="background-color: #34495e;" id="mobile-demo"  style="color: black;">
-          <li class="sidenav-header blue mg" style="background-image: url('images/paisaje-fondo.jpg');">
+          
+          <li class="sidenav-header blue " style="background-image: url('images/paisaje-fondo.jpg');">
             <div class="row">
-              <div class="col s4" style="padding-top: 30px;">
+              <!-- <div class="col s4" style="padding-top: 30px;"> --> <div class="col s4" style="">
+
                 <img src="<?php echo $_SESSION['Foto'] ?>" width="48px" height="48px" class="circle responsive-img valign profile-image">
               </div>
-              <div class="col s12" style="margin-top: -20px;"> 
+              <!-- <div class="col s12" style="margin-top: -20px;">  --><div class="col s12" >
                 <span class="white-text name"><?php echo $estado; ?></span>
               </div>
             </div>
           </li>
-          <li class="mg"><a href="#!" style="color: white;" onclick="location.reload();">INICIO</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('ventas');">Ventas</a></li>
+
+          <li ><a href="#!" style="color: white;" onclick="location.reload();"><i class="material-icons-outlined">home</i> <b class="mg">INICIO</b></a></li>
+          <li ><a href="#!" onclick="cargar('ventas');"><i class="material-icons-outlined">shopping_cart</i> <b class="mg">Ventas</b></a></li>
           <!-- <li class="mg"><a href="#!" onclick="cargar('compras');">Compras</a></li> -->
-          <li class="mg"><a href="#!" onclick="cargar('usuarios');">Usuarios</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('clientes');">Clientes</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('roles');">Roles</a></li>
+          <li ><a href="#!" onclick="cargar('usuarios');"><i class="material-icons-outlined">people</i> <b class="mg">Usuarios</b></a></li>
+          <li ><a href="#!" onclick="cargar('clientes');"><i class="material-icons-outlined">airline_seat_recline_normal</i> <b class="mg">Clientes</b></a></li>
+          <li ><a href="#!" onclick="cargar('roles');"><i class="material-icons-outlined">switch_account</i> <b class="mg">Roles</b></a></li>
           <!-- <li class="mg"><a href="#!" onclick="cargar('proveedores');">Proveedores</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('insumos');">Insumos</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('empresas');">Empresas</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('bebidas');">Bebidas</a></li> -->
-          <li class="mg"><a href="#!" onclick="cargar('platos');">Platos</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('pedidos');">Pedidos</a></li>
+          <li ><a href="#!" onclick="cargar('platos');"><i class="material-icons-outlined">fastfood</i> <b class="mg">Platos</b></a></li>
+          <li ><a href="#!" onclick="cargar('pedidos');"><i class="material-icons-outlined">receipt</i> <b class="mg">Pedidos</b></a></li>
           <!-- <li class="mg"><a href="#!" onclick="cargar('talonario');">Talonario</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('facturas');">Facturas</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('reportes');">Reportes</a></li> -->
-          <li class="mg"><?php echo $salir; ?></li>
+          <li ><?php echo $salir; ?></li>
         </ul>
       </div>
     </nav>
@@ -140,34 +148,6 @@ $Busq = $conexion->query($Sql);
     var y=".php";
     $("#cuerpo").load(x+y);
     }
-    var html5_audiotypes={
-    "wav": "audio/wav"
-    }
-    function createsoundbite(sound){
-    var html5audio=document.createElement('audio')
-    if (html5audio.canPlayType){ //Comprobar soporte para audio HTML5
-    for (var i=0; i<arguments.length; i++){
-      var sourceel=document.createElement('source')
-      sourceel.setAttribute('src', arguments[i])
-      if (arguments[i].match(/.(w+)$/i))
-      sourceel.setAttribute('type', html5_audiotypes[RegExp.$1])
-      html5audio.appendChild(sourceel)
-      }
-      html5audio.load()
-      html5audio.playclip=function(){
-      html5audio.pause()
-      html5audio.currentTime=0
-      html5audio.play()
-      }
-      return html5audio
-      }
-      else{
-      return {playclip:function(){throw new Error('Su navegador no soporta audio HTML5')}}
-      }
-      }
-      var hover2 = createsoundbite('audio/botones/6.wav');
-      var hover3 = createsoundbite('audio/botones/3.wav');
-      var hover4 = createsoundbite('audio/botones/Efecto De Sonido Caja registradora.mp3');
       </script>
       
     </body>
