@@ -29,7 +29,7 @@ $Busq = $conexion->query($Sql);
     <script src="js/datatable.js"></script>
     <script src="js/num2text.js"></script>
     <script src="js/jsPDF.min.js"></script>
-    <title> RCR. Pollo Loco., Número de teléfono(s): 6637037, E-mail: rcrpolloloco@hotmail.com</title>
+    <title> RCR. Delicias Express., Número de teléfono(s): 76191403, E-mail: rcrdelexo@hotmail.com</title>
     <style>
 
     .fuente{
@@ -82,7 +82,7 @@ $Busq = $conexion->query($Sql);
         </ul>
         
         <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul class="side-nav fixed"  onmouseover="overhid();" onmouseout="overshow();" style="background-color: #E30049;" id="mobile-demo"  style="color: black;">
+        <ul class="side-nav fixed"  onmouseover="overhid();" onmouseout="overshow();" style="background-color: #34495e;" id="mobile-demo"  style="color: black;">
           <li class="sidenav-header blue mg" style="background-image: url('images/paisaje-fondo.jpg');">
             <div class="row">
               <div class="col s4" style="padding-top: 30px;">
@@ -95,19 +95,19 @@ $Busq = $conexion->query($Sql);
           </li>
           <li class="mg"><a href="#!" style="color: white;" onclick="location.reload();">INICIO</a></li>
           <li class="mg"><a href="#!" onclick="cargar('ventas');">Ventas</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('compras');">Compras</a></li>
+          <!-- <li class="mg"><a href="#!" onclick="cargar('compras');">Compras</a></li> -->
           <li class="mg"><a href="#!" onclick="cargar('usuarios');">Usuarios</a></li>
           <li class="mg"><a href="#!" onclick="cargar('clientes');">Clientes</a></li>
           <li class="mg"><a href="#!" onclick="cargar('roles');">Roles</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('proveedores');">Proveedores</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('insumos');">Insumos</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('empresas');">Empresas</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('bebidas');">Bebidas</a></li>
+          <!-- <li class="mg"><a href="#!" onclick="cargar('proveedores');">Proveedores</a></li> -->
+          <!-- <li class="mg"><a href="#!" onclick="cargar('insumos');">Insumos</a></li> -->
+          <!-- <li class="mg"><a href="#!" onclick="cargar('empresas');">Empresas</a></li> -->
+          <!-- <li class="mg"><a href="#!" onclick="cargar('bebidas');">Bebidas</a></li> -->
           <li class="mg"><a href="#!" onclick="cargar('platos');">Platos</a></li>
           <li class="mg"><a href="#!" onclick="cargar('pedidos');">Pedidos</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('talonario');">Talonario</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('facturas');">Facturas</a></li>
-          <li class="mg"><a href="#!" onclick="cargar('reportes');">REPORTES</a></li>
+          <!-- <li class="mg"><a href="#!" onclick="cargar('talonario');">Talonario</a></li> -->
+          <!-- <li class="mg"><a href="#!" onclick="cargar('facturas');">Facturas</a></li> -->
+          <!-- <li class="mg"><a href="#!" onclick="cargar('reportes');">Reportes</a></li> -->
           <li class="mg"><?php echo $salir; ?></li>
         </ul>
       </div>
