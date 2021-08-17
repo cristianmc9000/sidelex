@@ -42,6 +42,7 @@ $Busq = $conexion->query($Sql);
 
     .fuente{
     font-family: 'Segoe UI Light';
+
     }
 
     nav ul a:hover {
