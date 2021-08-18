@@ -46,7 +46,10 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 <style>
   #modal_cant_plato{
-    width: 20%;
+    width: 15%;
+  }
+  #regresar{
+    margin-left: 0;
   }
 
 </style>
@@ -56,39 +59,42 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 
 <div class="row">
-
-  <form id="form_venta" action="" class="col s4">
-    <h5>Datos de cliente</h5>
-    <div class="row">
-      <div class="input-field col s8">
-          <input id="ci_c" name="ci_c" type="number" class="validate">
-          <label for="ci_c">Cédula de identidad</label>
+  <div id="client_section" class="col s3">
+    <form id="form_venta" action="" class="col s12">
+      <h4 class="fuente">Datos de cliente</h4>
+      <div class="row">
+        <div class="input-field col s8">
+            <input id="ci_c" name="ci_c" type="number" class="validate">
+            <label for="ci_c">Cédula de identidad</label>
+        </div>
+        <div class="col s3">
+          <a onclick="buscar_cliente()" class="waves-effect waves-teal btn-large"><i class="material-icons left">search</i></a>
+        </div>
+        <div class="input-field col s12">
+            <input id="nombre_c" name="nombre_c" type="text" class="validate dis">
+            <label for="nombre_c" class="active">Nombre</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="ap_c" name="ap_c" type="text" class="validate dis">
+            <label for="ap_c" class="active">Apellidos</label>
+        </div>
+        <div class="input-field col s12">
+            <input type="text" id="tot_ped" name="tot_ped" value="" hidden>
+            <input id="telf" name="telf" type="number" class="validate dis">
+            <label for="telf" class="active">Teléfono</label>
+        </div>
       </div>
-      <div class="col s3">
-        <a onclick="buscar_cliente()" class="waves-effect waves-teal btn-large"><i class="material-icons left">search</i></a>
-      </div>
-      <div class="input-field col s12">
-          <input id="nombre_c" name="nombre_c" type="text" class="validate">
-          <label for="nombre_c" class="active">Nombre</label>
-      </div>
-      <div class="input-field col s12">
-          <input id="ap_c" name="ap_c" type="text" class="validate">
-          <label for="ap_c" class="active">Apellidos</label>
-      </div>
-      <div class="input-field col s12">
-          <input type="text" id="tot_ped" name="tot_ped" value="" hidden>
-          <input id="telf" name="telf" type="number" class="validate">
-          <label for="telf" class="active">Teléfono</label>
-      </div>
-    </div>
-  </form>
-
-  <div class="row">
-    <div class="col s8">
-      <h5>Detalle de venta</h5>
+    </form>
+    <button class="btn waves-effect waves-light" onclick="confirm_client()">Guardar cliente</button> 
+  </div>
+    <div id="detalle_venta" hidden>
+    <div class="col s8 offset-s1">
+      <h4 class="fuente">Detalle de venta</h4>
       <div class="col s5">
-        <div class="col s6 center"><a id="modal_trigger_plato" href="#modal_plato"><img src="images/plato.png" alt="Agregar Platos" class="circle responsive-img"></a></div>
-        <div class="col s6 center"><a id="modal_trigger_bebida" href="#modal_bebida"><img src="images/bebida.png" alt="Agregar Bebidas" class="circle responsive-img"></a></div>
+        <a href="#modal_plato" class="modal-trigger btn btn-large waves-effect waves-light red"><i class="material-icons-outlined left">lunch_dining</i>Plato</a>
+        <a href="#modal_bebida" class="modal-trigger btn btn-large waves-effect waves-light green"><i class="material-icons left">local_drink</i>Bebida</a>
+        <!-- <div class="col s6 center"><a class="modal-trigger" href="#modal_plato"><img src="images/plato.png" alt="Agregar Platos" class="circle responsive-img"></a></div> -->
+        <!-- <div class="col s6 center"><a id="modal_trigger_bebida" href="#modal_bebida"><img src="images/bebida.png" alt="Agregar Bebidas" class="circle responsive-img"></a></div> -->
       </div>
       <div class="col s12">
           <table border="1" id="ventas_agregadas">
@@ -107,22 +113,23 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
           </div>
         </div>
       </div>
+
+      <div class="col s3 offset-s4">
+        <button type="submit" form="form_venta" class="waves-effect waves-light btn-large"><i class="material-icons right">shopping_cart</i>Realizar venta</button>
+      </div>
     </div>
 
   </div>
 
-</div>
-<div class="row">
-  <div class="col s3 offset-s4">
-    <button type="submit" form="form_venta" class="waves-effect waves-light btn-large"><i class="material-icons right">shopping_cart</i>Realizar venta</button>
-  </div>
 
-</div>
+
+
+
 
 
 <div id="modal_plato" class="modal">
     <div class="modal-content">
-      <h4>Agregar plato</h4>
+      <h4 class="fuente">Agregar plato</h4>
       <div class="col s12">
          <table id="tabla_platos" class="highlight">
           <thead>
@@ -146,7 +153,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
     </div>
     <div class="modal-footer">
       <button class="btn waves-effect waves-light modal-close right">Aceptar</button> 
-      <button class="btn red waves-effect waves-red modal-close left"><i class="material-icons">close</i></button>
+      <button class="btn red waves-effect waves-red modal-close left"><i class="material-icons left">close</i>Cancelar</button>
       
     </div>
 </div>
@@ -154,7 +161,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 <div id="modal_bebida" class="modal">
     <div class="modal-content">
-      <h4>Agregar bebida</h4>
+      <h4 class="fuente">Agregar bebida</h4>
       <div class="col s12">
          <table id="tabla_bebidas" class="highlight">
           <thead>
@@ -178,13 +185,13 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
     </div>
     <div class="modal-footer">
       <button class="btn waves-effect waves-light modal-close right">Aceptar</button> 
-      <button class="btn red waves-effect waves-red modal-close left"><i class="material-icons">close</i></button>
+      <button class="btn red waves-effect waves-red modal-close left"><i class="material-icons left">close</i>Cancelar</button>
     </div>
 </div>
 
 <div id="modal_cant_plato" class="modal">
     <div class="modal-content">
-      <h4>Cantidad</h4>
+      <h5>cantidad</h5>
       <div class="col s12">
         <input type="number" onKeyPress="return checkIt(event)" max="20" min="1" id="__cantidad" value="1" autocomplete="off">
       </div>
@@ -204,14 +211,29 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 
 <script>
+ 
+  $(document).ready(function() {
+     $('.modal').modal();
+  });
+
+function confirm_client() {
+  let nombre = $("#nombre_c").val()
+  let ap = $("#ap_c").val()
+
+  if (nombre == "" || ap == "") {
+    M.toast({html: 'Debe ingresar datos válidos.'})
+    return false;
+  }
+  $("#detalle_venta").removeAttr('hidden')
+}
+
 var total = 0;
 var mensaje = $("#mensaje");
 mensaje.hide();
 $( "#regresar" ).click(function() {
   $("#cuerpo").load("ventas.php");
 });
-$('#modal_trigger_plato').leanModal();
-$('#modal_trigger_bebida').leanModal();
+
 $('#tabla_platos').dataTable({
   bInfo: false,
   "lengthMenu": [[5, 10], [5, 10]]
@@ -224,7 +246,8 @@ $('#tabla_bebidas').dataTable({
 function agregar_plato(cod, nombre, precio) {
 
   $("#__datosplato").html("<input id='__datosp' cp='"+cod+"' np='"+nombre+"' pp='"+precio+"' />");
-  $("#modal_cant_plato").openModal();
+
+  $("#modal_cant_plato").modal('open');
   
 }
 var reg_pedidos = new Array();
@@ -235,9 +258,9 @@ function agregar_fila_plato() {
       var pp = $("#__datosp").attr("pp");
       var fp = $("#__datosp").attr("fp");
       var cantp = $("#__cantidad").val();
-      if (parseInt(cantp) > 35 || cantp == "") {Materialize.toast("El pedido no puede superar las 35 unidades", 3000)}
+      if (parseInt(cantp) > 35 || cantp == "") {M.toast({html: "El pedido no puede superar las 35 unidades"})}
         else{
-      if (parseInt(cantp) < 1 || cantp == "") { Materialize.toast("Ingresa una cantidad válida.", 3000); }
+      if (parseInt(cantp) < 1 || cantp == "") { M.toast({html: "Ingresa una cantidad válida."}); }
       else{
         pp = parseInt(pp)*parseInt(cantp);
         
@@ -256,8 +279,8 @@ function agregar_fila_plato() {
           total  = parseInt(total) + parseInt(valor[3]);
         });
         $("#total_ped").html(total +" Bs.");
-          $("#modal_cant_plato").closeModal();
-          $("#modal_plato").closeModal();
+          $("#modal_cant_plato").modal('close');
+          $("#modal_plato").modal('close');
       }}
 }
 
@@ -310,7 +333,7 @@ function agregar_fila_plato() {
     objetoAjax.onreadystatechange=recogeDatos;
     objetoAjax.send(misdatos);
     }else{
-      Materialize.toast("No se ha seleccionado ningún producto...", 4000);
+      M.toast({html: "No se ha seleccionado ningún producto..."});
     }
   });
   function creaObjetoAjax () {
@@ -327,7 +350,7 @@ function agregar_fila_plato() {
     if (objetoAjax.readyState==4 && objetoAjax.status==200) {
     miTexto=objetoAjax.responseText;
       if(!miTexto.includes('error')){
-        Materialize.toast("Venta Realizada!" , 4000);
+        M.toast({html: "Venta Realizada!"});
       
 
         obtenerElem(miTexto);
@@ -475,8 +498,8 @@ var miHtml = `
   </style>
   <body>
   
-    <center>Restaurante de comida rápida El pollo Loco.</center>
-    <center>B. La Loma, Calle Cbba. Esq. Nuñez del prado</center>
+    <center>Restaurante de comida rápida Delicias Express.</center>
+    <center>B. IV Centenario, Calle Zamora. </center>
     <center>Telf.: 6637037 </center>
     <center>TARIJA - BOLIVIA</center>
     <center>FACTURA</center>
@@ -561,7 +584,7 @@ function buscar_cliente() {
   let ci_cliente = $("#ci_c").val();
 
   if(!ci_cliente){
-    Materialize.toast("Ingresa una cédula de identidad válida.", 4000);
+    M.toast({html: "Ingresa una cédula de identidad válida."});
   }
   else{
     "<?php foreach($fila2 as $a  => $valor){ ?>"
@@ -569,8 +592,12 @@ function buscar_cliente() {
       $("#nombre_c").val("<?php echo $valor['nombrecli'] ?>")
       $("#ap_c").val("<?php echo $valor['apcli'] ?>")
       $("#telf").val("<?php echo $valor['telfcli'] ?>")
-    } 
-
+      $(".dis").attr("disabled", true);
+      return true;
+    }else{
+      $(".dis").removeAttr("disabled");
+      $(".dis").val('');
+    }
     "<?php } ?>"
   }
 }

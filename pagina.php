@@ -19,20 +19,21 @@ $Busq = $conexion->query($Sql);
 ?>
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="ES">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/datatable.css">
-    <link rel="stylesheet" type="text/css" href="css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/materialize.css"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
     <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/materialize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- <script src="js/materialize.js"></script> -->
     <script src="js/datatable.js"></script>
     <script type="text/javascript" src="js/vfs_fonts.js"></script>
     <script src="js/num2text.js"></script>
@@ -45,37 +46,46 @@ $Busq = $conexion->query($Sql);
 
     }
 
+
     nav ul a:hover {
     background-color: rgba(0, 0, 0, 0.2) !important;
     /*font-size: 120%;*/
     }
     .mg{
       /*margin-top: -20px;*/
-      vertical-align: middle;
+      /*vertical-align: middle;*/
 
-      padding-bottom: 10px;
+      /*padding-bottom: 10px;*/
     }
 
     table.highlight > tbody > tr:hover {
     background-color: #a0aaf0 !important;
     }
-    #mobile-demo{
-    width: 280px;
-    }
+    /*#mobile-demo{*/
+    /*width: 280px;*/
+    /*}*/
     li a{
     color: white !important;
     /*font-size: 14px;*/
     }
-    header, body, footer {
-    padding-left: 280px;
-    }
+    /*header, body, footer {*/
+    /*padding-left: 280px;*/
+    /*}*/
     @media only screen and (max-width : 992px) {
     header, body, footer {
     padding-left: 0;
     }
+    .sidebar{
+      visibility: hidden;
     }
-    #mobile-demo{
+
+    }
+ /*   #mobile-demo{
     overflow-y: hidden;
+    }*/
+    .material-icons-outlined{
+      display: inline-flex;
+      vertical-align: top;
     }
     </style>
   </head>
@@ -85,6 +95,7 @@ $Busq = $conexion->query($Sql);
         <ul>
           <li class="center brand-logo" > <img src="images/polloloco.png" width="" height="60px" alt=""></li>
           <!-- <li class="left brand-logo" > <img src="images/polloloco.png" width="" height="60px" alt=""></li> -->
+          <li class=""><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a></li>
         </ul>
 
           
@@ -93,8 +104,13 @@ $Busq = $conexion->query($Sql);
           <li><?php echo $salir; ?></li>
         </ul>
         
-        <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons-outlined">menu</i></a>
-        <ul class="side-nav fixed"  onmouseover="overhid();" onmouseout="overshow();" style="background-color: #34495e;" id="mobile-demo"  style="color: black;">
+        <!-- <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons-outlined">menu</i></a> -->
+
+        
+      </div>
+    </nav>
+    
+    <ul class="sidenav fixed" id="mobile-demo" onmouseover="overhid();" onmouseout="overshow();" style="background-color: #34495e;" id="mobile-demo"  style="color: black;">
           
           <li class="sidenav-header blue " style="background-image: url('images/paisaje-fondo.jpg');">
             <div class="row">
@@ -108,40 +124,80 @@ $Busq = $conexion->query($Sql);
             </div>
           </li>
 
-          <li ><a href="#!" style="color: white;" onclick="location.reload();"><i class="material-icons-outlined">home</i> <b class="mg">INICIO</b></a></li>
-          <li ><a href="#!" onclick="cargar('ventas');"><i class="material-icons-outlined">shopping_cart</i> <b class="mg">Ventas</b></a></li>
+          <li ><p><a href="#!" style="color: white;" onclick="location.reload();"><i class=" material-icons-outlined" style="padding-right: 17px;">home</i> Inicio</a></p></li>
+          <li ><p><a href="#!" onclick="cargar('ventas');"><i class="material-icons-outlined" style="padding-right: 17px;">shopping_cart</i> Ventas</a></p></li>
           <!-- <li class="mg"><a href="#!" onclick="cargar('compras');">Compras</a></li> -->
-          <li ><a href="#!" onclick="cargar('usuarios');"><i class="material-icons-outlined">people</i> <b class="mg">Usuarios</b></a></li>
-          <li ><a href="#!" onclick="cargar('clientes');"><i class="material-icons-outlined">airline_seat_recline_normal</i> <b class="mg">Clientes</b></a></li>
-          <li ><a href="#!" onclick="cargar('roles');"><i class="material-icons-outlined">switch_account</i> <b class="mg">Roles</b></a></li>
+
+
           <!-- <li class="mg"><a href="#!" onclick="cargar('proveedores');">Proveedores</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('insumos');">Insumos</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('empresas');">Empresas</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('bebidas');">Bebidas</a></li> -->
-          <li ><a href="#!" onclick="cargar('platos');"><i class="material-icons-outlined">fastfood</i> <b class="mg">Platos</b></a></li>
-          <li ><a href="#!" onclick="cargar('pedidos');"><i class="material-icons-outlined">receipt</i> <b class="mg">Pedidos</b></a></li>
+          <li ><p><a href="#!" onclick="cargar('platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></p></li>
+          <li ><p><a href="#!" onclick="cargar('pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">receipt</i> Pedidos</a></p></li>
           <!-- <li class="mg"><a href="#!" onclick="cargar('talonario');">Talonario</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('facturas');">Facturas</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('reportes');">Reportes</a></li> -->
+
+          <ul class="collapsible" data-collapsible="expandable">
+            <li>
+                <div class="collapsible-header"><i class="material-icons-outlined">admin_panel_settings</i>Administración</div>
+                <div style="color: black; background-color: #2980b9;" class="collapsible-body"><a href="#!" onclick="cargar('usuarios');"><i class="material-icons-outlined">people</i> Usuarios</a></div>
+                <div style="color: black; background-color: #2980b9;" class="collapsible-body"><a href="#!" onclick="cargar('clientes');"><i class="material-icons-outlined">airline_seat_recline_normal</i> Clientes</a></div>
+                <div style="color: black; background-color: #2980b9;" class="collapsible-body"><a href="#!" onclick="cargar('roles');"><i class="material-icons-outlined">switch_account</i> Roles</a></div>
+            </li>
+          </ul>
           <li ><?php echo $salir; ?></li>
         </ul>
-      </div>
-    </nav>
     
+        <div class="sidebar">
+          <div class="spacx"><a href="#!" style="color: white;" onclick="location.reload();"><i class=" material-icons-outlined" style="padding-right: 17px;">home</i> Inicio</a></div>
+          <div class="spacx"><a href="#!" onclick="cargar('ventas');"><i class="material-icons-outlined" style="padding-right: 17px;">shopping_cart</i> Ventas</a></div>
+          <div class="spacx"><a href="#!" onclick="cargar('platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></div>
+          <div class="spacx"><a href="#!" onclick="cargar('pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">receipt</i> Pedidos</a></div>
+
+          <ul class="collapsible" data-collapsible="expandable">
+            <li>
+                <div style="font-family: 'Rubik'" class="collapsible-header"><i class="material-icons-outlined">admin_panel_settings</i>Administración</div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('usuarios');"><i class="material-icons-outlined">people</i> Usuarios</a></span></div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('clientes');"><i class="material-icons-outlined">airline_seat_recline_normal</i> Clientes</a></span></div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('roles');"><i class="material-icons-outlined">switch_account</i> Roles</a></span></div>
+            </li>
+          </ul>
+          <?php echo $salir; ?>
+        </div>
+
     
-    <div class="row">
-      <div id="cuerpo" class="col s12">
-        
+    <!-- <div class="container"> -->
+      <div class="row">
+        <div id="cuerpo" class="col s12 m9 offset-m3 l10 offset-l2">
+          
+        </div>
       </div>
-    </div>
-    <script type="text/javascript">
-    $(document).ready(function() {
-    $(".dropdown-button").dropdown({ hover: true });
-    $(".button-collapse").sideNav();
-    // $('.sidenav').sidenav();
-    // var elems = document.querySelectorAll('.sidenav');
-    // var instances = M.Sidenav.init(elems,{});
+    <!-- </div> -->
+    <script>
+      $(document).ready(function() {
+
+        // $(".dropdown-button").dropdown({ hover: true });
+        // $(".button-collapse").sideNav();
+        // $('.collapsible').collapsible({  
+           
+        // });
+        // $('.sidenav').sidenav();
+        // var elems = document.querySelectorAll('.sidenav');
+        // var instances = M.Sidenav.init(elems,{});
+      });
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.sidenav');
+      var instances = M.Sidenav.init(elems);
+
+      var elems = document.querySelectorAll('.collapsible');
+      var instances = M.Collapsible.init(elems);
+
+
+
     });
+
     //controlar overflow de la sidenav
     function overhid () {$("#mobile-demo").css('overflow', 'auto');}
     function overshow () {$("#mobile-demo").css('overflow', 'hidden');}

@@ -36,6 +36,7 @@ border: 1px solid black;
 
 #modal2{
 width: 40%;
+overflow-x: hidden;
 }
 </style>
 
@@ -111,7 +112,7 @@ $(document).ready(function() {
     $('#tabla1').dataTable({
       "order": [[ 0, "desc" ]]
     });
-    //$('#modal').leanModal();
+    $('.modal').modal();
 });
 $( "#nv_venta" ).click(function() {
   $("#cuerpo").load("recursos/nueva_venta.php");
@@ -137,7 +138,7 @@ function ver_ped(cod, cicli, nombrecli, apcli) {
   }
   "<?php } ?>";
   $("#total_ped").html("Total: "+total +" Bs.");
-  $("#modal2").openModal();
+  $("#modal2").modal('open');
 }
 
 </script>
