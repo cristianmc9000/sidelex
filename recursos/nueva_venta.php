@@ -46,7 +46,9 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 <style>
   #modal_cant_plato{
-    width: 15%;
+    /*width: 15%;*/
+    padding-left: 0px;
+    padding-right: 0px;
   }
   #regresar{
     margin-left: 0;
@@ -59,7 +61,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 
 <div class="row">
-  <div id="client_section" class="col s3">
+  <div id="client_section" class="col s12 m4">
     <form id="form_venta" action="" class="col s12">
       <h4 class="fuente">Datos de cliente</h4>
       <div class="row">
@@ -87,39 +89,35 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
     </form>
     <button class="btn waves-effect waves-light" onclick="confirm_client()">Guardar cliente</button> 
   </div>
-    <div id="detalle_venta" hidden>
-    <div class="col s8 offset-s1">
-      <h4 class="fuente">Detalle de venta</h4>
-      <div class="col s5">
-        <a href="#modal_plato" class="modal-trigger btn btn-large waves-effect waves-light red"><i class="material-icons-outlined left">lunch_dining</i>Plato</a>
-        <a href="#modal_bebida" class="modal-trigger btn btn-large waves-effect waves-light green"><i class="material-icons left">local_drink</i>Bebida</a>
-        <!-- <div class="col s6 center"><a class="modal-trigger" href="#modal_plato"><img src="images/plato.png" alt="Agregar Platos" class="circle responsive-img"></a></div> -->
-        <!-- <div class="col s6 center"><a id="modal_trigger_bebida" href="#modal_bebida"><img src="images/bebida.png" alt="Agregar Bebidas" class="circle responsive-img"></a></div> -->
-      </div>
-      <div class="col s12">
-          <table border="1" id="ventas_agregadas">
-            <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio</th>
-              <th>Borrar</th>
-            </tr>
-          </table>
-          <hr>
-          <div class="row" align="right">
-            <div class="col m4 offset-m6 s3 offset-s7">
-              Total: <label id="total_ped">0.00 Bs</label>
-            </div>
+  <div id="detalle_venta" class="col s12 m7 offset-m1" hidden>
+    <h4 class="fuente">Detalle de venta</h4>
+    <div >
+      <a href="#modal_plato" class="modal-trigger btn btn-large waves-effect waves-light red"><i class="material-icons-outlined left">lunch_dining</i>Plato</a>
+      <a href="#modal_bebida" class="modal-trigger btn btn-large waves-effect waves-light green"><i class="material-icons left">local_drink</i>Bebida</a>
+      <!-- <div class="col s6 center"><a class="modal-trigger" href="#modal_plato"><img src="images/plato.png" alt="Agregar Platos" class="circle responsive-img"></a></div> -->
+      <!-- <div class="col s6 center"><a id="modal_trigger_bebida" href="#modal_bebida"><img src="images/bebida.png" alt="Agregar Bebidas" class="circle responsive-img"></a></div> -->
+    </div>
+    <div >
+        <table border="1" id="ventas_agregadas">
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Borrar</th>
+          </tr>
+        </table>
+        <hr>
+        <div class="row" align="right">
+          <div class="col m4 offset-m6 s3 offset-s7">
+            Total: <label id="total_ped">0.00 Bs</label>
           </div>
         </div>
-      </div>
-
-      <div class="col s3 offset-s4">
-        <button type="submit" form="form_venta" class="waves-effect waves-light btn-large"><i class="material-icons right">shopping_cart</i>Realizar venta</button>
-      </div>
     </div>
-
+    <div class="col s3 offset-s4">
+      <button type="submit" form="form_venta" class="waves-effect waves-light btn-large"><i class="material-icons right">shopping_cart</i>Registrar</button>
+    </div>
   </div>
+</div>
 
 
 
@@ -128,6 +126,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 
 <div id="modal_plato" class="modal">
+  <a href="#!" class="modal-close close right"><i class="material-icons">close</i></a>
     <div class="modal-content">
       <h4 class="fuente">Agregar plato</h4>
       <div class="col s12">
@@ -160,6 +159,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 
 <div id="modal_bebida" class="modal">
+  <a href="#!" class="modal-close close right"><i class="material-icons">close</i></a>
     <div class="modal-content">
       <h4 class="fuente">Agregar bebida</h4>
       <div class="col s12">
@@ -189,25 +189,27 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
     </div>
 </div>
 
-<div id="modal_cant_plato" class="modal">
-    <div class="modal-content">
-      <h5>cantidad</h5>
-      <div class="col s12">
-        <input type="number" onKeyPress="return checkIt(event)" max="20" min="1" id="__cantidad" value="1" autocomplete="off">
+<div class="row">
+  <div id="modal_cant_plato" class="modal fuente col s12 m2 offset-m3">
+      <a href="#!" class="modal-close close right"><i class="material-icons">close</i></a>
+      <div class="modal-content">
+
+        <h4>Cantidad</h4>
+
+        <div class="">
+          <input type="number" onKeyPress="return checkIt(event)" max="20" min="1" id="__cantidad" value="1" autocomplete="off">
+        </div>
+        <div id="__datosplato" hidden></div>
       </div>
-      <div id="__datosplato" hidden></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn waves-effect waves-light right" onclick="agregar_fila_plato();">Aceptar</button> 
-      <button class="btn red waves-effect waves-red modal-close left"><i class="material-icons">close</i></button>
-    </div>
+      <div class="modal-footer">
+        <button class="btn waves-effect waves-light right" onclick="agregar_fila_plato();">Aceptar</button> 
+        <!-- <button class="btn red waves-effect waves-red modal-close left"><i class="material-icons">close</i></button> -->
+      </div>
+  </div>
 </div>
 
 <!-- Mensaje -->
 <div id="mensaje"></div>
-
-
-
 
 
 <script>

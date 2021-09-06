@@ -45,7 +45,14 @@ $Busq = $conexion->query($Sql);
     font-family: 'Segoe UI Light';
 
     }
-
+    .close{
+      position: relative; 
+      color: #b2bec3; 
+      text-decoration: none;
+    }
+    .close i{
+      font-size: 2em;
+    }
 
     nav ul a:hover {
     background-color: rgba(0, 0, 0, 0.2) !important;
@@ -72,13 +79,14 @@ $Busq = $conexion->query($Sql);
     /*padding-left: 280px;*/
     /*}*/
     @media only screen and (max-width : 992px) {
-    header, body, footer {
-    padding-left: 0;
+      .sidebar{
+        visibility: hidden;
+      }
     }
-    .sidebar{
-      visibility: hidden;
-    }
-
+    @media only screen and (max-width : 1500px) and (min-width : 992px){
+      #cuerpo {
+        margin-left:  250px;
+      }
     }
  /*   #mobile-demo{
     overflow-y: hidden;
@@ -170,7 +178,7 @@ $Busq = $conexion->query($Sql);
     
     <!-- <div class="container"> -->
       <div class="row">
-        <div id="cuerpo" class="col s12 m9 offset-m3 l10 offset-l2">
+        <div id="cuerpo" class="col s12 m12 l9 offset-l3 xl9 offset-xl2">
           
         </div>
       </div>
