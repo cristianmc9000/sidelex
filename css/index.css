@@ -1,35 +1,243 @@
 @font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(../font/material-design-icons/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(../font/material-design-icons/MaterialIcons-Regular.woff2) format('woff2'),
-       url(../font/material-design-icons/MaterialIcons-Regular.woff) format('woff'),
-       url(../font/material-design-icons/MaterialIcons-Regular.ttf) format('truetype');
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../font/material-design-icons/MaterialIcons-Regular.eot);
+    /* For IE6-8 */
+    src: local('Material Icons'),
+        local('MaterialIcons-Regular'),
+        url(../font/material-design-icons/MaterialIcons-Regular.woff2) format('woff2'),
+        url(../font/material-design-icons/MaterialIcons-Regular.woff) format('woff'),
+        url(../font/material-design-icons/MaterialIcons-Regular.ttf) format('truetype');
 }
+
 .material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
 
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
 
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
 
-  /* Support for IE. */
-  font-feature-settings: 'liga';
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+#modal_ubi {
+    height: 100%;
+}
+
+#modal_ubi_content {
+    height: 78%;
+}
+
+#map {
+
+    height: 100%;
+}
+
+.fuente {
+    font-family: 'Segoe UI Light';
+    color: black;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #ffbb00;
+    color: black;
+    font-family: 'Segoe UI Light';
+}
+
+img {
+    display: block;
+    /*max-width: 100%;
+    max-height: 100%;*/
+}
+
+.galeria {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.galeria__item {
+    width: 80%;
+    cursor: pointer;
+    height: 13em;
+}
+
+#modal2 {
+
+    /*bottom: auto;*/
+}
+
+.titulo {
+    font-size: 50px;
+}
+
+#cont_foto {
+    height: 15em;
+}
+
+@media (max-width: 600px) {
+    .titulo {
+        font-size: 40px;
+    }
+
+    .galeria__item {
+        width: 100%;
+        margin: 20px;
+
+    }
+
+    #modal2 {
+        max-height: 100% !important;
+    }
+
+}
+
+@media (min-width: 600px) {
+    .galeria__item {
+        width: 40%;
+        margin: 20px;
+        height: 10em;
+    }
+
+    #modal2 {
+        top: 0;
+        max-height: auto;
+    }
+
+}
+
+@media (min-width: 992px) {
+    .galeria__item {
+        width: 25%;
+        height: 9em;
+        margin: 30px;
+        font-size: 20px;
+    }
+
+    #modal2 {
+        max-height: 100% !important;
+
+    }
+
+    #cont_foto {
+        height: 8em;
+    }
+
+    body {
+        font-size: 35px;
+    }
+
+    #total_ped {
+        font-size: 35px;
+    }
+
+    .fz {
+        font-size: 20px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .galeria__item {
+        width: 20%;
+    }
+
+    #modal2 {
+        margin-top: -3%;
+        max-height: 100%;
+    }
+
+    #cont_foto {
+        height: 18em;
+    }
+
+    body {
+        font-size: 17px;
+    }
+
+    #total_ped {
+        font-size: 17px;
+    }
+
+    .fz {
+        font-size: 17px !important;
+    }
+}
+
+.galeria__img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: solid;
+    border-color: #23A8C6;
+}
+
+#pedidos_cliente {
+    color: white;
+    font-size: 17px;
+}
+
+table {
+    background: black;
+    border-radius: 20px;
+}
+
+#total_ped {
+    color: black;
+}
+
+.fuente_negra label {
+    color: black;
+}
+
+.fondo_negro_pedidos {
+    background-color: #333 !important;
+}
+
+#modal_pedidos {
+    color: white;
+    /*          max-height: 50% !important;*/
+    /*height: 20em !important;*/
+}
+
+#foto_plato {
+    border-radius: 20px;
+}
+
+input:focus {
+    font-size: 30px !important;
+}
+
+.ver_ped {
+    right: 0;
+    top: 0;
+    position: fixed;
+    z-index: 999;
+}
+
+p {
+    margin: 0;
+    font-weight: bolder;
 }

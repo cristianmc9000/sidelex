@@ -33,11 +33,13 @@ $Busq = $conexion->query($Sql);
     <!-- Compiled and minified JavaScript -->
     <script src="js/jquery-3.0.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <!-- <script src="js/materialize.js"></script> -->
     <script src="js/datatable.js"></script>
     <script type="text/javascript" src="js/vfs_fonts.js"></script>
     <script src="js/num2text.js"></script>
     <script src="js/jsPDF.min.js"></script>
+
     <title> RCR. Delicias Express., Número de teléfono(s): 76191403, E-mail: rcrdelexo@hotmail.com</title>
     <style>
 

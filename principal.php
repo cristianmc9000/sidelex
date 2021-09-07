@@ -21,7 +21,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no">
-		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<link rel="stylesheet" href="css/index.css">
 		<link rel="stylesheet" href="css/materialize.css">
 		<script src="js/jquery-3.0.0.min.js"></script>
 		<script src="js/materialize.js"></script>
@@ -29,181 +29,10 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0x9mkyg_9x41m82iSIQvJ8M9vo7fXm4&callback=initMap">
 		</script>
+		<!-- <script src="js/firebase.js" ></script> -->
+		
 		<title>Bienvenido, Pedidos P.L.</title>
 		<style>
-			#modal_ubi {
-				height: 100%;
-			}
-			#modal_ubi_content{
-				height: 78%;
-			}
-
-		#map {
-		
-		height: 100%;
-		}
-				
-				.fuente{
-					font-family: 'Segoe UI Light';
-					color: black;
-				}
-				
-				* {
-					box-sizing: border-box;
-				}
-				body {
-					margin: 0;
-					background: #ffbb00;
-					color: black;
-					font-family: 'Segoe UI Light';
-				}
-				img {
-					display: block;
-					/*max-width: 100%;
-					max-height: 100%;*/
-				}
-				.galeria {
-					padding: 10px;
-					display: flex;
-					flex-wrap: wrap;
-					justify-content: center;
-				}
-				.galeria__item {
-					width: 80%;
-					cursor: pointer;
-					height: 13em;
-				}
-				#modal2{
-					
-					/*bottom: auto;*/
-				}
-				
-				.titulo{
-					font-size: 50px;
-				}
-				#cont_foto{
-					height: 15em;
-				}
-				@media (max-width: 600px) {
-					.titulo{
-						font-size: 40px;
-					}
-					.galeria__item {
-						width: 100%;
-						margin: 20px;
-						
-					}
-					#modal2{
-						max-height: 100% !important;
-					}
-
-				}
-
-				@media (min-width: 600px) {
-					.galeria__item {
-						width: 40%;
-						margin: 20px;
-						height: 10em;
-					}
-					
-					#modal2{
-						top: 0;
-						max-height: auto;
-					}
-
-				}
-				@media (min-width: 992px) {
-					.galeria__item {
-						width: 25%;
-						height: 9em;
-						margin: 30px;
-						font-size: 20px;
-					}
-
-					#modal2{
-						max-height: 100% !important;
-						
-					}
-					#cont_foto{
-						height: 8em;
-					}
-					body {
-						font-size: 35px;
-					}
-						#total_ped{
-						font-size: 35px;
-					}
-					.fz{
-						font-size: 20px !important;
-					}
-				}
-				@media (min-width: 1200px) {
-					.galeria__item {
-						width: 20% ;
-					}
-					#modal2{
-						margin-top: -3%;
-						max-height: 100%;
-					}
-					#cont_foto{
-						height: 18em;
-					}
-					body {
-						font-size: 17px;
-					}
-					#total_ped{
-						font-size: 17px;
-					}
-					.fz{
-						font-size: 17px !important;
-					}
-				}
-				.galeria__img {
-					width: 100%;
-					height: 100%;
-					border-radius: 10px;
-					border: solid;
-					border-color: #23A8C6;
-				}
-				#pedidos_cliente {
-					color: white;
-					font-size: 17px;
-				}
-				table {
-					background: black;
-					border-radius: 20px;
-				}
-				#total_ped {
-					color: black;
-				}
-				.fuente_negra label{
-					color: black;
-				}
-				.fondo_negro_pedidos{
-					background-color: #333 !important;
-				}
-				#modal_pedidos{
-					color: white;
-					/*					max-height: 50% !important;*/
-					/*height: 20em !important;*/
-				}
-				#foto_plato{
-					border-radius: 20px;
-				}
-			
-				input:focus { font-size: 30px !important;}
-
-				.ver_ped{
-					right: 0;
-					top: 0;
-					position: fixed; 
-					z-index: 999;
-				}
-				p{
-						margin: 0;
-						font-weight: bolder;
-				}
-
 		</style>
 	</head>
 	<body>
@@ -219,12 +48,13 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<div class="row fuente_negra">
 			<div class="row fuente_negra">
 				<div class="col s12 m12 l6">
-					<form action="#" method="POST" id="form_pedido" accept-charset="utf-8">
+					<!-- <form action="#" method="POST" id="form_pedido" accept-charset="utf-8"> -->
 						<div class="row">
 							<div class="input-field col m7 s9 l9">
 								<i class="material-icons prefix">account_circle</i>
-								<input type="number" onKeyPress="return checkIt(event)" name="ci_cliente" class="validate fz" id="ci_c"  autocomplete="off" maxlength="20" required>
-								<label for="ci_c" class="fz"># Cédula</label>
+								<!-- <input type="number" onKeyPress="return checkIt(event)" name="ci_cliente" class="validate fz" id="ci_c"  autocomplete="off" maxlength="20" required> -->
+								<input type="tel" id="phoneNumber" name="phoneNumber" />
+								<label for="phoneNumber" class="fz">Número celular</label>
 							</div>
 							<div class="col l2 s3 m2 fz"><a onclick="buscar_ci();" class="waves-effect waves-light btn btn-large"><i class="material-icons">
 								search
@@ -250,7 +80,16 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 								<label class="fz" for="telf" >Teléfono</label>
 							</div>
 						</div>
-					</form>
+						<div class="container" >
+							<input type="text" id="codeField">
+						</div>
+						<div id="recaptcha-container"></div>
+						<button class="btn waves-effect waves-light orange" id="getCodeButton" >Get Code</button>
+						<button class="btn waves-effect waves-light" id="signInWithPhone" >Login</button>
+						
+						<!-- <button type="submit" class="btn btn-large">ACEPTAR</button> -->
+
+					<!-- </form> -->
 				</div>
 				<div class="col l6 m10 offset-m1 s12">
 					<table border="1" id="pedidos_cliente">
@@ -443,7 +282,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	}
 	//ENVIO CON AJAX --
 	// function enviar() {
-	$("#form_pedido").on("submit", function(e){
+	$("#form_pedidoooocambia eso de nuevo").on("submit", function(e){ //<----- DEBES CAMBIAR ESO RECORDA!!
 	e.preventDefault();
 	$("#tot_ped").val(total);
 	cic=$("#ci_c").val();
@@ -457,45 +296,168 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	var y="";
 	cont = 0;
 	if(reg_pedidos.length > 0){
-	reg_pedidos.forEach(function (valor) {
-	x=x+"&"+cont+"="+valor[0];
-	y=y+"&"+cont+"c="+valor[2];
-	cont++;
-	});
-	misdatos="coordLat="+colat+"&coordLng="+colng+"&ci_cliente="+cic+"&nombre_c="+nombrec+"&ap_c="+apc+"&telf="+telf+"&tot_ped="+totped+x+y+"&cont="+cont;
-	objetoAjax=creaObjetoAjax();
-	objetoAjax.open("POST","recursos/nuevo_pedido.php",true);
-	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	objetoAjax.onreadystatechange=recogeDatos;
-	objetoAjax.send(misdatos);
+		reg_pedidos.forEach(function (valor) {
+			x=x+"&"+cont+"="+valor[0];
+			y=y+"&"+cont+"c="+valor[2];
+			cont++;
+		});
+		misdatos="coordLat="+colat+"&coordLng="+colng+"&ci_cliente="+cic+"&nombre_c="+nombrec+"&ap_c="+apc+"&telf="+telf+"&tot_ped="+totped+x+y+"&cont="+cont;
+		objetoAjax=creaObjetoAjax();
+		objetoAjax.open("POST","recursos/nuevo_pedido.php",true);
+		objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		objetoAjax.onreadystatechange=recogeDatos;
+		objetoAjax.send(misdatos);
 	}else{
-	Materialize.toast("No se ha seleccionado ningún producto...", 4000);
+		Materialize.toast("No se ha seleccionado ningún producto...", 4000);
 	}
 	});
 	function creaObjetoAjax () {
-	var obj;
-	if (window.XMLHttpRequest) {
-	obj=new XMLHttpRequest();
-	}
-	else {
-	obj=new ActiveXObject(Microsoft.XMLHTTP);
-	}
-	return obj;
+		var obj;
+		if (window.XMLHttpRequest) {
+			obj=new XMLHttpRequest();
+		}
+		else {
+			obj=new ActiveXObject(Microsoft.XMLHTTP);
+		}
+		return obj;
 	}
 	function recogeDatos() {
-	if (objetoAjax.readyState==4 && objetoAjax.status==200) {
-	miTexto=objetoAjax.responseText;
-	if(miTexto.includes('realizado')){
-	Materialize.toast("Pedido Realizado!" , 4000);
-	$("#modal_ubi").closeModal();
-	}else{
-	mensaje.html(miTexto);
-	// if(!miTexto.includes('error')){
-	//   //$("#cuerpo").load("index.php");
-	//   Materialize.toast("Error desconocido." , 4000);
-	// }
-	}
-	}
+		if (objetoAjax.readyState==4 && objetoAjax.status==200) {
+			miTexto=objetoAjax.responseText;
+			if(miTexto.includes('realizado')){
+				Materialize.toast("Pedido Realizado!" , 4000);
+				$("#modal_ubi").closeModal();
+			}else{
+				mensaje.html(miTexto);
+				// if(!miTexto.includes('error')){
+				//   //$("#cuerpo").load("index.php");
+				//   Materialize.toast("Error desconocido." , 4000);
+				// }
+			}
+		}
 	}
 	</script>
 </html>
+
+
+<!-- <script>
+	const signupForm = document.querySelector("#form_pedido")
+	signupForm.addEventListener('submit', (e) =>{
+		e.preventDefault()
+		const telf = document.querySelector("#ci_c").value
+		console.log(telf)
+	})
+</script> -->
+
+
+<script type="module">
+	// Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js";
+	import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js";
+	// import "https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"
+	// TODO: Add SDKs for Firebase products that you want to use
+	// https://firebase.google.com/docs/web/setup#available-libraries
+
+	// Your web app's Firebase configuration
+	const firebaseConfig = {
+	  apiKey: "AIzaSyDfxxhh67Q_f8Ebry1WOaGn_1tVprnVCLM",
+	  authDomain: "sidelex-e4f5a.firebaseapp.com",
+	  projectId: "sidelex-e4f5a",
+	  storageBucket: "sidelex-e4f5a.appspot.com",
+	  messagingSenderId: "297438529846",
+	  appId: "1:297438529846:web:4171cb321434beb92fcb97"
+
+	};
+	// Initialize Firebase
+	const firebase = initializeApp(firebaseConfig);
+	const auth = getAuth();
+
+	auth.languageCode = 'es'
+
+	const getCodeButton = document.getElementById("getCodeButton")
+	const signInWithPhoneButton = document.getElementById('signInWithPhone')
+
+	window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
+	recaptchaVerifier.render().then((widgetId) => {
+	  window.recaptchaWidgetId = widgetId;
+	});
+
+
+	
+
+	// window.recaptchaVerifier = new firebase.getAuth().RecaptchaVerifier('recaptcha-container');
+	// recaptchaVerifier.render().then((widgetId) => {
+	//   window.recaptchaWidgetId = widgetId;
+	// });
+
+	getCodeButton.addEventListener('click', () => {
+		const phoneNumber = document.getElementById("phoneNumber").value
+		const appVerifier = window.recaptchaVerifier;
+
+		signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+	    .then((confirmationResult) => {
+	      // SMS sent. Prompt user to type the code from the message, then sign the
+	      // user in with confirmationResult.confirm(code).
+	      window.confirmationResult = confirmationResult;
+	      console.log(confirmationResult)
+	      console.log("confirmationResult")
+	      // ...
+	    }).catch((error) => {
+	    	grecaptcha.reset(window.recaptchaWidgetId);
+	    	console.log(error)
+	    	console.log("error")
+	      // Error; SMS not sent
+	      // ...
+	    });
+
+	})
+
+	
+
+	signInWithPhoneButton.addEventListener('click', () => {
+		const codeField = document.getElementById("codeField")
+		const code = codeField.value
+		confirmationResult.confirm(code).then((result) => {
+		  // User signed in successfully.
+		  const user = result.user;
+		  console.log(result)
+		  console.log('success')
+		  // ...
+		}).catch((error) => {
+			console.log(error)
+			console.log('error')
+		  // User couldn't sign in (bad verification code?)
+		  // ...
+		});
+	})
+	
+    
+
+	// const sendVerificationCode = () => {
+	// 	const phoneNumber = document.getElementById("phoneNumber").value
+	// 	const appVerifier = window.recaptchaVerifier
+
+	// 	auth.signInWithPhoneNumber(phoneNumber, appVerifier)
+	// 	.then(confirmationResult =>{
+	// 		const sentCodeId = confirmationResult.verificationId
+	// 		signInWithPhoneButton.addEventListener('click', () => signInWithPhone(sentCodeId))
+	// 	})
+	// }
+
+	// const signInWithPhone = sentCodeId => {
+	// 	const code = codeField.value
+	// 	const credential = firebase.auth.PhoneAuthProvider.credential(sentCodeId, code)
+	// 	auth.signInWithCredential(credential)
+	// 	.then(() =>{
+	// 		window.location.assign("facebook.com")
+	// 	})
+	// 	.catch(error => {
+	// 		console.log(error)
+	// 	})
+	// }
+
+
+</script>
+<script type="module" src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js">
+	
+</script>
