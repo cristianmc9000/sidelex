@@ -1,5 +1,5 @@
 <?php
-require('recursos/conexion.php');
+require('../../recursos/conexion.php');
 $Sql = "SELECT a.Codped, b.Nombre as nompla, a.Cant, b.Precio, c.Cicli, d.Nombre, d.Apellidos FROM det_ped a, plato b, pedido c, cliente d WHERE a.Estado = 1 AND a.Codpla = b.Codpla AND a.Codped = c.Codped AND c.Cicli = d.Ci";
 $Busq = $conexion->query($Sql);
 while($arr = $Busq->fetch_array())
@@ -12,9 +12,13 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<link rel="stylesheet" type="text/css" href="css/index.css">
-		<link rel="stylesheet" href="css/materialize.css">
+		<!-- <link rel="stylesheet" href="css/materialize.css"> -->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<script src="js/jquery-3.0.0.min.js"></script>
-		<script src="js/materialize.js"></script>
+		<!-- <script src="js/materialize.js"></script> -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<title>Tu Pedido</title>
 		<style>
 			body{
@@ -29,7 +33,7 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 	</head>
 	<body id="cuerpo">
 		<div class="col s12">
-			<a href="principal.php" class="btn-large orange"><i class="material-icons">keyboard_return</i></a>
+			<a href="../../pedidos.php" class="btn-large orange"><i class="material-icons">keyboard_return</i></a>
 		</div>
 		<div class="center"><h4>Revisa tu pedido</h4></div>
 		<div class="row">

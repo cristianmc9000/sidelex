@@ -7,9 +7,9 @@
 		<script src="js/jquery-3.0.0.min.js"></script>
 		<script src="js/materialize.js"></script>
 		<script src="js/maps.js"></script>
-		<script async defer
+		<!-- <script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9tvqJZDDxVDPqX2jfG8KyGJISfH59WTI&callback=initMap">
-		</script>
+		</script> -->
 		<title>Acceso o registro</title>
 	</head>
 	<body>

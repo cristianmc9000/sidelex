@@ -23,9 +23,11 @@ $Busq = $conexion->query($Sql);
 <html lang="ES">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
     <link rel="stylesheet" type="text/css" href="css/datatable.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="css/content-table.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="css/materialize.css"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
     <!-- Compiled and minified CSS -->
@@ -42,7 +44,6 @@ $Busq = $conexion->query($Sql);
 
     <title> RCR. Delicias Express., Número de teléfono(s): 76191403, E-mail: rcrdelexo@hotmail.com</title>
     <style>
-
     .fuente{
     font-family: 'Segoe UI Light';
 
@@ -144,7 +145,7 @@ $Busq = $conexion->query($Sql);
           <!-- <li class="mg"><a href="#!" onclick="cargar('empresas');">Empresas</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('bebidas');">Bebidas</a></li> -->
           <li ><p><a href="#!" onclick="cargar('platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></p></li>
-          <li ><p><a href="#!" onclick="cargar('pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">receipt</i> Pedidos</a></p></li>
+          <li ><p><a href="#!" onclick="cargar('templates/pedidos/pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">receipt</i> Pedidos</a></p></li>
           <!-- <li class="mg"><a href="#!" onclick="cargar('talonario');">Talonario</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('facturas');">Facturas</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('reportes');">Reportes</a></li> -->
@@ -164,7 +165,7 @@ $Busq = $conexion->query($Sql);
           <div class="spacx"><a href="#!" style="color: white;" onclick="location.reload();"><i class=" material-icons-outlined" style="padding-right: 17px;">home</i> Inicio</a></div>
           <div class="spacx"><a href="#!" onclick="cargar('ventas');"><i class="material-icons-outlined" style="padding-right: 17px;">shopping_cart</i> Ventas</a></div>
           <div class="spacx"><a href="#!" onclick="cargar('platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></div>
-          <div class="spacx"><a href="#!" onclick="cargar('pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">receipt</i> Pedidos</a></div>
+          <div class="spacx"><a href="#!" onclick="cargar('templates/pedidos/pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">receipt</i> Pedidos</a></div>
 
           <ul class="collapsible" data-collapsible="expandable">
             <li>

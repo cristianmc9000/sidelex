@@ -26,9 +26,9 @@ $fila2[] = array('cod'=>$arr2['Codv'], 'codpla'=>$arr2['Codpla'], 'cant'=>$arr2[
   	color: red;
   }
 
-  table.highlight > tbody > tr:hover {
+/*  table.highlight > tbody > tr:hover {
     background-color: #a0aaf0 !important;
-  }
+  }*/
 
 #tab_det{
 border: 1px solid black;
@@ -41,12 +41,12 @@ overflow-x: hidden;
 </style>
 
 <span class="fuente"><h3>Ventas
-  <a href="#" class="waves-effect waves-light btn-floating btn-large red" id="nv_venta"><i class="material-icons left">add</i></a></h3>
+  <a href="#" class="waves-effect waves-light btn-floating btn-large red" id="nv_venta"><i class="material-icons-outlined left">add</i></a></h3>
 </span>
 
 <div class="row">
   <div class="col s12 m12 l12">
- <table id="tabla1" class="highlight">
+ <table id="tabla1" class="highlight content-table">
   <thead>
      <tr>
         <th>Código de venta</th>
@@ -65,7 +65,7 @@ overflow-x: hidden;
         <td align="center"><?php echo $valor["cliente"] ?></td>
         <td align="center"><?php echo $valor["total"] ?></td>
         <td align="center"><?php echo $valor["fecha"] ?></td>
-        <td align="center"><a href="#" class="btn-floating" onclick="ver_ped('<?php echo $valor['codv'] ?>','<?php echo $valor["cliente"] ?>','<?php echo $valor['nombrecli'] ?>', '<?php echo $valor['apcli'] ?>');"><i class="material-icons">search</i></a></td>
+        <td align="center"><a href="#" class="btn-floating" onclick="ver_ped('<?php echo $valor['codv'] ?>','<?php echo $valor["cliente"] ?>','<?php echo $valor['nombrecli'] ?>', '<?php echo $valor['apcli'] ?>');"><i class="material-icons-outlined">search</i></a></td>
      </tr>
      <?php } ?>	
   </tbody>

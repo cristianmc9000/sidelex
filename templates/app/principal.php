@@ -17,14 +17,20 @@ while($arr2 = $Busq2->fetch_array())
 $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr2['Apellidos'], 'telf'=>$arr2['Telefono']);
 }
 ?>
+
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
+	<head lang="es">
+		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<link rel="stylesheet" href="css/index.css">
-		<link rel="stylesheet" href="css/materialize.css">
+    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<!-- <link rel="stylesheet" href="css/materialize.css"> -->
 		<script src="js/jquery-3.0.0.min.js"></script>
-		<script src="js/materialize.js"></script>
+		<!-- <script src="js/materialize.js"></script> -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script src="js/maps.js"></script>
 		<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0x9mkyg_9x41m82iSIQvJ8M9vo7fXm4&callback=initMap">
@@ -37,60 +43,63 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	</head>
 	<body>
 			
-					<div class="hide-on-med-and-up center row" id="top-menu" style="padding: 5px; background-color: #6c5ce7;" onclick="direrc();">
-							<div class="col s4 offset-s4"><p>MI PEDIDO</p><i class="material-icons">assignment</i></div>
-					</div>
+		<div class="hide-on-med-and-up center row" id="top-menu" style="padding: 5px; background-color: #6c5ce7; cursor: pointer" onclick="direrc();">
+				<div class="col s4 offset-s4"><p>MIS PEDIDOS</p><i class="material-icons">assignment</i></div>
+		</div>
 			
-			<span class="titulo">Realiza tu pedido</span>
 
-			<div class="ver_ped hide-on-small-only"><a href="rev_pedido.php" style="background-color: #6c5ce7;" class="btn-large waves-light">mi pedido<i class="material-icons right">assignment</i></a></div>
+		<div class="get_out hide-on-small-only"><a href="recursos/app/salir.php" style="background-color: #e74c3c;" class="btn-large waves-light">Salir<i class="material-icons right">logout</i></a></div>
+		<div class="ver_ped hide-on-small-only"><a href="templates/app/rev_pedido.php" style="background-color: #6c5ce7;" class="btn-large waves-light">mi pedido<i class="material-icons right">assignment</i></a></div>
+
+		<div class="container">
+		<h3 class="center">Realiza tu pedido</h3>
 
 		<div class="row fuente_negra">
 			<div class="row fuente_negra">
-				<div class="col s12 m12 l6">
+				<!-- <div class="col s12 m12 l6"> -->
 					<!-- <form action="#" method="POST" id="form_pedido" accept-charset="utf-8"> -->
-						<div class="row">
-							<div class="input-field col m7 s9 l9">
-								<i class="material-icons prefix">account_circle</i>
+						<!-- <div class="row"> -->
+							<!-- <div class="input-field col m7 s9 l9"> -->
+								<!-- <i class="material-icons prefix">account_circle</i> -->
 								<!-- <input type="number" onKeyPress="return checkIt(event)" name="ci_cliente" class="validate fz" id="ci_c"  autocomplete="off" maxlength="20" required> -->
-								<input type="tel" id="phoneNumber" name="phoneNumber" />
-								<label for="phoneNumber" class="fz">Número celular</label>
-							</div>
-							<div class="col l2 s3 m2 fz"><a onclick="buscar_ci();" class="waves-effect waves-light btn btn-large"><i class="material-icons">
-								search
-							</i></a></div>
-							<div class="col m3 l4 offset-l1 s4 offset-s1">
+								<!-- <input type="tel" id="phoneNumber" name="phoneNumber" /> -->
+								<!-- <label for="phoneNumber" class="fz">Número celular</label> -->
+							<!-- </div> -->
+							<!-- <div class="col l2 s3 m2 fz"><a onclick="buscar_ci();" class="waves-effect waves-light btn btn-large"><i class="material-icons"> -->
+								<!-- search -->
+							<!-- </i></a></div> -->
+							<!-- <div class="col m3 l4 offset-l1 s4 offset-s1"> -->
 								<!-- <a class="waves-effect waves-light btn btn-large modal-trigger" id="mod_ubi" href="#modal_ubi">Dirección</a> -->
-								<input type="text" id="coordLat" name="coordLat" hidden>
-								<input type="text" id="coordLng" name="coordLng" hidden>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col m12 l4 s12 fz">
-								<input type="text" name="nombre_c" class="validate" id="nombre_c"  value="" autocomplete="off" maxlength="20" required>
-								<label for="nombre_c" class="fz">Nombres</label>
-							</div>
-							<div class="input-field col m12 l4 s12  fz">
-								<input type="text" name="ap_c" class="validate" id="ap_c" value="" autocomplete="off" maxlength="20" required>
-								<label class="fz" for="ap_c" >Apellidos</label>
-							</div>
-							<div class="input-field col m12 l4 s12  fz">
-								<input type="text" id="tot_ped" name="tot_ped" value="" hidden>
-								<input type="text" onKeyPress="return checkIt(event)" name="telf" class="validate" id="telf" value="" min="1" autocomplete="off" maxlength="15" required>
-								<label class="fz" for="telf" >Teléfono</label>
-							</div>
-						</div>
-						<div class="container" >
-							<input type="text" id="codeField">
-						</div>
-						<div id="recaptcha-container"></div>
-						<button class="btn waves-effect waves-light orange" id="getCodeButton" >Get Code</button>
-						<button class="btn waves-effect waves-light" id="signInWithPhone" >Login</button>
+								<!-- <input type="text" id="coordLat" name="coordLat" hidden> -->
+								<!-- <input type="text" id="coordLng" name="coordLng" hidden> -->
+							<!-- </div> -->
+						<!-- </div> -->
+						<!-- <div class="row"> -->
+							<!-- <div class="input-field col m12 l4 s12 fz"> -->
+								<!-- <input type="text" name="nombre_c" class="validate" id="nombre_c"  value="" autocomplete="off" maxlength="20" required> -->
+								<!-- <label for="nombre_c" class="fz">Nombres</label> -->
+							<!-- </div> -->
+							<!-- <div class="input-field col m12 l4 s12  fz"> -->
+								<!-- <input type="text" name="ap_c" class="validate" id="ap_c" value="" autocomplete="off" maxlength="20" required> -->
+								<!-- <label class="fz" for="ap_c" >Apellidos</label> -->
+							<!-- </div> -->
+							<!-- <div class="input-field col m12 l4 s12  fz"> -->
+								<!-- <input type="text" id="tot_ped" name="tot_ped" value="" hidden> -->
+								<!-- <input type="text" onKeyPress="return checkIt(event)" name="telf" class="validate" id="telf" value="" min="1" autocomplete="off" maxlength="15" required> -->
+								<!-- <label class="fz" for="telf" >Teléfono</label> -->
+							<!-- </div> -->
+						<!-- </div> -->
+						<!-- <div class="container" > -->
+							<!-- <input type="text" id="codeField"> -->
+						<!-- </div> -->
+						<!-- <div id="recaptcha-container"></div> -->
+						<!-- <button class="btn waves-effect waves-light orange" id="getCodeButton" >Get Code</button> -->
+						<!-- <button class="btn waves-effect waves-light" id="signInWithPhone" >Login</button> -->
 						
 						<!-- <button type="submit" class="btn btn-large">ACEPTAR</button> -->
 
 					<!-- </form> -->
-				</div>
+				<!-- </div> -->
 				<div class="col l6 m10 offset-m1 s12">
 					<table border="1" id="pedidos_cliente">
 						<tr>
@@ -115,8 +124,29 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 				</div>
 			</div>
 		</div>
-		<div class="row" style="margin-top: -40px;">
-			<div>
+
+		<div class="row">
+			<?php foreach($fila as $a  => $valor){ ?>
+			<div class="col s12 m6 l6 xl4" onclick="cantidad_plato('<?php echo $valor['codpla'] ?>','<?php echo $valor['nombre'] ?>','<?php echo $valor['precio'] ?>','<?php echo $valor['foto'] ?>')">
+				<div class="z-depth-3 card horizontal card__pad">
+				  <div class="card-stacked">
+				    <div class="">
+				    	<p><?php echo $valor['nombre']; ?></p>
+				      	<span><small><?php echo $valor['descripcion']; ?></small></span>
+				      	<br><br><p><?php echo 'Bs. '.$valor['precio']; ?></p>
+				    </div>
+				  </div>
+				  <div class="card__img">    
+				    	<img class=" img__card" src="<?php echo $valor['foto'] ?>">
+				  </div>
+				</div>
+			</div>
+			<?php } ?>
+		</div>
+
+
+		<div class="row" > <!-- style="margin-top: -40px;" -->
+
 				<ul class="galeria">
 					<?php foreach($fila as $a  => $valor){ ?>
 					<li class="galeria__item" >
@@ -125,14 +155,15 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 					</li>
 					<?php } ?>
 				</ul>
-			</div>
+
 		</div>
+
 		<!-- Modal pedidos -->
-		<div class="row">
-			<div id="modal2" class="modal col s12 m12 l6 offset-l3 fondo_negro_pedidos scr">
+		<!-- <div class="row"> class de modal 2 = col s12 m12 l6 offset-l3 fondo_negro_pedidos scr  -->
+			<div id="modal2" class="modal ">
 				<div id="modal_pedidos" class="modal-content row">
 					<div class="col s12" id="cont_foto">
-						<img id="foto_plato" width="100%" height="100%"  src="" >
+						<img id="foto_plato" src="" >
 					</div>
 					<div class="col s9">
 						<h5 id="nombre_p"> </h5>
@@ -144,15 +175,23 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 							<label for="__cantidad">Cantidad</label>
 						</div>
 					</div>
+
+
+<!-- 				  <form action="#">
+				    <p class="range-field">
+				      <input type="range" id="test5" min="0" max="100" />
+				    </p>
+				  </form> -->
+					
 				</div>
 				<div id="__datosplato" hidden></div>
 				<hr>
-				<div class="modal-footer row fondo_negro_pedidos">
+				<div class="modal-footer row ">
 					<a href="#!" class="left modal-action modal-close waves-effect waves-light btn btn-large red"><i class="material-icons">close</i></a>
 					<a class="waves-effect waves-light btn btn-large right" onclick="datos_plato();" >Agregar<i class="material-icons right">add_shopping_cart</i></a>
 				</div>
 			</div>
-		</div>
+		<!-- </div> -->
 		<!-- Google Maps -->
 		<div class="row">
 			<div id="modal_ubi" class="modal col s12 m12 l8 offset-l2">
@@ -166,15 +205,16 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 				</div>
 			</div>
 		</div>
+		</div>
 		<div id="mensaje"></div>
 	</body>
 	<script>
 	var total = 0;
 	$(document).ready(function() {
-		$("#mod_ubi").leanModal();
+		$('.modal').modal();
 	});
 	function direrc(){
-		window.location.replace("rev_pedido.php");
+		window.location.replace("templates/app/principal.php");
 	}
 		function checkIt(evt) {
 			evt = (evt) ? evt : window.event;
@@ -191,7 +231,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			$("#foto_plato").attr("src", foto);
 			$("#nombre_p").html(nombre);
 			$("#precio_p").html(precio+" Bs.");
-			$("#modal2").openModal();
+			$("#modal2").modal('open');
 			$("#__datosplato").html("<input id='__datosp' cp='"+cod+"' np='"+nombre+"' pp='"+precio+"' fp='"+foto+"' hidden/>");
 		}
 		function borr_pla(x) {
@@ -239,7 +279,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 					total  = parseInt(total) + parseInt(valor[3]);
 				});
 				$("#total_ped").html(total +" Bs.");
-				$("#modal2").closeModal();
+				$("#modal2").modal('close');
 			}}
 		}
 		var mensaje = $("#mensaje");
@@ -350,11 +390,11 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 </script> -->
 
 
-<script type="module">
+<!-- <script type="module">
 	// Import the functions you need from the SDKs you need
 	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js";
 	import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js";
-	// import "https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"
+
 	// TODO: Add SDKs for Firebase products that you want to use
 	// https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -412,7 +452,6 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 
 	})
 
-	
 
 	signInWithPhoneButton.addEventListener('click', () => {
 		const codeField = document.getElementById("codeField")
@@ -430,34 +469,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		  // ...
 		});
 	})
-	
-    
-
-	// const sendVerificationCode = () => {
-	// 	const phoneNumber = document.getElementById("phoneNumber").value
-	// 	const appVerifier = window.recaptchaVerifier
-
-	// 	auth.signInWithPhoneNumber(phoneNumber, appVerifier)
-	// 	.then(confirmationResult =>{
-	// 		const sentCodeId = confirmationResult.verificationId
-	// 		signInWithPhoneButton.addEventListener('click', () => signInWithPhone(sentCodeId))
-	// 	})
-	// }
-
-	// const signInWithPhone = sentCodeId => {
-	// 	const code = codeField.value
-	// 	const credential = firebase.auth.PhoneAuthProvider.credential(sentCodeId, code)
-	// 	auth.signInWithCredential(credential)
-	// 	.then(() =>{
-	// 		window.location.assign("facebook.com")
-	// 	})
-	// 	.catch(error => {
-	// 		console.log(error)
-	// 	})
-	// }
 
 
-</script>
-<script type="module" src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js">
-	
-</script>
+</script> -->
+<script type="module" src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"></script>
