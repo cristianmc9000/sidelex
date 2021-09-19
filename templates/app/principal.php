@@ -27,6 +27,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
     	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    	<link rel="stylesheet" href="css/jquery.nice-number.css">
 		<!-- <link rel="stylesheet" href="css/materialize.css"> -->
 		<script src="js/jquery-3.0.0.min.js"></script>
 		<!-- <script src="js/materialize.js"></script> -->
@@ -35,6 +36,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0x9mkyg_9x41m82iSIQvJ8M9vo7fXm4&callback=initMap">
 		</script>
+		<script src="js/jquery.nice-number.js"></script>
 		<!-- <script src="js/firebase.js" ></script> -->
 		
 		<title>Bienvenido, Pedidos P.L.</title>
@@ -52,10 +54,10 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<div class="ver_ped hide-on-small-only"><a href="templates/app/rev_pedido.php" style="background-color: #6c5ce7;" class="btn-large waves-light">mi pedido<i class="material-icons right">assignment</i></a></div>
 
 		<div class="container">
-		<h3 class="center">Realiza tu pedido</h3>
+		<h3 class="center roboto">Realiza tu pedido</h3>
 
-		<div class="row fuente_negra">
-			<div class="row fuente_negra">
+		<div class="row">
+
 				<!-- <div class="col s12 m12 l6"> -->
 					<!-- <form action="#" method="POST" id="form_pedido" accept-charset="utf-8"> -->
 						<!-- <div class="row"> -->
@@ -100,7 +102,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 
 					<!-- </form> -->
 				<!-- </div> -->
-				<div class="col l6 m10 offset-m1 s12">
+<!-- 				<div class="col l6 m10 offset-m1 s12">
 					<table border="1" id="pedidos_cliente">
 						<tr>
 							<th>Producto</th>
@@ -115,37 +117,70 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 							Total: <label id="total_ped">0.00 Bs</label>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="row" style="margin-top: -40px;">
-				<div class="col s4 offset-s5 m2 offset-m5">
-					
+				</div> -->
+
+
+			<!-- <div class="row">  style="margin-top: -40px;" -->
+				<div class="center">
 					<a class="waves-effect waves-purple red btn btn-large modal-trigger" id="mod_ubi" href="#modal_ubi">PEDIR!</a>
 				</div>
-			</div>
+			<!-- </div> -->
 		</div>
 
 		<div class="row">
-			<?php foreach($fila as $a  => $valor){ ?>
-			<div class="col s12 m6 l6 xl4" onclick="cantidad_plato('<?php echo $valor['codpla'] ?>','<?php echo $valor['nombre'] ?>','<?php echo $valor['precio'] ?>','<?php echo $valor['foto'] ?>')">
-				<div class="z-depth-3 card horizontal card__pad">
-				  <div class="card-stacked">
-				    <div class="">
-				    	<p><?php echo $valor['nombre']; ?></p>
-				      	<span><small><?php echo $valor['descripcion']; ?></small></span>
-				      	<br><br><p><?php echo 'Bs. '.$valor['precio']; ?></p>
-				    </div>
-				  </div>
-				  <div class="card__img">    
-				    	<img class=" img__card" src="<?php echo $valor['foto'] ?>">
-				  </div>
-				</div>
+			
+			<div class="col s12 m12 l4 xl5" id="div_tabla_pedidos">
+				<!-- <div class="col l6 m10 offset-m1 s12"> -->
+					<h5>Tu pedido</h5>
+					<table id="pedidos_cliente" class="content-table z-depth-4">
+						<thead>
+							<tr>
+								<th>Producto</th>
+								<th>Cantidad</th>
+								<th>Precio</th>
+								<th>Borrar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<td colspan="4">Aún no has agregado ningún producto.</td>
+						</tbody>
+					</table>
+
+					<hr>
+					<div class="row" align="right">
+						<!-- <div class="col m6 offset-m6 s4 offset-s6"> -->
+							<div class="neon">Total: <label id="total_ped" class="neon">0.00 Bs</label></div>
+						<!-- </div> -->
+					</div>
+				<!-- </div> -->
 			</div>
-			<?php } ?>
+
+			<div class="col s12 m12 l8 xl7">
+				<h5>Productos disponibles:</h5>
+				<?php foreach($fila as $a  => $valor){ ?>
+				<div class="col s12 m6 l6 xl6 rubik" onclick="cantidad_plato('<?php echo $valor['codpla'] ?>','<?php echo $valor['nombre'] ?>','<?php echo $valor['precio'] ?>','<?php echo $valor['foto'] ?>')">
+					<div class="z-depth-3 card horizontal card__pad">
+					  <div class="card-stacked">
+					    <div class="">
+					    	<p><?php echo $valor['nombre']; ?></p>
+					      	<small><?php echo $valor['descripcion']; ?></small>
+					      	<p style="position: absolute; bottom: 0px;"><?php echo 'Bs. '.$valor['precio']; ?></p>
+					    </div>
+					  </div>
+					  <div class="card__img">    
+					    	<img class=" img__card" src="<?php echo $valor['foto'] ?>">
+					  </div>
+					</div>
+				</div>
+				<?php } ?>
+			</div>
+
+
+
 		</div>
 
 
-		<div class="row" > <!-- style="margin-top: -40px;" -->
+<!-- 		<div class="row" > 
 
 				<ul class="galeria">
 					<?php foreach($fila as $a  => $valor){ ?>
@@ -156,7 +191,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 					<?php } ?>
 				</ul>
 
-		</div>
+		</div> -->
 
 		<!-- Modal pedidos -->
 		<!-- <div class="row"> class de modal 2 = col s12 m12 l6 offset-l3 fondo_negro_pedidos scr  -->
@@ -165,15 +200,22 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 					<div class="col s12" id="cont_foto">
 						<img id="foto_plato" src="" >
 					</div>
-					<div class="col s9">
+					<div class="col s8 black-text">
 						<h5 id="nombre_p"> </h5>
 						<h5 id="precio_p"> </h5>
 					</div>
-					<div class="col s3">
-						<div class="input-field">
+					<div class="col s4">
+<!-- 						<div class="input-field">
 							<input id="__cantidad" type="number" value="1" min="1" max="10" required>
 							<label for="__cantidad">Cantidad</label>
+						</div> -->
+
+						<div class="number-container">
+							<label for="">Cantidad</label>
+							<input class="browser-default" type="number" name="" id="__cantidad" min="1" max="15" disabled>
 						</div>
+
+
 					</div>
 
 
@@ -193,28 +235,57 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			</div>
 		<!-- </div> -->
 		<!-- Google Maps -->
-		<div class="row">
-			<div id="modal_ubi" class="modal col s12 m12 l8 offset-l2">
-				<h4>Marca tu dirección</h4>
+		<!-- <div class="row"> -->
+			<div id="modal_ubi" class="modal"> <!-- arreglar esta wea -->
 				<div class="modal-content" id="modal_ubi_content">
+					<h4>Marca tu dirección</h4>
 					<div id="map"></div>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" id="footer_ubi">
 					<a href="#!" class="modal-close waves-effect waves-green btn red left">Cancelar</a>
 					<button type="submit" form="form_pedido" class="btn waves-effect waves-purple">Aceptar</button>
 				</div>
 			</div>
+		<!-- </div> -->
+
 		</div>
+
+	<!-- PULSE BUTTON SHOP -->
+		<div class="fixed-action-btn">
+		  <a id="shop_button" class="btn-floating btn-large red" onclick="shop_modal()">
+		    <i class="large material-icons">shopping_cart</i>
+		  </a>
 		</div>
+     
+	<!-- MODAL SHOP CART -->
+	  <div id="modal3" class="modal">
+	    <div class="modal-content">
+	      <h4>Modal Header</h4>
+	      <p>A bunch of text</p>
+	    </div>
+	    <div class="modal-footer">
+	      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+	    </div>
+	  </div>
+
 		<div id="mensaje"></div>
 	</body>
 	<script>
 	var total = 0;
 	$(document).ready(function() {
 		$('.modal').modal();
+		$('.fixed-action-btn').floatingActionButton();
+		$('input[type="number"]').niceNumber({
+			autoSize: true,
+			autoSizeBuffer: 1,
+			buttonDecrement: "-",
+			buttonIncrement: "+",
+			buttonPosition: 'around'
+		});
+
 	});
 	function direrc(){
-		window.location.replace("templates/app/principal.php");
+		window.location.replace("templates/app/rev_pedido.php");
 	}
 		function checkIt(evt) {
 			evt = (evt) ? evt : window.event;
@@ -237,13 +308,16 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		function borr_pla(x) {
 			delete reg_pedidos[x];
 					//borrando tabla
-				$('#pedidos_cliente tr:not(:first-child)').slice(0).remove();
-				var table = $("#pedidos_cliente")[0];
+				// $('#pedidos_cliente tr:not(:first-child)').slice(0).remove();
+				// var table = $("#pedidos_cliente")[0];
+				$("#pedidos_cliente tbody").html("")
+				var table = $("#pedidos_cliente tbody")[0];
+				
 				total =  0;
 				//llenando tabla
 				reg_pedidos.forEach(function (valor) {
-					var row = table.insertRow(1);
-					row.insertCell(0).innerHTML = "<a href='#' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
+					var row = table.insertRow(-1);
+					row.insertCell(0).innerHTML = "<a style='text-decotarion: none; cursor: pointer;' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
 					row.insertCell(0).innerHTML = valor[3];
 					row.insertCell(0).innerHTML = valor[2];
 					row.insertCell(0).innerHTML = valor[1];
@@ -266,19 +340,24 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 				
 				reg_pedidos[cp] = [cp, np, cantp, pp, fp];
 				//borrando tabla
-				$('#pedidos_cliente tr:not(:first-child)').slice(0).remove();
-				var table = $("#pedidos_cliente")[0];
+				// $('#pedidos_cliente tr:not(:first-child)').slice(0).remove();
+				// var table = $("#pedidos_cliente")[0];
+				// console.log($("#pedidos_cliente tbody"))
+				$("#pedidos_cliente tbody").html("")
+				var table = $("#pedidos_cliente tbody")[0];
+
 				total =  0;
 				//llenando tabla
 				reg_pedidos.forEach(function (valor) {
-					var row = table.insertRow(1);
-					row.insertCell(0).innerHTML = "<a href='#' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
+					var row = table.insertRow(-1);
+					row.insertCell(0).innerHTML = "<a style='text-decotarion: none; cursor: pointer;' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
 					row.insertCell(0).innerHTML = valor[3];
 					row.insertCell(0).innerHTML = valor[2];
 					row.insertCell(0).innerHTML = valor[1];
 					total  = parseInt(total) + parseInt(valor[3]);
 				});
 				$("#total_ped").html(total +" Bs.");
+				$("#shop_button").addClass('pulse');
 				$("#modal2").modal('close');
 			}}
 		}
@@ -376,100 +455,13 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			}
 		}
 	}
+
+	function shop_modal(argument) {
+		$("#shop_button").removeClass('pulse')
+		$("#modal3").modal('open')
+	}
+
 	</script>
 </html>
 
-
-<!-- <script>
-	const signupForm = document.querySelector("#form_pedido")
-	signupForm.addEventListener('submit', (e) =>{
-		e.preventDefault()
-		const telf = document.querySelector("#ci_c").value
-		console.log(telf)
-	})
-</script> -->
-
-
-<!-- <script type="module">
-	// Import the functions you need from the SDKs you need
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js";
-	import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js";
-
-	// TODO: Add SDKs for Firebase products that you want to use
-	// https://firebase.google.com/docs/web/setup#available-libraries
-
-	// Your web app's Firebase configuration
-	const firebaseConfig = {
-	  apiKey: "AIzaSyDfxxhh67Q_f8Ebry1WOaGn_1tVprnVCLM",
-	  authDomain: "sidelex-e4f5a.firebaseapp.com",
-	  projectId: "sidelex-e4f5a",
-	  storageBucket: "sidelex-e4f5a.appspot.com",
-	  messagingSenderId: "297438529846",
-	  appId: "1:297438529846:web:4171cb321434beb92fcb97"
-
-	};
-	// Initialize Firebase
-	const firebase = initializeApp(firebaseConfig);
-	const auth = getAuth();
-
-	auth.languageCode = 'es'
-
-	const getCodeButton = document.getElementById("getCodeButton")
-	const signInWithPhoneButton = document.getElementById('signInWithPhone')
-
-	window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
-	recaptchaVerifier.render().then((widgetId) => {
-	  window.recaptchaWidgetId = widgetId;
-	});
-
-
-	
-
-	// window.recaptchaVerifier = new firebase.getAuth().RecaptchaVerifier('recaptcha-container');
-	// recaptchaVerifier.render().then((widgetId) => {
-	//   window.recaptchaWidgetId = widgetId;
-	// });
-
-	getCodeButton.addEventListener('click', () => {
-		const phoneNumber = document.getElementById("phoneNumber").value
-		const appVerifier = window.recaptchaVerifier;
-
-		signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-	    .then((confirmationResult) => {
-	      // SMS sent. Prompt user to type the code from the message, then sign the
-	      // user in with confirmationResult.confirm(code).
-	      window.confirmationResult = confirmationResult;
-	      console.log(confirmationResult)
-	      console.log("confirmationResult")
-	      // ...
-	    }).catch((error) => {
-	    	grecaptcha.reset(window.recaptchaWidgetId);
-	    	console.log(error)
-	    	console.log("error")
-	      // Error; SMS not sent
-	      // ...
-	    });
-
-	})
-
-
-	signInWithPhoneButton.addEventListener('click', () => {
-		const codeField = document.getElementById("codeField")
-		const code = codeField.value
-		confirmationResult.confirm(code).then((result) => {
-		  // User signed in successfully.
-		  const user = result.user;
-		  console.log(result)
-		  console.log('success')
-		  // ...
-		}).catch((error) => {
-			console.log(error)
-			console.log('error')
-		  // User couldn't sign in (bad verification code?)
-		  // ...
-		});
-	})
-
-
-</script> -->
-<script type="module" src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"></script>
+<!-- <script type="module" src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"></script> -->

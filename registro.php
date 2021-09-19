@@ -17,11 +17,13 @@
 	<title>Ingresa o Registra tu número de celular</title>
 </head>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
 	body{
 		background-color: #eccc68;
 	}
 	.fuente{
-		font-family: 'Segoe UI Light'
+		/*font-family: 'Segoe UI Light'*/
+		font-family: 'Roboto', sans-serif;
 	}
 	.centrar{
 		display: flex;

@@ -1,3 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
@@ -37,16 +41,56 @@
     font-feature-settings: 'liga';
 }
 
+
+
+.content-table{
+  /*border-radius: 1em 1em 0 0 !important;*/
+  background-color: white;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: 'Rubik';
+  /*min-width: 400px;*/
+  border-radius: 2px 2px 00;
+  overflow: hidden;
+  /*box-shadow: 10px 10px 8px #0000007d;*/
+  /*border-top-width: 3px;*/
+  /*border-top-style: solid;*/
+}
+.content-table thead tr{
+  background-color: #e84118;
+  color: #FFF;
+  text-align: left;
+}
+.content-table th, .content-table td{
+  /*padding: 12px 15px !important;*/
+}
+.content-table tbody tr{
+  border-bottom: 1px solid #dddddd;
+}
+.content-table tbody tr:last-of-type td{
+  border-bottom: 3px solid #e84118 !important;
+}
+
+
+#div_tabla_pedidos{
+/*    position: absolute;
+    top: 0;*/
+}
+
 #modal_ubi {
     height: 100%;
 }
 
 #modal_ubi_content {
-    height: 78%;
+    height: 85%;
+}
+#footer_ubi{
+    position: absolute;
+    bottom:  0;
 }
 
 #map {
-
     height: 100%;
 }
 
@@ -56,14 +100,23 @@
 }
 
 * {
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 body {
     margin: 0;
     background: #ffbb00;
     color: black;
-    font-family: 'Segoe UI Light';
+    /*font-family: 'Segoe UI Light';*/
+    /*font-family: 'Roboto', sans-serif;*/
+    /*font-family: 'Rubik'*/
+}
+
+.roboto{
+    font-family: 'Roboto', sans-serif;
+}
+.rubik{
+    font-family: 'Rubik';
 }
 
 img {
@@ -93,6 +146,11 @@ img {
     height: 15em;
 }
 
+.neon{
+    color: red; 
+    text-shadow: 0 0 0.2em #F87, 0 0 0.2em #F87;
+    font-weight: bold;
+}
 @media (max-width: 600px) {
     .titulo {
         font-size: 40px;
@@ -104,10 +162,22 @@ img {
 
     }
 
-/*    #modal2 {
-        margin-top:  0px !important;
-        height: 100vh !important;
-    }*/
+    #modal_ubi{
+        top: 0% !important;
+        left: 0;
+        min-width: 100vw;
+        height: 100vh;
+        min-height: 90vh;
+    }
+    #modal_ubi_content {
+        height: 85%;
+    }
+    #modal2 {
+        /*top: 0% !important;*/
+        left: 0;
+        min-width: 100vw;
+        /*min-height: 100vh;*/
+    }
 
 }
 
@@ -157,7 +227,7 @@ img {
 
 @media (min-width: 1200px) {
     .galeria__item {
-        width: 20%;
+        /*width: 20%;*/
     }
 
     /*#modal2 {
@@ -191,17 +261,17 @@ img {
 }
 
 #pedidos_cliente {
-    color: white;
-    font-size: 17px;
+    /*color: white;*/
+    /*font-size: 17px;*/
 }
 
 table {
-    background: black;
-    border-radius: 20px;
+    /*background: black;*/
+    /*border-radius: 20px;*/
 }
 
 #total_ped {
-    color: black;
+    /*color: black;*/
 }
 
 .fuente_negra label {
@@ -278,4 +348,53 @@ p {
     margin-left: auto;
     margin-right: auto;
     /*display: block;*/
+}
+
+.number-container{
+   /* width: 450px;
+    height: 450px;*/
+    background-color: white;
+    color: black;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+}
+
+.number-container label{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.number-container input{
+    width: 40px;
+    font-size: 20px;
+    margin: 0 10px !important;
+    padding: 10px;
+    border: none;
+    outline: none !important;
+    color: black;
+}
+
+.number-container input:hover{
+    background: #c9c0a6 ;
+    color: #fff;
+}
+
+.nice-number button{
+    background-color: #26a69a;
+    width: 40px;
+    border: none;
+    outline: none !important;
+    border-radius: 8px;
+    font-size: 20px;
+    color: black;
+}
+
+.nice-number button:hover{
+    background: #489acc;
+    color: #fff;
+
 }
