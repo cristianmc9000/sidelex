@@ -44,121 +44,56 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		</style>
 	</head>
 	<body>
-			
-		<div class="hide-on-med-and-up center row" id="top-menu" style="padding: 5px; background-color: #6c5ce7; cursor: pointer" onclick="direrc();">
-				<div class="col s4 offset-s4"><p>MIS PEDIDOS</p><i class="material-icons">assignment</i></div>
+		<nav style="background: rgba(255, 255, 255, 0.5);">
+			<div class="nav-wrapper">
+		      <a href="#" class="brand-logo center"><img src="img/sidelex_sf.png" height="56" alt="Delicias Express"></a>
+		    </div>
+		</nav>
+		<div id="toggle_sidebar" class="get_out">
+		<a href="#" data-target="slide-out" class="sidenav-trigger btn-large waves-effect waves-light"><i class="material-icons">menu</i></a>
 		</div>
+
 			
 
-		<div class="get_out hide-on-small-only"><a href="recursos/app/salir.php" style="background-color: #e74c3c;" class="btn-large waves-light">Salir<i class="material-icons right">logout</i></a></div>
-		<div class="ver_ped hide-on-small-only"><a href="templates/app/rev_pedido.php" style="background-color: #6c5ce7;" class="btn-large waves-light">mi pedido<i class="material-icons right">assignment</i></a></div>
+		<!-- <div class="hide-on-med-and-up center row" id="top-menu" style="padding: 5px; background-color: #6c5ce7; cursor: pointer" onclick="direrc();">
+				<div class="col s4 offset-s4"><p>MIS PEDIDOS</p><i class="material-icons">assignment</i></div>
+		</div> -->
+			
+		
+
+		<!-- <div class="get_out hide-on-small-only"><a href="recursos/app/salir.php" style="background-color: #e74c3c;" class="btn-large waves-light">Salir<i class="material-icons right">logout</i></a></div> -->
+		<!-- <div class="ver_ped hide-on-small-only"><a href="templates/app/rev_pedido.php" style="background-color: #6c5ce7;" class="btn-large waves-light">mi pedido<i class="material-icons right">assignment</i></a></div> -->
 
 		<div class="container">
-		<h3 class="center roboto">Realiza tu pedido</h3>
-
-		<div class="row">
-
-				<!-- <div class="col s12 m12 l6"> -->
-					<!-- <form action="#" method="POST" id="form_pedido" accept-charset="utf-8"> -->
-						<!-- <div class="row"> -->
-							<!-- <div class="input-field col m7 s9 l9"> -->
-								<!-- <i class="material-icons prefix">account_circle</i> -->
-								<!-- <input type="number" onKeyPress="return checkIt(event)" name="ci_cliente" class="validate fz" id="ci_c"  autocomplete="off" maxlength="20" required> -->
-								<!-- <input type="tel" id="phoneNumber" name="phoneNumber" /> -->
-								<!-- <label for="phoneNumber" class="fz">Número celular</label> -->
-							<!-- </div> -->
-							<!-- <div class="col l2 s3 m2 fz"><a onclick="buscar_ci();" class="waves-effect waves-light btn btn-large"><i class="material-icons"> -->
-								<!-- search -->
-							<!-- </i></a></div> -->
-							<!-- <div class="col m3 l4 offset-l1 s4 offset-s1"> -->
-								<!-- <a class="waves-effect waves-light btn btn-large modal-trigger" id="mod_ubi" href="#modal_ubi">Dirección</a> -->
-								<!-- <input type="text" id="coordLat" name="coordLat" hidden> -->
-								<!-- <input type="text" id="coordLng" name="coordLng" hidden> -->
-							<!-- </div> -->
-						<!-- </div> -->
-						<!-- <div class="row"> -->
-							<!-- <div class="input-field col m12 l4 s12 fz"> -->
-								<!-- <input type="text" name="nombre_c" class="validate" id="nombre_c"  value="" autocomplete="off" maxlength="20" required> -->
-								<!-- <label for="nombre_c" class="fz">Nombres</label> -->
-							<!-- </div> -->
-							<!-- <div class="input-field col m12 l4 s12  fz"> -->
-								<!-- <input type="text" name="ap_c" class="validate" id="ap_c" value="" autocomplete="off" maxlength="20" required> -->
-								<!-- <label class="fz" for="ap_c" >Apellidos</label> -->
-							<!-- </div> -->
-							<!-- <div class="input-field col m12 l4 s12  fz"> -->
-								<!-- <input type="text" id="tot_ped" name="tot_ped" value="" hidden> -->
-								<!-- <input type="text" onKeyPress="return checkIt(event)" name="telf" class="validate" id="telf" value="" min="1" autocomplete="off" maxlength="15" required> -->
-								<!-- <label class="fz" for="telf" >Teléfono</label> -->
-							<!-- </div> -->
-						<!-- </div> -->
-						<!-- <div class="container" > -->
-							<!-- <input type="text" id="codeField"> -->
-						<!-- </div> -->
-						<!-- <div id="recaptcha-container"></div> -->
-						<!-- <button class="btn waves-effect waves-light orange" id="getCodeButton" >Get Code</button> -->
-						<!-- <button class="btn waves-effect waves-light" id="signInWithPhone" >Login</button> -->
-						
-						<!-- <button type="submit" class="btn btn-large">ACEPTAR</button> -->
-
-					<!-- </form> -->
-				<!-- </div> -->
-<!-- 				<div class="col l6 m10 offset-m1 s12">
-					<table border="1" id="pedidos_cliente">
-						<tr>
-							<th>Producto</th>
-							<th>Cantidad</th>
-							<th>Precio</th>
-							<th>Borrar</th>
-						</tr>
-					</table>
-					<hr>
-					<div class="row" align="right">
-						<div class="col m4 offset-m6 s3 offset-s7">
-							Total: <label id="total_ped">0.00 Bs</label>
-						</div>
-					</div>
-				</div> -->
+		<h3 id="titulo_pedidos" class="center roboto">Realiza tu pedido</h3>
 
 
-			<!-- <div class="row">  style="margin-top: -40px;" -->
-				<div class="center">
-					<a class="waves-effect waves-purple red btn btn-large modal-trigger" id="mod_ubi" href="#modal_ubi">PEDIR!</a>
+
+			<ul id="slide-out" class="sidenav">
+				<li><div class="user-view">
+				<div class="background">
+					<img src="img/fondo3.jpg" width="100%">
 				</div>
-			<!-- </div> -->
-		</div>
+				<a href="#user"><img class="circle" src="images/1117.jpg"></a>
+				<a href="#name"><span class="white-text name"><?php $_SESSION['nombre']?></span></a>
+				<a href="#email"><span class="white-text email"><?php $_SESSION['correo'] ?></span></a>
+				</div></li>
+				<li><a href="#!" class="waves-effect waves-purple"><i class="material-icons">face</i>Mi perfil</a></li>
+				<li><a href="templates/app/rev_pedido.php" class="waves-effect waves-purple"><i class="material-icons">assignment</i>Mi pedido</a></li>
 
-		<div class="row">
+				<li><div class="divider"></div></li>
+
+				<li><a class="waves-effect waves-red" href="recursos/app/salir.php"><i class="material-icons">logout</i>Salir</a></li>
+			</ul>
+	
+
+		<div class="row" id="cards_row">
 			
-			<div class="col s12 m12 l4 xl5" id="div_tabla_pedidos">
-				<!-- <div class="col l6 m10 offset-m1 s12"> -->
-					<h5>Tu pedido</h5>
-					<table id="pedidos_cliente" class="content-table z-depth-4">
-						<thead>
-							<tr>
-								<th>Producto</th>
-								<th>Cantidad</th>
-								<th>Precio</th>
-								<th>Borrar</th>
-							</tr>
-						</thead>
-						<tbody>
-							<td colspan="4">Aún no has agregado ningún producto.</td>
-						</tbody>
-					</table>
-
-					<hr>
-					<div class="row" align="right">
-						<!-- <div class="col m6 offset-m6 s4 offset-s6"> -->
-							<div class="neon">Total: <label id="total_ped" class="neon">0.00 Bs</label></div>
-						<!-- </div> -->
-					</div>
-				<!-- </div> -->
-			</div>
-
-			<div class="col s12 m12 l8 xl7">
+			<div class="col s12 m12 l12 xl12">
 				<h5>Productos disponibles:</h5>
 				<?php foreach($fila as $a  => $valor){ ?>
-				<div class="col s12 m6 l6 xl6 rubik" onclick="cantidad_plato('<?php echo $valor['codpla'] ?>','<?php echo $valor['nombre'] ?>','<?php echo $valor['precio'] ?>','<?php echo $valor['foto'] ?>')">
+					<!-- antes era s12 m6 l6 xl6 -->
+				<div class="col s12 m6 l6 xl4 rubik" onclick="cantidad_plato('<?php echo $valor['codpla'] ?>','<?php echo $valor['nombre'] ?>','<?php echo $valor['precio'] ?>','<?php echo $valor['foto'] ?>')">
 					<div class="z-depth-3 card horizontal card__pad">
 					  <div class="card-stacked">
 					    <div class="">
@@ -179,19 +114,43 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 
 		</div>
 
+		<div class="row roboto" id="cart_row" hidden>
+			<div class="row get_out">
+				<div class="left">
+					<a href="#!" class="btn-large red" onclick="regresar_prod()"><i class="material-icons">keyboard_return</i></a>
+				</div>
+			</div>
+			<!-- antes era col s12 m12 l4 xl5 -->
+			<div class="col s12 m12 l12" id="div_tabla_pedidos">
+				<!-- <div class="col l6 m10 offset-m1 s12"> -->
+					<div class="center"><h4>Tu pedido</h4></div>
+					<table id="pedidos_cliente" class="content-table centered z-depth-4">
+						<thead>
+							<tr>
+								<th>Producto</th>
+								<th>Cantidad</th>
+								<th>Precio</th>
+								<th>Borrar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<td colspan="4">Aún no has agregado ningún producto.</td>
+						</tbody>
+					</table>
 
-<!-- 		<div class="row" > 
+					<hr>
+					<div class="row" align="right">
+						<!-- <div class="col m6 offset-m6 s4 offset-s6"> -->
+							<div class="neon" >Subtotal: <label id="total_ped" class="neon">0.00 Bs</label></div>
+						<!-- </div> -->
+					</div>
+				<!-- </div> -->
+			</div>
 
-				<ul class="galeria">
-					<?php foreach($fila as $a  => $valor){ ?>
-					<li class="galeria__item" >
-						<a onclick="cantidad_plato('<?php echo $valor['codpla'] ?>','<?php echo $valor['nombre'] ?>','<?php echo $valor['precio'] ?>','<?php echo $valor['foto'] ?>')"><img src="<?php echo $valor['foto'] ?>" class="galeria__img"></a>
-						<div class="center"><b><?php echo $valor['nombre'] ?> - <?php echo $valor['precio'] ?> Bs.</b></div>
-					</li>
-					<?php } ?>
-				</ul>
-
-		</div> -->
+			<div class="center">
+				<a class="waves-effect waves-purple green btn btn-large modal-trigger" id="mod_ubi" href="#modal_ubi">PEDIR!</a>
+			</div>
+		</div>
 
 		<!-- Modal pedidos -->
 		<!-- <div class="row"> class de modal 2 = col s12 m12 l6 offset-l3 fondo_negro_pedidos scr  -->
@@ -235,10 +194,16 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			</div>
 		<!-- </div> -->
 		<!-- Google Maps -->
-		<!-- <div class="row"> -->
+
+			<form id="form_pedido" hidden> <!-- onKeyPress="return checkIt(event)" SOLO NÚMEROS -->
+				<input type="text" id="coordLat" name="coordLat" >
+				<input type="text" id="coordLng" name="coordLng" >
+				<input type="text" id="tot_ped" name="tot_ped" value="" >
+			</form>
+
 			<div id="modal_ubi" class="modal"> <!-- arreglar esta wea -->
 				<div class="modal-content" id="modal_ubi_content">
-					<h4>Marca tu dirección</h4>
+					<h4>Dirección</h4>
 					<div id="map"></div>
 				</div>
 				<div class="modal-footer" id="footer_ubi">
@@ -251,7 +216,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		</div>
 
 	<!-- PULSE BUTTON SHOP -->
-		<div class="fixed-action-btn">
+		<div class="fixed-action-btn" id="shop_section">
 		  <a id="shop_button" class="btn-floating btn-large red" onclick="shop_modal()">
 		    <i class="large material-icons">shopping_cart</i>
 		  </a>
@@ -282,7 +247,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			buttonIncrement: "+",
 			buttonPosition: 'around'
 		});
-
+		$('.sidenav').sidenav();
 	});
 	function direrc(){
 		window.location.replace("templates/app/rev_pedido.php");
@@ -297,44 +262,53 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			status = "";
 			return true;
 		}
-		var reg_pedidos = new Array();
-		function cantidad_plato(cod, nombre, precio, foto) {
-			$("#foto_plato").attr("src", foto);
-			$("#nombre_p").html(nombre);
-			$("#precio_p").html(precio+" Bs.");
-			$("#modal2").modal('open');
-			$("#__datosplato").html("<input id='__datosp' cp='"+cod+"' np='"+nombre+"' pp='"+precio+"' fp='"+foto+"' hidden/>");
-		}
-		function borr_pla(x) {
-			delete reg_pedidos[x];
-					//borrando tabla
-				// $('#pedidos_cliente tr:not(:first-child)').slice(0).remove();
-				// var table = $("#pedidos_cliente")[0];
-				$("#pedidos_cliente tbody").html("")
-				var table = $("#pedidos_cliente tbody")[0];
-				
-				total =  0;
-				//llenando tabla
-				reg_pedidos.forEach(function (valor) {
-					var row = table.insertRow(-1);
-					row.insertCell(0).innerHTML = "<a style='text-decotarion: none; cursor: pointer;' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
-					row.insertCell(0).innerHTML = valor[3];
-					row.insertCell(0).innerHTML = valor[2];
-					row.insertCell(0).innerHTML = valor[1];
-					total  = parseInt(total) + parseInt(valor[3]);
-				});
-				$("#total_ped").html(total +" Bs.");
-		}
+
+	var reg_pedidos = new Array();
+
+	function cantidad_plato(cod, nombre, precio, foto) {
+		$("#foto_plato").attr("src", foto);
+		$("#nombre_p").html(nombre);
+		$("#precio_p").html(precio+" Bs.");
+		$("#modal2").modal('open');
+		$("#__datosplato").html("<input id='__datosp' cp='"+cod+"' np='"+nombre+"' pp='"+precio+"' fp='"+foto+"' hidden/>");
+	}
+
+	function borr_pla(x) {
+		delete reg_pedidos[x];
+				//borrando tabla
+			// $('#pedidos_cliente tr:not(:first-child)').slice(0).remove();
+			// var table = $("#pedidos_cliente")[0];
+			$("#pedidos_cliente tbody").html("")
+			var table = $("#pedidos_cliente tbody")[0];
+			
+			total =  0;
+			//llenando tabla
+			// console.log(reg_pedidos.length, "tamaño del array reg pedidos") // REVISANDO EL ARRAY
+			// var json_ped = JSON.parse(JSON.stringify(reg_pedidos))
+			// console.log(json_ped)
+			reg_pedidos.forEach(function (valor) {
+				var row = table.insertRow(-1);
+				row.insertCell(0).innerHTML = "<a style='text-decotarion: none; cursor: pointer; color: red' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
+				row.insertCell(0).innerHTML = valor[3];
+				row.insertCell(0).innerHTML = valor[2];
+				row.insertCell(0).innerHTML = valor[1];
+				total  = parseInt(total) + parseInt(valor[3]);
+			});
+			$("#total_ped").html(total +" Bs.");
+	}
 		
 		function datos_plato(){
+
+			// console.log(reg_pedidos.length)
+
 			var cp = $("#__datosp").attr("cp");
 			var np = $("#__datosp").attr("np");
 			var pp = $("#__datosp").attr("pp");
 			var fp = $("#__datosp").attr("fp");
 			var cantp = $("#__cantidad").val();
-			if (parseInt(cantp) > 10 || cantp == "") {Materialize.toast("El pedido no puede superar las 10 unidades", 3000)}
+			if (parseInt(cantp) > 15 || cantp == "") {M.toast({html: "El pedido no puede superar las 15 unidades"})}
 				else{
-			if (parseInt(cantp) < 1 || cantp == "") { Materialize.toast("Ingresa una cantidad válida.", 3000); }
+			if (parseInt(cantp) < 1 || cantp == "") { M.toast({html: "Ingresa una cantidad válida."})}
 			else{
 				pp = parseInt(pp)*parseInt(cantp);
 				
@@ -348,9 +322,14 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 
 				total =  0;
 				//llenando tabla
+				// reg_pedidos = reg_pedidos.filter(Boolean)
+				// let json_pedi = JSON.stringify(reg_pedidos)
+				// console.log(json_pedi)
+				// console.log(reg_pedidos.length)
+
 				reg_pedidos.forEach(function (valor) {
 					var row = table.insertRow(-1);
-					row.insertCell(0).innerHTML = "<a style='text-decotarion: none; cursor: pointer;' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
+					row.insertCell(0).innerHTML = "<a style='text-decotarion: none; cursor: pointer; color: red;' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
 					row.insertCell(0).innerHTML = valor[3];
 					row.insertCell(0).innerHTML = valor[2];
 					row.insertCell(0).innerHTML = valor[1];
@@ -383,52 +362,77 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		// 		}
 		// 	});
 		// });
-		function buscar_ci() {
-			valor = $("#ci_c").val();
-			encontrado = false;
-	"<?php foreach($fila2 as $a  => $valor){ ?>";
-	if (valor == ("<?php echo $valor['ci'] ?>")) {
-	$("#nombre_c").val("<?php echo $valor['nombre'] ?>");
-	$("#ap_c").val("<?php echo $valor['apellidos'] ?>");
-	$("#telf").val("<?php echo $valor['telf'] ?>");
-	Materialize.updateTextFields();
-	encontrado = true;
-	}
-	"<?php } ?>";
-	if (!encontrado) {
-	Materialize.toast("<b class='fz'>Cliente no encontrado, ingrese sus datos.</b>", 4000);
-	}
+	function buscar_ci() {
+		valor = $("#ci_c").val();
+		encontrado = false;
+		"<?php foreach($fila2 as $a  => $valor){ ?>";
+		if (valor == ("<?php echo $valor['ci'] ?>")) {
+			$("#nombre_c").val("<?php echo $valor['nombre'] ?>");
+			$("#ap_c").val("<?php echo $valor['apellidos'] ?>");
+			$("#telf").val("<?php echo $valor['telf'] ?>");
+			M.updateTextFields();
+			encontrado = true;
+		}
+		"<?php } ?>";
+		if (!encontrado) {
+		M.toast("<b class='fz'>Cliente no encontrado, ingrese sus datos.</b>", 4000);
+		}
 	}
 	//ENVIO CON AJAX --
 	// function enviar() {
-	$("#form_pedidoooocambia eso de nuevo").on("submit", function(e){ //<----- DEBES CAMBIAR ESO RECORDA!!
-	e.preventDefault();
-	$("#tot_ped").val(total);
-	cic=$("#ci_c").val();
-	nombrec=$("#nombre_c").val();
-	apc=$("#ap_c").val();
-	totped=$("#tot_ped").val();
-	telf=$("#telf").val();
-	colat=$("#coordLat").val();
-	colng=$("#coordLng").val();
-	var x="";
-	var y="";
-	cont = 0;
-	if(reg_pedidos.length > 0){
-		reg_pedidos.forEach(function (valor) {
-			x=x+"&"+cont+"="+valor[0];
-			y=y+"&"+cont+"c="+valor[2];
-			cont++;
-		});
-		misdatos="coordLat="+colat+"&coordLng="+colng+"&ci_cliente="+cic+"&nombre_c="+nombrec+"&ap_c="+apc+"&telf="+telf+"&tot_ped="+totped+x+y+"&cont="+cont;
-		objetoAjax=creaObjetoAjax();
-		objetoAjax.open("POST","recursos/nuevo_pedido.php",true);
-		objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		objetoAjax.onreadystatechange=recogeDatos;
-		objetoAjax.send(misdatos);
-	}else{
-		Materialize.toast("No se ha seleccionado ningún producto...", 4000);
-	}
+
+	$("#form_pedido").on("submit", function(e) {
+		e.preventDefault()
+		let telf = "<?php echo $_SESSION['telf']?>"
+		let subtotal = total
+		colat = $("#coordLat").val()
+		colng = $("#coordLng").val()
+		let json_detalle = reg_pedidos.filter(Boolean)
+		json_detalle = JSON.stringify(json_detalle)
+
+	    $.ajax({
+            url: "recursos/nuevo_pedido.php?telf="+telf+"&subtotal="+subtotal+"&colat="+colat+"&colng="+colng+"&json="+json_detalle,
+            method: "GET",
+            success: function(response) {
+                console.log(response)
+            },
+            error: function(error) {
+                console.log(error)
+            }
+	    })
+	})
+
+
+	$("#form_pedidooooo").on("submit", function(e){ //<----- DEBES CAMBIAR ESO RECORDA!!
+		e.preventDefault();
+		$("#tot_ped").val(total);
+		// cic=$("#ci_c").val();
+		// nombrec=$("#nombre_c").val();
+		// apc=$("#ap_c").val();
+
+		let telf = "<?php echo $_SESSION['telf']?>"
+
+		totped=$("#tot_ped").val();
+		colat=$("#coordLat").val();
+		colng=$("#coordLng").val();
+		var x="";
+		var y="";
+		cont = 0;
+		if(reg_pedidos.length > 0){
+			reg_pedidos.forEach(function (valor) {
+				x=x+"&"+cont+"="+valor[0];
+				y=y+"&"+cont+"c="+valor[2];
+				cont++;
+			});
+			misdatos="coordLat="+colat+"&coordLng="+colng+"&telf="+telf+"&tot_ped="+totped+x+y+"&cont="+cont;
+			objetoAjax=creaObjetoAjax();
+			objetoAjax.open("POST","recursos/nuevo_pedido.php",true);
+			objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			objetoAjax.onreadystatechange=recogeDatos;
+			objetoAjax.send(misdatos);
+		}else{
+			M.toast({html: "No se ha seleccionado ningún producto..."});
+		}
 	});
 	function creaObjetoAjax () {
 		var obj;
@@ -458,7 +462,20 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 
 	function shop_modal(argument) {
 		$("#shop_button").removeClass('pulse')
-		$("#modal3").modal('open')
+		document.getElementById('titulo_pedidos').hidden = true
+		document.getElementById('shop_section').hidden = true
+		document.getElementById('cards_row').hidden = true
+		document.getElementById('cart_row').hidden = false
+		document.getElementById('toggle_sidebar').hidden = true
+		// $("#modal3").modal('open')
+	}
+
+	function regresar_prod() {
+		document.getElementById('titulo_pedidos').hidden = false
+		document.getElementById('shop_section').hidden = false
+		document.getElementById('cards_row').hidden = false
+		document.getElementById('cart_row').hidden = true
+		document.getElementById('toggle_sidebar').hidden = false
 	}
 
 	</script>

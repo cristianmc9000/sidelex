@@ -1,18 +1,21 @@
 <?php
 require('conexion.php');
 
-$ci = $_POST['ci_cliente'];
-$nombre = $_POST['nombre_c'];
-$ap = $_POST['ap_c'];
-$telf = $_POST['telf'];
-$total = $_POST['tot_ped'];
-$cont = $_POST['cont'];
-$colat = $_POST['coordLat'];
-$colng = $_POST['coordLng'];
+// $ci = $_POST['ci_cliente'];
+// $nombre = $_POST['nombre_c'];
+// $ap = $_POST['ap_c'];
+$telf = $_GET['telf'];
+$total = $_GET['subtotal'];
+// $cont = $_POST['cont'];
+$colat = $_GET['colat'];
+$colng = $_GET['colng'];
+$json = $_GET['json'];
 
-$consultaVC = "SELECT * FROM cliente WHERE Ci = ".$ci."";
-$resultadoCVC = mysqli_query($conexion, $consultaVC) or die(mysql_error());
-$dvc = mysqli_fetch_array($resultadoCVC);
+
+
+
+die($telf."---".$total."---".$colat."---".$colng."---".var_dump(json_decode($json)));
+
 
 
 $consultaVP = "SELECT * FROM pedido WHERE Cicli = ".$ci." AND (SELECT MAX(Codped) FROM pedido) ORDER BY Codped DESC LIMIT 1";
@@ -27,13 +30,6 @@ if (($_SERVER["REQUEST_TIME"] - strtotime($rvp['Fecha'])) < 1800) {
 	die('<script>Materialize.toast("Usted realizó un pedido recientemente, Espere unos minutos." , 4000);</script>');
 }
 
-
-if (!$dvc) {
-	$consultaIC = "INSERT INTO cliente (Ci, Nombre, Apellidos, Telefono) VALUES ('".trim($ci)."', '".trim($nombre)."', '".trim($ap)."', '".trim($telf)."')";
-	$resultadoCIC = mysqli_query($conexion, $consultaIC) or die(mysql_error());
-}else if (!(trim($ci) == $dvc["Ci"] and trim($nombre) == $dvc["Nombre"] and trim($ap) == $dvc["Apellidos"])) {
- 	die('<script>Materialize.toast("El número de cédula no coincide con el nombre y apellidos." , 4000);</script>');
-}
 
 if (intval($telf) < 40000000) {
 	die('<script>Materialize.toast("Ingrese un número de teléfono válido." , 4000);</script>');

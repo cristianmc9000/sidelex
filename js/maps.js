@@ -1,7 +1,3 @@
-
-
-
-
     var marker;         
     var coords = {};
 

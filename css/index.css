@@ -149,7 +149,12 @@ img {
 .neon{
     color: red; 
     text-shadow: 0 0 0.2em #F87, 0 0 0.2em #F87;
-    font-weight: bold;
+    /*font-weight: bold;*/
+    font-size: 1.5em;
+}
+
+#total_ped{
+    font-size: 1em;
 }
 @media (max-width: 600px) {
     .titulo {
