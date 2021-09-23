@@ -23,6 +23,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	<head lang="es">
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<link rel="icon" type="image/x-icon" href="img/icono.ico" />
 		<link rel="stylesheet" href="css/index.css">
     	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
@@ -39,7 +40,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<script src="js/jquery.nice-number.js"></script>
 		<!-- <script src="js/firebase.js" ></script> -->
 		
-		<title>Bienvenido, Pedidos P.L.</title>
+		<title>Bienvenido, Pedidos Delicias Express</title>
 		<style>
 		</style>
 	</head>
