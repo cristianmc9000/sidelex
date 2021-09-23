@@ -24,7 +24,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<link rel="icon" type="image/x-icon" href="img/icono.ico" />
-		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
     	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
