@@ -95,7 +95,7 @@
 		</div>
 	</div>
 </body>
-
+<input type="text" id="existe" value="false" hidden>
 <script type="module">
 	// Import the functions you need from the SDKs you need
 	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
@@ -144,7 +144,8 @@
 	getCodeButton.addEventListener('click', () => {
 		const phoneNumber = "+591"+document.getElementById("phoneNumber").value
 		const appVerifier = window.recaptchaVerifier;
-		var existe = false;
+		// var existe = false;
+		$("#existe").val('false')
 		if (phoneNumber.length!=12) {
 			console.log(phoneNumber.length)
 			return M.toast({html: 'Debes ingresar un número válido!'})
@@ -157,39 +158,40 @@
             url: "recursos/app/comprobar.php?telf="+phoneNumber,
             method: "GET",
             success: function(response) {
-            	console.log(response)
+            	console.log(response+" <----- Respuesta de comprobar.php")
                 if (response == 1) {
-                	existe = true
+                	// existe = true
+                	$("#existe").val('true')
                     return window.location.replace('pedidos.php')
+                }else{
+                	signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+				    .then((confirmationResult) => {
+
+				      window.confirmationResult = confirmationResult;
+				      console.log(confirmationResult)
+				      console.log("confirmationResult")
+
+				      document.querySelector("#section_1").setAttribute('hidden', true);
+				      document.querySelector("#section_2").removeAttribute('hidden');
+				      M.toast({html: 'Se envió el código al número ingresado.'})
+
+				    }).catch((error) => {
+				    	grecaptcha.reset(window.recaptchaWidgetId);
+				    	console.log(error)
+				    	console.log("error")
+
+				    });
                 }
             },
             error: function(error) {
                 console.log(error)
             }
         });
-
-
-		signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-	    .then((confirmationResult) => {
-
-	      window.confirmationResult = confirmationResult;
-	      console.log(confirmationResult)
-	      console.log("confirmationResult")
-
-	      document.querySelector("#section_1").setAttribute('hidden', true);
-	      document.querySelector("#section_2").removeAttribute('hidden');
-	      M.toast({html: 'Se envió el código al número ingresado.'})
-
-	    }).catch((error) => {
-	    	grecaptcha.reset(window.recaptchaWidgetId);
-	    	console.log(error)
-	    	console.log("error")
-
-	    });
 	})
 
 	signInWithPhoneButton.addEventListener('click', () => {
 		console.log("recogiendo evento click")
+		if ($("#existe").val() == 'true') {return console.log("proceder con login...")}
 		codeField = document.getElementById("codeField")
 		const code = codeField.value
 		confirmationResult.confirm(code).then((result) => {
