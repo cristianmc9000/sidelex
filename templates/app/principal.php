@@ -64,10 +64,8 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<!-- <div class="get_out hide-on-small-only"><a href="recursos/app/salir.php" style="background-color: #e74c3c;" class="btn-large waves-light">Salir<i class="material-icons right">logout</i></a></div> -->
 		<!-- <div class="ver_ped hide-on-small-only"><a href="templates/app/rev_pedido.php" style="background-color: #6c5ce7;" class="btn-large waves-light">mi pedido<i class="material-icons right">assignment</i></a></div> -->
 
-		<div class="container">
+		<div id="cuerpo" class="container">
 		<h3 id="titulo_pedidos" class="center roboto">Realiza tu pedido</h3>
-
-
 
 			<ul id="slide-out" class="sidenav">
 				<li><div class="user-view">
@@ -78,6 +76,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 				<a href="#name"><span class="white-text name"><?php $_SESSION['nombre']?></span></a>
 				<a href="#email"><span class="white-text email"><?php $_SESSION['correo'] ?></span></a>
 				</div></li>
+				<li><a href="#!" onclick="location.reload()" class="waves-effect waves-purple"><i class="material-icons">home</i>Inicio</a></li>
 				<li><a href="#!" class="waves-effect waves-purple"><i class="material-icons">face</i>Mi perfil</a></li>
 				<li><a href="templates/app/rev_pedido.php" class="waves-effect waves-purple"><i class="material-icons">assignment</i>Mi pedido</a></li>
 
@@ -213,7 +212,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			</div>
 		<!-- </div> -->
 
-		</div>
+		
 
 	<!-- PULSE BUTTON SHOP -->
 		<div class="fixed-action-btn" id="shop_section">
@@ -233,7 +232,10 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	    </div>
 	  </div>
 
-		<div id="mensaje"></div>
+	</div>
+	
+	<div id="mensaje"></div>
+
 	</body>
 	<script>
 	var total = 0;
