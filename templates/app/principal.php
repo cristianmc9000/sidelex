@@ -17,7 +17,6 @@ while($arr2 = $Busq2->fetch_array())
 $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr2['Apellidos'], 'telf'=>$arr2['Telefono']);
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 	<head lang="es">
@@ -392,10 +391,16 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		json_detalle = JSON.stringify(json_detalle)
 
 	    $.ajax({
-            url: "recursos/nuevo_pedido.php?telf="+telf+"&subtotal="+subtotal+"&colat="+colat+"&colng="+colng+"&json="+json_detalle,
+            url: "recursos/app/nuevo_pedido.php?telf="+telf+"&subtotal="+subtotal+"&colat="+colat+"&colng="+colng+"&json="+json_detalle,
             method: "GET",
             success: function(response) {
+            	mensaje.html(response)
                 console.log(response)
+                if (response == true) {
+                	M.toast({html:'<span style="color: #2ecc71">Pedido realizado, puedes ver tu pedido en la sección de Mi pedido</span>', displayLength: 8000, classes: 'rounded'})
+                	$("#modal_ubi").modal('close')
+                	regresar_prod()
+                }
             },
             error: function(error) {
                 console.log(error)
@@ -403,63 +408,6 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	    })
 	})
 
-
-	$("#form_pedidooooo").on("submit", function(e){ //<----- DEBES CAMBIAR ESO RECORDA!!
-		e.preventDefault();
-		$("#tot_ped").val(total);
-		// cic=$("#ci_c").val();
-		// nombrec=$("#nombre_c").val();
-		// apc=$("#ap_c").val();
-
-		let telf = "<?php echo $_SESSION['telf']?>"
-
-		totped=$("#tot_ped").val();
-		colat=$("#coordLat").val();
-		colng=$("#coordLng").val();
-		var x="";
-		var y="";
-		cont = 0;
-		if(reg_pedidos.length > 0){
-			reg_pedidos.forEach(function (valor) {
-				x=x+"&"+cont+"="+valor[0];
-				y=y+"&"+cont+"c="+valor[2];
-				cont++;
-			});
-			misdatos="coordLat="+colat+"&coordLng="+colng+"&telf="+telf+"&tot_ped="+totped+x+y+"&cont="+cont;
-			objetoAjax=creaObjetoAjax();
-			objetoAjax.open("POST","recursos/nuevo_pedido.php",true);
-			objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			objetoAjax.onreadystatechange=recogeDatos;
-			objetoAjax.send(misdatos);
-		}else{
-			M.toast({html: "No se ha seleccionado ningún producto..."});
-		}
-	});
-	function creaObjetoAjax () {
-		var obj;
-		if (window.XMLHttpRequest) {
-			obj=new XMLHttpRequest();
-		}
-		else {
-			obj=new ActiveXObject(Microsoft.XMLHTTP);
-		}
-		return obj;
-	}
-	function recogeDatos() {
-		if (objetoAjax.readyState==4 && objetoAjax.status==200) {
-			miTexto=objetoAjax.responseText;
-			if(miTexto.includes('realizado')){
-				Materialize.toast("Pedido Realizado!" , 4000);
-				$("#modal_ubi").closeModal();
-			}else{
-				mensaje.html(miTexto);
-				// if(!miTexto.includes('error')){
-				//   //$("#cuerpo").load("index.php");
-				//   Materialize.toast("Error desconocido." , 4000);
-				// }
-			}
-		}
-	}
 
 	function shop_modal(argument) {
 		$("#shop_button").removeClass('pulse')

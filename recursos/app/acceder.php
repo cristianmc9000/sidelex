@@ -8,7 +8,7 @@ $telf = $_GET["telf"];
 $telf = "+".$telf;
 
 //Consulta registrar numero de celular si es que no existe
-$result = $conexion->query($consulta = "INSERT INTO `cliente`(`Telefono`) VALUES ('".$telf."')");
+$result = $conexion->query("INSERT INTO `cliente`(`Telefono`) VALUES ('".$telf."')");
 
 if($result == 1){
 
@@ -24,6 +24,8 @@ if($result == 1){
 	
 	// $_SESSION['Nombre'] = $datosNA['Nombre'];
 	// $_SESSION['Apellidos'] = $datosNA['Apellidos'];
+
+	$_SESSION['id_cliente'] = mysql_insert_id($conexion); 
 	$_SESSION['estado_app'] = 'Autenticado';
 	$_SESSION['telf'] = $telf;
 
