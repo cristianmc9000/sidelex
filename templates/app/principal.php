@@ -50,7 +50,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		    </div>
 		</nav>
 		<div id="toggle_sidebar" class="get_out">
-		<a href="#" data-target="slide-out" class="sidenav-trigger btn-large waves-effect waves-light"><i class="material-icons">menu</i></a>
+			<a href="#" data-target="slide-out" class="sidenav-trigger btn-large waves-effect waves-light"><i class="material-icons">menu</i></a>
 		</div>
 
 			
@@ -64,26 +64,27 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<!-- <div class="get_out hide-on-small-only"><a href="recursos/app/salir.php" style="background-color: #e74c3c;" class="btn-large waves-light">Salir<i class="material-icons right">logout</i></a></div> -->
 		<!-- <div class="ver_ped hide-on-small-only"><a href="templates/app/rev_pedido.php" style="background-color: #6c5ce7;" class="btn-large waves-light">mi pedido<i class="material-icons right">assignment</i></a></div> -->
 
+
+		<ul id="slide-out" class="sidenav">
+			<li><div class="user-view">
+			<div class="background">
+				<img src="img/fondo3.jpg" width="100%">
+			</div>
+			<a href="#user"><img class="circle" src="images/1117.jpg"></a>
+			<a href="#name"><span class="white-text name"><?php $_SESSION['nombre']?></span></a>
+			<a href="#email"><span class="white-text email"><?php $_SESSION['correo'] ?></span></a>
+			</div></li>
+			<li><a href="#!" onclick="location.reload()" class="waves-effect waves-purple"><i class="material-icons">home</i>Inicio</a></li>
+			<li><a href="#!" class="waves-effect waves-purple"><i class="material-icons">face</i>Mi perfil</a></li>
+			<li><a href="#!" onclick="sidenav_navi('templates/app/rev_pedido.php')" class="waves-effect waves-purple"><i class="material-icons">assignment</i>Mi pedido</a></li>
+
+			<li><div class="divider"></div></li>
+
+			<li><a class="waves-effect waves-red" href="recursos/app/salir.php"><i class="material-icons">logout</i>Salir</a></li>
+		</ul>
+
 		<div id="cuerpo" class="container">
 		<h3 id="titulo_pedidos" class="center roboto">Realiza tu pedido</h3>
-
-			<ul id="slide-out" class="sidenav">
-				<li><div class="user-view">
-				<div class="background">
-					<img src="img/fondo3.jpg" width="100%">
-				</div>
-				<a href="#user"><img class="circle" src="images/1117.jpg"></a>
-				<a href="#name"><span class="white-text name"><?php $_SESSION['nombre']?></span></a>
-				<a href="#email"><span class="white-text email"><?php $_SESSION['correo'] ?></span></a>
-				</div></li>
-				<li><a href="#!" onclick="location.reload()" class="waves-effect waves-purple"><i class="material-icons">home</i>Inicio</a></li>
-				<li><a href="#!" class="waves-effect waves-purple"><i class="material-icons">face</i>Mi perfil</a></li>
-				<li><a href="templates/app/rev_pedido.php" class="waves-effect waves-purple"><i class="material-icons">assignment</i>Mi pedido</a></li>
-
-				<li><div class="divider"></div></li>
-
-				<li><a class="waves-effect waves-red" href="recursos/app/salir.php"><i class="material-icons">logout</i>Salir</a></li>
-			</ul>
 	
 
 		<div class="row" id="cards_row">
@@ -410,6 +411,12 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	    })
 	})
 
+	function sidenav_navi(link) {
+		var elem = document.getElementById('slide-out')
+		M.Sidenav.getInstance(elem).close()
+		$('#cuerpo').load(link)
+
+	}
 
 	function shop_modal(argument) {
 		$("#shop_button").removeClass('pulse')
