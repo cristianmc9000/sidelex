@@ -15,7 +15,9 @@ $colng = $_GET['colng'];
 $json = $_GET['json'];
 $json = json_decode($json);
 
-$consultaVP = "SELECT * FROM pedido WHERE idcli = ".$id." AND (SELECT MAX(Codped) FROM pedido) ORDER BY Codped DESC LIMIT 1";
+
+
+$consultaVP = "SELECT * FROM pedido WHERE idcli = ".$id." ORDER BY Codped DESC LIMIT 1";
 $resultadoVP = mysqli_query($conexion, $consultaVP) or die(mysqli_error($conexion));
 $rvp = mysqli_fetch_array($resultadoVP);
 

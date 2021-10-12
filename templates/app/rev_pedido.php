@@ -34,7 +34,6 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 			</div>
 			<div class="col s2 offset-s1"><button id="envio_form" class="btn-large waves-effect waves-light right" type="submit" name="acceso"><i class="material-icons">search</i></button></div>
 		</div>
-		
 	</form>
 	<div class="row">
 		<div class="col s3 offset-s5" id="boton-cancelar">
@@ -43,25 +42,26 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 	</div>
 </div> -->
 <div class="row" >
-	<div class="col s12 m12 l6 offset-l3">
-		<!-- <h5><span id="actped">Debes ingresar tu cédula de identidad.</span><br> -->
+	<div class="col s12 m12 l8 offset-l2">
+		<h5><span id="actped"></span><br>
 		<span id="fecha_ped"></span><br>
 		<span id="totped"></span>
 		</h5>
 	</div>
-	<div class="col s12 m12 l6 offset-l3">
+	<div class="col s12 m12 l8 offset-l2">
 		<table id="pedidos_cliente">
-			<tr>
-				<th>PRODUCTO</th>
-				<th>CANTIDAD</th>
-				<th>PRECIO</th>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			
+			<thead>
+				<tr>
+					<th>PRODUCTO</th>
+					<th>CANTIDAD</th>
+					<th>PRECIO</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+
+				</tr>
+			</tbody>
 		</table>
 	</div>
 </div>
@@ -86,50 +86,49 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 <script>
 	var mensaje = $("#mensaje");
 	mensaje.hide();
-	$("#rev_pedido").on("submit", function(e){
-		e.preventDefault();
-		var formData = new FormData(document.getElementById("rev_pedido"));
-		$.ajax({
-			url: "recursos/vped.php",
-			type: "POST",
-			dataType: "HTML",
-			data: formData,
-			cache: false,
-			contentType: false,
-			processData: false
-		}).done(function(echo){
-			var arr = echo.split(",");
+
+	$(document).ready(function() {
+	    $.ajax({
+            url: "recursos/app/ver_pedido.php",
+            // method: "GET",
+            success: function(echo) {
+            	// mensaje.html(echo)
+                console.log(echo)
+				var arr = echo.split(",");
 			
-			if (echo == "sinpedidos") {
-				$('#actped').css('color', 'red');
-				$('#actped').html("No tienes pedidos activos");
-				$('#totped').html("");
-				$('#fecha_ped').html("");
-				$("#boton-cancelar").html("");
-			}
-			if (echo == 2){
-				alert("2");
-				Materialize.toast('Ingresa un CI válido', 4000);
-				$("#boton-cancelar").html("");
-			}
-			if (arr[3] == "PENDIENTE") {
-				$('#actped').css('color', 'yellow');
-				$('#actped').html('Tienes 1 pedido pendiente, tu pedido aun no ha sido aceptado.');
-				$('#totped').html('Total: '+arr[0]+'Bs.');
-				$('#fecha_ped').html('Fecha: '+arr[1]);
-				$("#boton-cancelar").html("<a class='btn-large red' onclick='cancelar_pedido("+arr[2]+")'>CANCELAR MI PEDIDO</a>");
-				tabla_llenar(arr[2]);
-			}
-			if (arr[3] == "ACEPTADO"){
-				$('#actped').css('color', '#00ff00');
-				$('#actped').html('Tu pedido ha sido aceptado, y enviado.');
-				$('#totped').html('Total: '+arr[0]+'Bs.');
-				$('#fecha_ped').html('Fecha: '+arr[1]);
-				$("#boton-cancelar").html("");
-				tabla_llenar(arr[2]);
-			}
-		});
+				if (echo == "sinpedidos") {
+					$('#actped').css('color', 'red');
+					$('#actped').html("No tienes pedidos activos");
+					$('#totped').html("");
+					$('#fecha_ped').html("");
+					$("#boton-cancelar").html("");
+				}
+
+				if (arr[3] == "PENDIENTE") {
+					$('#actped').css('color', 'yellow');
+					$('#actped').html('Tienes 1 pedido pendiente, tu pedido aun no ha sido aceptado.');
+					$('#totped').html('Total: '+arr[0]+'Bs.');
+					$('#fecha_ped').html('Fecha: '+arr[1]);
+					$("#boton-cancelar").html("<a class='btn-large red' onclick='cancelar_pedido("+arr[2]+")'>CANCELAR MI PEDIDO</a>");
+					tabla_llenar(arr[2]);
+				}
+				if (arr[3] == "ACEPTADO"){
+					$('#actped').css('color', '#00ff00');
+					$('#actped').html('Tu pedido ha sido aceptado, y enviado.');
+					$('#totped').html('Total: '+arr[0]+'Bs.');
+					$('#fecha_ped').html('Fecha: '+arr[1]);
+					$("#boton-cancelar").html("");
+					tabla_llenar(arr[2]);
+				}
+            },
+            error: function(error) {
+                console.log(error)
+            }
+	    })
 	});
+
+		
+
 	function tabla_llenar (cod){
 		$('#pedidos_cliente tr:not(:first-child)').slice(0).remove();
 		var table = $("#pedidos_cliente")[0];

@@ -148,7 +148,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			</div>
 
 			<div class="center">
-				<a class="waves-effect waves-purple green btn btn-large modal-trigger" id="mod_ubi" href="#modal_ubi">PEDIR!</a>
+				<a class="waves-effect waves-light btn btn-large modal-trigger" id="mod_ubi" href="#modal_ubi">PEDIR!</a>
 			</div>
 		</div>
 
