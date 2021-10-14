@@ -1,5 +1,6 @@
 <?php
-//Reanudamos la sesión
+require('recursos/conexion.php');
+require('recursos/sesiones.php');
 session_start();
 //Comprobamos si el usario está logueado
 //Si no lo está, se le redirecciona al index
@@ -11,9 +12,9 @@ $foto = $_SESSION['Foto'];
 $estado = $_SESSION['Nombre']." ".$_SESSION['Apellidos'];
 $ciactual = $_SESSION['Ci_Usuario'];
 $salir = '<a href="recursos/salir.php" class="right" target="_self">Cerrar sesión</a>';
-require('recursos/sesiones.php');
+
 };
-require('recursos/conexion.php');
+
 $Sql = "SELECT * FROM usuario";
 $Busq = $conexion->query($Sql);
 ?>
@@ -26,7 +27,7 @@ $Busq = $conexion->query($Sql);
     <!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
     <link rel="stylesheet" type="text/css" href="css/datatable.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
-    <link rel="stylesheet" type="text/css" href="css/content-table.css">
+    <link rel="stylesheet" type="text/css" href="css/style_sys.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="css/materialize.css"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
@@ -41,7 +42,10 @@ $Busq = $conexion->query($Sql);
     <script type="text/javascript" src="js/vfs_fonts.js"></script>
     <script src="js/num2text.js"></script>
     <script src="js/jsPDF.min.js"></script>
-
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0x9mkyg_9x41m82iSIQvJ8M9vo7fXm4">
+    </script>
+    
     <title> RCR. Delicias Express., Número de teléfono(s): 76191403, E-mail: rcrdelexo@hotmail.com</title>
     <style>
     .fuente{
@@ -67,10 +71,7 @@ $Busq = $conexion->query($Sql);
 
       /*padding-bottom: 10px;*/
     }
-
-    table.highlight > tbody > tr:hover {
-    background-color: #a0aaf0 !important;
-    }
+    
     /*#mobile-demo{*/
     /*width: 280px;*/
     /*}*/
@@ -144,7 +145,7 @@ $Busq = $conexion->query($Sql);
           <!-- <li class="mg"><a href="#!" onclick="cargar('insumos');">Insumos</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('empresas');">Empresas</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('bebidas');">Bebidas</a></li> -->
-          <li ><p><a href="#!" onclick="cargar('platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></p></li>
+          <li ><p><a href="#!" onclick="cargar('templates/platos/platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></p></li>
           <li ><p><a href="#!" onclick="cargar('templates/pedidos/pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">receipt</i> Pedidos</a></p></li>
           <!-- <li class="mg"><a href="#!" onclick="cargar('talonario');">Talonario</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('facturas');">Facturas</a></li> -->
@@ -163,8 +164,8 @@ $Busq = $conexion->query($Sql);
     
         <div class="sidebar">
           <div class="spacx"><a href="#!" style="color: white;" onclick="location.reload();"><i class=" material-icons-outlined" style="padding-right: 17px;">home</i> Inicio</a></div>
-          <div class="spacx"><a href="#!" onclick="cargar('ventas');"><i class="material-icons-outlined" style="padding-right: 17px;">shopping_cart</i> Ventas</a></div>
-          <div class="spacx"><a href="#!" onclick="cargar('platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></div>
+          <div class="spacx"><a href="#!" onclick="cargar('templates/ventas/ventas');"><i class="material-icons-outlined" style="padding-right: 17px;">shopping_cart</i> Ventas</a></div>
+          <div class="spacx"><a href="#!" onclick="cargar('templates/platos/platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></div>
           <div class="spacx"><a href="#!" onclick="cargar('templates/pedidos/pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">receipt</i> Pedidos</a></div>
 
           <ul class="collapsible" data-collapsible="expandable">
@@ -186,7 +187,7 @@ $Busq = $conexion->query($Sql);
         </div>
       </div>
     <!-- </div> -->
-    <script>
+  <script>
       $(document).ready(function() {
 
         // $(".dropdown-button").dropdown({ hover: true });
@@ -205,10 +206,7 @@ $Busq = $conexion->query($Sql);
       var elems = document.querySelectorAll('.collapsible');
       var instances = M.Collapsible.init(elems);
 
-
-
     });
-
     //controlar overflow de la sidenav
     function overhid () {$("#mobile-demo").css('overflow', 'auto');}
     function overshow () {$("#mobile-demo").css('overflow', 'hidden');}
@@ -216,7 +214,15 @@ $Busq = $conexion->query($Sql);
     var y=".php";
     $("#cuerpo").load(x+y);
     }
-      </script>
+
+  function check(e){
+    if ((e.charCode >= 48 && e.charCode <= 57) || e.charCode == 46) {
+      return true
+    }else{
+      return false
+    }
+  }
+  </script>
       
-    </body>
-  </html>
+  </body>
+</html>

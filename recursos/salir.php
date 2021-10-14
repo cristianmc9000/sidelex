@@ -1,6 +1,5 @@
 <?php
-//Reanudamos la sesión
-session_start();
+session_start(); //reanudar la sesion
 
 //Requerimos los datos de la conexión a la BBDD
 require('conexion.php');

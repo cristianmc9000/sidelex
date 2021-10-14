@@ -8,6 +8,7 @@ session_start();
 
 $id = $_SESSION['id_cliente'];
 $telf = $_GET['telf'];
+$dir = $_GET['dir'];
 $total = $_GET['subtotal'];
 // $cont = $_POST['cont'];
 $colat = $_GET['colat'];
@@ -35,7 +36,7 @@ if (intval($telf) < 40000000) {
 }
 
 
-$result = $conexion->query("INSERT INTO pedido (idcli, Total, Lat, Lng) VALUES ('".$id."', '".$total."', '".$colat."', '".$colng."')");
+$result = $conexion->query("INSERT INTO pedido (idcli, Total, Direccion, Lat, Lng) VALUES ('".$id."', '".$total."', '".$dir."', '".$colat."', '".$colng."')");
 
 if($result == 1){
 

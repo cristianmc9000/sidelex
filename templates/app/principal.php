@@ -204,7 +204,23 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			<div id="modal_ubi" class="modal"> <!-- arreglar esta wea -->
 				<div class="modal-content" id="modal_ubi_content">
 					<h4>Dirección</h4>
+					
+					<div class="row">
+						<div class="col s12">
+						  
+						  <div class="input-field">
+						    <input id="direccion" type="text" class="validate">
+						    <label for="direccion">Escribe aquí tu dirección</label>
+						    <!-- <span class="helper-text" data-error="wrong" data-success="right">Helper text</span> -->
+						  </div>
+						</div>
+					</div>
+
+					<!-- <div class="container"> -->
+						<!-- <input type="text" id="direccion" placeholder="Escribe tu dirección"> -->
+					<!-- </div> -->
 					<div id="map"></div>
+
 				</div>
 				<div class="modal-footer" id="footer_ubi">
 					<a href="#!" class="modal-close waves-effect waves-green btn red left">Cancelar</a>
@@ -386,6 +402,11 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 
 	$("#form_pedido").on("submit", function(e) {
 		e.preventDefault()
+		let dir = $("#direccion").val();
+		if (dir.length < 5) {
+			return M.toast({html: 'Escribe una dirección válida.'})
+		}
+
 		let telf = "<?php echo $_SESSION['telf']?>"
 		let subtotal = total
 		colat = $("#coordLat").val()
@@ -394,7 +415,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		json_detalle = JSON.stringify(json_detalle)
 
 	    $.ajax({
-            url: "recursos/app/nuevo_pedido.php?telf="+telf+"&subtotal="+subtotal+"&colat="+colat+"&colng="+colng+"&json="+json_detalle,
+            url: "recursos/app/nuevo_pedido.php?telf="+telf+"&dir="+dir+"&subtotal="+subtotal+"&colat="+colat+"&colng="+colng+"&json="+json_detalle,
             method: "GET",
             success: function(response) {
             	mensaje.html(response)

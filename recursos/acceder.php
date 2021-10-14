@@ -47,8 +47,6 @@ $passwordBD = $datos['Password'];
 //Comprobamos si los datos son correctos
 if($userBD == $userPOST and  $passPOST == $passwordBD){
 
-
-
 	session_start();
 	$_SESSION['Ci_Usuario'] = $ciBD;
 	$consultaNA = "SELECT Nombre, Apellidos, Foto FROM usuario WHERE Ci = ".$ciBD.";";

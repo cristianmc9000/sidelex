@@ -1,11 +1,11 @@
  <?php
-require('recursos/conexion.php');
+require('../../recursos/conexion.php');
 
-$Sql = "SELECT a.Codv, a.Ciusu, a.Cicli, a.Fecha, a.Total, b.Nombre, b.Apellidos FROM venta a, cliente b WHERE a.Cicli = b.Ci AND a.Estado = 1"; 
+$Sql = "SELECT a.Codv, a.Ciusu, a.idcli, a.Fecha, a.Total, b.Nombre, b.Apellidos FROM venta a, cliente b WHERE a.idcli = b.id AND a.Estado = 1"; 
 $Busq = $conexion->query($Sql); 
 while($arr = $Busq->fetch_array()) 
     { 
-        $fila[] = array('codv'=>$arr['Codv'], 'usuario'=>$arr['Ciusu'], 'cliente'=>$arr['Cicli'], 'nombrecli'=>$arr['Nombre'], 'apcli'=>$arr['Apellidos'], 'fecha'=>$arr['Fecha'], 'total'=>$arr['Total']); 
+        $fila[] = array('codv'=>$arr['Codv'], 'usuario'=>$arr['Ciusu'], 'cliente'=>$arr['idcli'], 'nombrecli'=>$arr['Nombre'], 'apcli'=>$arr['Apellidos'], 'fecha'=>$arr['Fecha'], 'total'=>$arr['Total']); 
     } 
 
 $Sql2 = "SELECT a.Codv, a.Codpla, a.Cantidad, a.Precio, b.Nombre FROM det_plato a, plato b WHERE a.Codpla = b.Codpla;";
@@ -16,8 +16,6 @@ $fila2[] = array('cod'=>$arr2['Codv'], 'codpla'=>$arr2['Codpla'], 'cant'=>$arr2[
 }
 
 ?>
-
-
 
 
 <style>
@@ -35,8 +33,8 @@ border: 1px solid black;
 }
 
 #modal2{
-width: 40%;
-overflow-x: hidden;
+/*width: 40%;
+overflow-x: hidden;*/
 }
 </style>
 
@@ -63,7 +61,7 @@ overflow-x: hidden;
         <td align="center"><?php echo $valor["codv"] ?></td>
         <td align="center"><?php echo $valor["usuario"] ?></td>
         <td align="center"><?php echo $valor["cliente"] ?></td>
-        <td align="center"><?php echo $valor["total"] ?></td>
+        <td align="center"><?php echo $valor["total"] ?> Bs.</td>
         <td align="center"><?php echo $valor["fecha"] ?></td>
         <td align="center"><a href="#" class="btn-floating" onclick="ver_ped('<?php echo $valor['codv'] ?>','<?php echo $valor["cliente"] ?>','<?php echo $valor['nombrecli'] ?>', '<?php echo $valor['apcli'] ?>');"><i class="material-icons-outlined">search</i></a></td>
      </tr>
@@ -93,17 +91,13 @@ overflow-x: hidden;
         <td>2</td>
         <td>3</td>
       </tr>
-    </table>
-
-    <div class="container"><b><p id="total_ped" class="right"></p></b></div>
+    </table><br>  
+    <div class="container"><b><span id="total_ped" class="right"></span></b></div>
   </div>
-<br>
-<div class="row">
-  <div class="modal-footer col s12">
+
+  <div class="modal-footer">
     <a href="#!" class="right modal-action modal-close waves-effect waves-light btn-large">Aceptar</a>
   </div>
-</div>
-
 </div>
 
 
@@ -119,8 +113,8 @@ $( "#nv_venta" ).click(function() {
 });
 
 
-function ver_ped(cod, cicli, nombrecli, apcli) {
-    $("#__ci").html("<b>Cédula: </b>"+cicli);
+function ver_ped(cod, idcli, nombrecli, apcli) {
+  $("#__ci").html("<b>Cédula: </b>"+idcli);
   $("#__cli").html("<b>Cliente: </b>"+nombrecli+" "+apcli);
 
 

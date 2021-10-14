@@ -12,7 +12,7 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 
 <style>
 	body{
-		font-family: 'Segoe UI Light';
+		/*font-family: 'Segoe UI Light';*/
 		background-color: #74b9ff;
 	}
 	.textrev{
@@ -41,11 +41,11 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 		</div>
 	</div>
 </div> -->
-<div class="row" >
+<div class="row roboto" >
 	<div class="col s12 m12 l8 offset-l2">
 		<h5><span id="actped"></span><br>
 		<span id="fecha_ped"></span><br>
-		<span id="totped"></span>
+		
 		</h5>
 	</div>
 	<div class="col s12 m12 l8 offset-l2">
@@ -58,11 +58,9 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-
-				</tr>
 			</tbody>
 		</table>
+		<span class="right" id="totped"></span>
 	</div>
 </div>
 <!-- Modal cancelar_pedido -->
@@ -98,7 +96,7 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 			
 				if (echo == "sinpedidos") {
 					$('#actped').css('color', 'red');
-					$('#actped').html("No tienes pedidos activos");
+					$('#actped').html("<b>No tienes pedidos activos</b>");
 					$('#totped').html("");
 					$('#fecha_ped').html("");
 					$("#boton-cancelar").html("");
@@ -106,17 +104,17 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 
 				if (arr[3] == "PENDIENTE") {
 					$('#actped').css('color', 'yellow');
-					$('#actped').html('Tienes 1 pedido pendiente, tu pedido aun no ha sido aceptado.');
-					$('#totped').html('Total: '+arr[0]+'Bs.');
-					$('#fecha_ped').html('Fecha: '+arr[1]);
+					$('#actped').html('<b>Tienes 1 pedido pendiente, tu pedido aun no ha sido aceptado.</b>');
+					$('#totped').html('<b>Total:</b> '+arr[0]+'Bs.');
+					$('#fecha_ped').html('<b>Fecha:</b> '+arr[1]);
 					$("#boton-cancelar").html("<a class='btn-large red' onclick='cancelar_pedido("+arr[2]+")'>CANCELAR MI PEDIDO</a>");
 					tabla_llenar(arr[2]);
 				}
 				if (arr[3] == "ACEPTADO"){
 					$('#actped').css('color', '#00ff00');
-					$('#actped').html('Tu pedido ha sido aceptado, y enviado.');
-					$('#totped').html('Total: '+arr[0]+'Bs.');
-					$('#fecha_ped').html('Fecha: '+arr[1]);
+					$('#actped').html('<b>Tu pedido ha sido aceptado, y enviado.</b>');
+					$('#totped').html('<b>Total:</b> '+arr[0]+'Bs.');
+					$('#fecha_ped').html('<b>Fecha:</b> '+arr[1]);
 					$("#boton-cancelar").html("");
 					tabla_llenar(arr[2]);
 				}

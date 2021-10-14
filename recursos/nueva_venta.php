@@ -2,11 +2,11 @@
 require('conexion.php');
 session_start();
 
-$Sql0 = "SELECT a.Codv, a.Cicli, a.Total, b.Nombre, b.Apellidos, b.Telefono FROM venta a, cliente b WHERE a.Cicli = b.Ci;";
+$Sql0 = "SELECT a.Codv, a.idcli, a.Total, b.Nombre, b.Apellidos, b.Telefono FROM venta a, cliente b WHERE a.idcli = b.id;";
 $Busq0 = $conexion->query($Sql0);
 while($arr0 = $Busq0->fetch_array())
 {
-  $fila0[] = array('cod'=>$arr0['Codv'], 'ci_cliente'=>$arr0['Cicli'], 'total'=>$arr0['Total'], 'nombre'=>$arr0['Nombre'], 'apellidos'=>$arr0['Apellidos'], 'telf'=>$arr0['Telefono']);
+  $fila0[] = array('cod'=>$arr0['Codv'], 'ci_cliente'=>$arr0['idcli'], 'total'=>$arr0['Total'], 'nombre'=>$arr0['Nombre'], 'apellidos'=>$arr0['Apellidos'], 'telf'=>$arr0['Telefono']);
 }
 
 

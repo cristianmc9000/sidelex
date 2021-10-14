@@ -20,7 +20,7 @@ function setMapa(coords) {
 
         var map = new google.maps.Map(document.getElementById('map'),
         {
-          zoom: 17,
+          zoom: 16,
           center: {lat: coords.lat, lng: coords.lng}
         });
 
