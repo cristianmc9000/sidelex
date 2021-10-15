@@ -2,7 +2,7 @@
 require('../../recursos/conexion.php');
 
 $_SESSION['filas'] = array(); 
-$Sql = "SELECT * FROM plato"; 
+$Sql = "SELECT * FROM plato WHERE Estado = 1"; 
 $Busq = $conexion->query($Sql); 
 while($arr = $Busq->fetch_array()) 
     { 

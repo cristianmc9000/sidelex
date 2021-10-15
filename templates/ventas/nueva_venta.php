@@ -1,12 +1,12 @@
  <?php
-require('conexion.php');
+require('../../recursos/conexion.php');
 session_start();
 
 $Sql0 = "SELECT a.Codv, a.idcli, a.Total, b.Nombre, b.Apellidos, b.Telefono FROM venta a, cliente b WHERE a.idcli = b.id;";
 $Busq0 = $conexion->query($Sql0);
 while($arr0 = $Busq0->fetch_array())
 {
-  $fila0[] = array('cod'=>$arr0['Codv'], 'ci_cliente'=>$arr0['idcli'], 'total'=>$arr0['Total'], 'nombre'=>$arr0['Nombre'], 'apellidos'=>$arr0['Apellidos'], 'telf'=>$arr0['Telefono']);
+  $fila0[] = array('cod'=>$arr0['Codv'], 'idcli'=>$arr0['idcli'], 'total'=>$arr0['Total'], 'nombre'=>$arr0['Nombre'], 'apellidos'=>$arr0['Apellidos'], 'telf'=>$arr0['Telefono']);
 }
 
 
@@ -61,7 +61,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 
 <div class="row">
-  <div id="client_section" class="col s12 m4">
+<!--   <div id="client_section" class="col s12 m4">
     <form id="form_venta" action="" class="col s12">
       <h4 class="fuente">Datos de cliente</h4>
       <div class="row">
@@ -88,33 +88,37 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
       </div>
     </form>
     <button class="btn waves-effect waves-light" onclick="confirm_client()">Guardar cliente</button> 
-  </div>
-  <div id="detalle_venta" class="col s12 m7 offset-m1" hidden>
-    <h4 class="fuente">Detalle de venta</h4>
+  </div> -->
+  <div id="detalle_venta" class="col s12 m12">
+    <h4 class="fuente">Nueva venta</h4>
     <div >
       <a href="#modal_plato" class="modal-trigger btn btn-large waves-effect waves-light red"><i class="material-icons-outlined left">lunch_dining</i>Plato</a>
       <a href="#modal_bebida" class="modal-trigger btn btn-large waves-effect waves-light green"><i class="material-icons left">local_drink</i>Bebida</a>
-      <!-- <div class="col s6 center"><a class="modal-trigger" href="#modal_plato"><img src="images/plato.png" alt="Agregar Platos" class="circle responsive-img"></a></div> -->
-      <!-- <div class="col s6 center"><a id="modal_trigger_bebida" href="#modal_bebida"><img src="images/bebida.png" alt="Agregar Bebidas" class="circle responsive-img"></a></div> -->
     </div>
     <div >
-        <table border="1" id="ventas_agregadas">
-          <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Borrar</th>
-          </tr>
+        <table border="1" class="content-table" id="ventas_agregadas">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Borrar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr></tr>
+          </tbody>
         </table>
         <hr>
         <div class="row" align="right">
           <div class="col m4 offset-m6 s3 offset-s7">
-            Total: <label id="total_ped">0.00 Bs</label>
+            Total: <span id="total_ped">0.00 Bs</span>
+            <input type="text" id="subtotal" hidden>
           </div>
         </div>
     </div>
     <div class="col s3 offset-s4">
-      <button type="submit" form="form_venta" class="waves-effect waves-light btn-large"><i class="material-icons right">shopping_cart</i>Registrar</button>
+      <button class="waves-effect waves-light btn-large" onclick="reg_venta()"><i class="material-icons right">shopping_cart</i>Registrar</button>
     </div>
   </div>
 </div>
@@ -233,7 +237,7 @@ var total = 0;
 var mensaje = $("#mensaje");
 mensaje.hide();
 $( "#regresar" ).click(function() {
-  $("#cuerpo").load("ventas.php");
+  $("#cuerpo").load("templates/ventas/ventas.php");
 });
 
 $('#tabla_platos').dataTable({
@@ -258,7 +262,7 @@ function agregar_fila_plato() {
       var cp = $("#__datosp").attr("cp");
       var np = $("#__datosp").attr("np");
       var pp = $("#__datosp").attr("pp");
-      var fp = $("#__datosp").attr("fp");
+      // var fp = $("#__datosp").attr("fp");
       var cantp = $("#__cantidad").val();
       if (parseInt(cantp) > 35 || cantp == "") {M.toast({html: "El pedido no puede superar las 35 unidades"})}
         else{
@@ -266,30 +270,35 @@ function agregar_fila_plato() {
       else{
         pp = parseInt(pp)*parseInt(cantp);
         
-        reg_pedidos[cp] = [cp, np, cantp, pp, fp];
+        reg_pedidos[cp] = [cp, np, cantp, pp];
         //borrando tabla
-        $('#ventas_agregadas tr:not(:first-child)').slice(0).remove();
+        // $('#ventas_agregadas tr:not(:first-child)').slice(0).remove();
+        $('#ventas_agregadas tbody tr').empty();
         var table = $("#ventas_agregadas")[0];
         total =  0;
         //llenando tabla
         reg_pedidos.forEach(function (valor) {
-          var row = table.insertRow(1);
-          row.insertCell(0).innerHTML = "<a href='#' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
-          row.insertCell(0).innerHTML = valor[3];
-          row.insertCell(0).innerHTML = valor[2];
+          var row = table.insertRow(-1);
           row.insertCell(0).innerHTML = valor[1];
+          row.insertCell(1).innerHTML = valor[2];
+          row.insertCell(2).innerHTML = valor[3];
+          row.insertCell(3).innerHTML = "<a href='#' onclick='borr_pla("+valor[0]+")'><i class='material-icons prefix'>delete</i></a>";
+          
+          
+          
           total  = parseInt(total) + parseInt(valor[3]);
         });
         $("#total_ped").html(total +" Bs.");
-          $("#modal_cant_plato").modal('close');
-          $("#modal_plato").modal('close');
+        $("#subtotal").val(total);
+        $("#modal_cant_plato").modal('close');
+        // $("#modal_plato").modal('close');
       }}
 }
 
     function borr_pla(x) {
       delete reg_pedidos[x];
           //borrando tabla
-        $('#ventas_agregadas tr:not(:first-child)').slice(0).remove();
+        $('#ventas_agregadas tbody tr').empty();
         var table = $("#ventas_agregadas")[0];
         total =  0;
         //llenando tabla
@@ -302,102 +311,92 @@ function agregar_fila_plato() {
           total  = parseInt(total) + parseInt(valor[3]);
         });
         $("#total_ped").html(total +" Bs.");
+        $("#subtotal").val(total);
     }
 
 
 //AGREGAR VENTA A BD
-  $("#form_venta").on("submit", function(e){
-    e.preventDefault();
+  function reg_venta() {
 
-    $("#tot_ped").val(total);
-    cic=$("#ci_c").val();
-    nombrec=$("#nombre_c").val();
-    apc=$("#ap_c").val();
-    totped=$("#tot_ped").val();
-    telf=$("#telf").val();
+    // $("#tot_ped").val(total);
+    // let cic = $("#ci_c").val();
+    // let nombrec = $("#nombre_c").val();
+    // let apc = $("#ap_c").val();
+    // let totped = $("#tot_ped").val();
+    // let telf = $("#telf").val();
+
+    let bdtotal = total
 
     var x="";
     var y="";
 
+    let json_detalle = reg_pedidos.filter(Boolean)
+    json_detalle = JSON.stringify(json_detalle)
+
+    // console.log(JSON.parse(json_detalle).length)
+
     cont = 0;
-    if(reg_pedidos.length > 0){
-    reg_pedidos.forEach(function (valor) {
-    x=x+"&"+cont+"="+valor[0];
-    y=y+"&"+cont+"c="+valor[2];
-    cont++;
-    });
+    if(JSON.parse(json_detalle).length > 0){
+      // reg_pedidos.forEach(function (valor) {
+      //   x=x+"&"+cont+"="+valor[0];
+      //   y=y+"&"+cont+"c="+valor[2];
+      //   cont++;
+      // });
+      // misdatos="ci_cliente="+cic+"&nombre_cliente="+nombrec+"&ap_cliente="+apc+"&telf="+telf+"&tot_ped="+totped+x+y+"&cont="+cont;
 
-
-    misdatos="ci_cliente="+cic+"&nombre_cliente="+nombrec+"&ap_cliente="+apc+"&telf="+telf+"&tot_ped="+totped+x+y+"&cont="+cont;
-    objetoAjax=creaObjetoAjax();
-    objetoAjax.open("POST","recursos/agregar_venta.php",true);
-    objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    objetoAjax.onreadystatechange=recogeDatos;
-    objetoAjax.send(misdatos);
+      let subtotal = $("#subtotal").val()
+      $.ajax({
+        url: "recursos/ventas/agregar_venta.php?subtotal="+subtotal+"&json="+json_detalle,
+        method: "GET",
+        success: function(response) {
+          // mensaje.html(response)
+            // console.log(response)
+            if(!response.includes('error')){
+              M.toast({html: "Venta Realizada!"});
+              console.log(response)
+              obtenerElem(response);
+              // $("#cuerpo").load("templates/ventas/ventas.php");
+            }else{
+              console.log(response);
+            }
+        },
+        error: function(error) {
+            console.log(error)
+        }
+      })
     }else{
       M.toast({html: "No se ha seleccionado ningún producto..."});
     }
-  });
-  function creaObjetoAjax () {
-    var obj;
-    if (window.XMLHttpRequest) {
-      obj=new XMLHttpRequest();
-    }
-    else {
-      obj=new ActiveXObject(Microsoft.XMLHTTP);
-    }
-    return obj;
-  }
-  function recogeDatos() {
-    if (objetoAjax.readyState==4 && objetoAjax.status==200) {
-    miTexto=objetoAjax.responseText;
-      if(!miTexto.includes('error')){
-        M.toast({html: "Venta Realizada!"});
-      
-
-        obtenerElem(miTexto);
-        $("#cuerpo").load("ventas.php");
-      }else{
-        console.log(miTexto);
-      }
-
-
-    }
-  }
-
+}
 
 
 function obtenerElem(cod){
 
-
-var datos_venta = "";
-var data = {codx: cod}
-$.ajax({
-url: "recursos/dat_fyc.php",
-data: data,
-method: "post",
-success: function(response){
-  console.log(response+"-----response");
-  imprimirElemento(response);
-},
-error: function(error, data, response){
-  console.log(error)
-}
-});
-
-
-
+  var datos_venta = "";
+  var data = {codx: cod}
+  $.ajax({
+    url: "recursos/ventas/datos_fyc.php",
+    data: data,
+    method: "post",
+    success: function(response){
+      response = JSON.parse(response)
+      // console.log(response.Codv, response.idcli, response.Total, response.Nombre, response.Apellidos);
+      imprimirElemento(response);
+    },
+    error: function(error, data, response){
+      console.log(error)
+    }
+  });
 
 }
 function imprimirElemento(response){
 
-var data_fac = response.split(",")
-var cod = data_fac[0];
-
-var ci = data_fac[1]
-var nombres = data_fac[3]+" "+data_fac[4]
+// var data_fac = response.split(",")
+var cod = response.Codv;
+var ci = response.Ci;
+var nombres = response.Nombre+" "+response.Apellidos
 var usuario = "<?php echo $_SESSION['Nombre'] ; echo ' '.$_SESSION['Apellidos']; ?>"
-var total = data_fac[2]
+var total = response.Total
 
 var date = new Date();
 
@@ -423,32 +422,32 @@ var filas = "";
 
 var data = {codxv: cod}
 $.ajax({
-url: "recursos/filas_fac_ven.php",
-data: data,
-method: "post",
-success: function(response){
-  console.log(response)
-  filas = response;
-},
-error: function(error, data, response){
-  console.log(error)
-}
+  url: "recursos/ventas/filas_fac_ven.php",
+  data: data,
+  method: "post",
+  success: function(response){
+    console.log(response)
+    filas = response;
+  },
+  error: function(error, data, response){
+    console.log(error)
+  }
 });
 
 
 //ENVIO CON AJAX --
 var data = {autx: aut, llavex: llave, nitx: nit, cix: ci, fechax: fecha, montox: total, codped: cod, horax: hora}
 $.ajax({
-url: "recursos/datos_fac_ven.php",
-data: data,
-method: "post",
-success: function(response){
-  console.log(response)
-  crear_factura(nit, aut, fecha, hora, ci, nombres, filas, total, monto, response, fecha_lim, usuario);
-},
-error: function(error, data, response){
-  console.log(error)
-}
+  url: "recursos/ventas/datos_fac_ven.php",
+  data: data,
+  method: "post",
+  success: function(response){
+    console.log(response)
+    crear_factura(nit, aut, fecha, hora, ci, nombres, filas, total, monto, response, fecha_lim, usuario);
+  },
+  error: function(error, data, response){
+    console.log(error)
+  }
 });
 
 
@@ -463,17 +462,17 @@ function crear_factura(nit, aut, fecha, hora, ci, nombres, filas, total, monto, 
 let cntdo = nit+"|"+cad[1]+"|"+aut+"|"+fecha+"|"+total+"|"+cad[0]+"|"+ci+"|"+"0"
 var data = {numfac: cad[1], contenido: cntdo }
 $.ajax({
-url: "obtener_codigo.php",
-data: data,
-method: "post",
-success: function(response){
-  console.log(response)
-  crear_html(nit, cad[1], aut, fecha, hora, ci, nombres, filas, total, monto, cad[0], fecha_lim, usuario, response );
+  url: "recursos/ventas/obtener_codigo.php",
+  data: data,
+  method: "post",
+  success: function(response){
+    console.log(response)
+    crear_html(nit, cad[1], aut, fecha, hora, ci, nombres, filas, total, monto, cad[0], fecha_lim, usuario, response );
 
-},
-error: function(error){
-  console.log(error)
-}
+  },
+  error: function(error){
+    console.log(error)
+  }
 });
 
 }
@@ -537,6 +536,9 @@ var miHtml = `
   </body>
 </html> `;
 
+
+$("#cuerpo").load("templates/ventas/nueva_venta.php");
+
 var pdf = new jsPDF('p', 'pt', 'letter');
 specialElementHandlers = {
     // element with id of "bypass" - jQuery style selector
@@ -579,30 +581,28 @@ return true;
 });
 }
 
+// function buscar_cliente() {
 
+//   let ci_cliente = $("#ci_c").val();
 
-function buscar_cliente() {
-
-  let ci_cliente = $("#ci_c").val();
-
-  if(!ci_cliente){
-    M.toast({html: "Ingresa una cédula de identidad válida."});
-  }
-  else{
-    "<?php foreach($fila2 as $a  => $valor){ ?>"
-    if ("<?php echo $valor['cicli']; ?>" == ci_cliente) {
-      $("#nombre_c").val("<?php echo $valor['nombrecli'] ?>")
-      $("#ap_c").val("<?php echo $valor['apcli'] ?>")
-      $("#telf").val("<?php echo $valor['telfcli'] ?>")
-      $(".dis").attr("disabled", true);
-      return true;
-    }else{
-      $(".dis").removeAttr("disabled");
-      $(".dis").val('');
-    }
-    "<?php } ?>"
-  }
-}
+//   if(!ci_cliente){
+//     M.toast({html: "Ingresa una cédula de identidad válida."});
+//   }
+//   else{
+//     "<?php foreach($fila2 as $a  => $valor){ ?>"
+//     if ("<?php echo $valor['cicli']; ?>" == ci_cliente) {
+//       $("#nombre_c").val("<?php echo $valor['nombrecli'] ?>")
+//       $("#ap_c").val("<?php echo $valor['apcli'] ?>")
+//       $("#telf").val("<?php echo $valor['telfcli'] ?>")
+//       $(".dis").attr("disabled", true);
+//       return true;
+//     }else{
+//       $(".dis").removeAttr("disabled");
+//       $(".dis").val('');
+//     }
+//     "<?php } ?>"
+//   }
+// }
 
 
 function checkIt(evt) {

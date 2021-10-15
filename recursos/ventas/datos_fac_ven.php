@@ -1,6 +1,6 @@
 <?php 
-require('conexion.php');
-require_once('factura/CodigoControlV7.php');
+require('../conexion.php');
+require('../factura/CodigoControlV7.php');
 
 $codv = $_POST['codped']; //para bd factura
 $fecha = $_POST['fechax']; //para bd factura

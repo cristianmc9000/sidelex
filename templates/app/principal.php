@@ -4,7 +4,7 @@ session_start();
 //Pedimos el archivo que controla la duración de las sesiones
 require('recursos/sesiones.php');
 require('recursos/conexion.php');
-$Sql = "SELECT * FROM plato";
+$Sql = "SELECT * FROM plato WHERE Estado = 1";
 $Busq = $conexion->query($Sql);
 while($arr = $Busq->fetch_array())
 {
@@ -46,7 +46,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	<body>
 		<nav style="background: rgba(255, 255, 255, 0.5);">
 			<div class="nav-wrapper">
-		      <a href="#" class="brand-logo center"><img src="img/sidelex_sf.png" height="56" alt="Delicias Express"></a>
+		      <a href="#" class="brand-logo center"><img src="img/sidelex_sf.png" height="40" style="margin-top: 5px;" alt="Delicias Express"></a>
 		    </div>
 		</nav>
 		<div id="toggle_sidebar" class="get_out">

@@ -1,11 +1,11 @@
  <?php
 require('../../recursos/conexion.php');
 
-$Sql = "SELECT a.Codv, a.Ciusu, a.idcli, a.Fecha, a.Total, b.Nombre, b.Apellidos FROM venta a, cliente b WHERE a.idcli = b.id AND a.Estado = 1"; 
+$Sql = "SELECT a.Codv, a.Ciusu, b.Ci, a.idcli, a.Fecha, a.Total, b.Nombre, b.Apellidos FROM venta a, cliente b WHERE a.idcli = b.id AND a.Estado = 1"; 
 $Busq = $conexion->query($Sql); 
 while($arr = $Busq->fetch_array()) 
     { 
-        $fila[] = array('codv'=>$arr['Codv'], 'usuario'=>$arr['Ciusu'], 'cliente'=>$arr['idcli'], 'nombrecli'=>$arr['Nombre'], 'apcli'=>$arr['Apellidos'], 'fecha'=>$arr['Fecha'], 'total'=>$arr['Total']); 
+        $fila[] = array('codv'=>$arr['Codv'], 'usuario'=>$arr['Ciusu'], 'cicli'=>$arr['Ci'],'cliente'=>$arr['idcli'], 'nombrecli'=>$arr['Nombre'], 'apcli'=>$arr['Apellidos'], 'fecha'=>$arr['Fecha'], 'total'=>$arr['Total']); 
     } 
 
 $Sql2 = "SELECT a.Codv, a.Codpla, a.Cantidad, a.Precio, b.Nombre FROM det_plato a, plato b WHERE a.Codpla = b.Codpla;";
@@ -49,7 +49,7 @@ overflow-x: hidden;*/
      <tr>
         <th>Código de venta</th>
         <th>Usuario</th>
-        <th>Cliente</th>
+        <!-- <th>Cliente</th> -->
         <th>Total</th>
         <th>Fecha</th>
         <th>Acciones</th>
@@ -60,10 +60,10 @@ overflow-x: hidden;*/
      <tr>
         <td align="center"><?php echo $valor["codv"] ?></td>
         <td align="center"><?php echo $valor["usuario"] ?></td>
-        <td align="center"><?php echo $valor["cliente"] ?></td>
+        <!-- <td align="center"><?php echo $valor["cliente"] ?></td> -->
         <td align="center"><?php echo $valor["total"] ?> Bs.</td>
         <td align="center"><?php echo $valor["fecha"] ?></td>
-        <td align="center"><a href="#" class="btn-floating" onclick="ver_ped('<?php echo $valor['codv'] ?>','<?php echo $valor["cliente"] ?>','<?php echo $valor['nombrecli'] ?>', '<?php echo $valor['apcli'] ?>');"><i class="material-icons-outlined">search</i></a></td>
+        <td align="center"><a href="#" class="btn-floating" onclick="ver_ped('<?php echo $valor['codv'] ?>','<?php echo $valor["cliente"] ?>','<?php echo $valor["cicli"] ?>','<?php echo $valor['nombrecli'] ?>', '<?php echo $valor['apcli'] ?>');"><i class="material-icons-outlined">search</i></a></td>
      </tr>
      <?php } ?>	
   </tbody>
@@ -109,12 +109,12 @@ $(document).ready(function() {
     $('.modal').modal();
 });
 $( "#nv_venta" ).click(function() {
-  $("#cuerpo").load("recursos/nueva_venta.php");
+  $("#cuerpo").load("templates/ventas/nueva_venta.php");
 });
 
 
-function ver_ped(cod, idcli, nombrecli, apcli) {
-  $("#__ci").html("<b>Cédula: </b>"+idcli);
+function ver_ped(cod, idcli, cicli, nombrecli, apcli) {
+  $("#__ci").html("<b>Cédula: </b>"+cicli);
   $("#__cli").html("<b>Cliente: </b>"+nombrecli+" "+apcli);
 
 

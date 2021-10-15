@@ -37,10 +37,17 @@
 
 <body id="cuerpo">
 	<div id="section_1">
-		<div class="container">
-			<h1 class="fuente center">Ingresa tu número de celular</h1>
+		<div class="container" style="margin-top: 20%;">
+			<div class="row">
+				<div class="center">
+					<img src="img/sidelex_sf.png" alt="">
+				</div>
+			</div>
 		</div>
-		<div class="container">
+
+		<div class="container" style="margin-top: 5%">
+			<h3 class="fuente center">Ingresa tu número de celular</h3>
+
 			<div class="row">
 				<div class="col s4 m3 l2 offset-l3 xl2 offset-xl3">
 					<div class="input-field">
@@ -64,7 +71,7 @@
 			</div>
 			<div class="row">
 				<div class="center">
-					<button class="btn btn-large waves-effect waves-light orange" id="getCodeButton" ><i class="material-icons-outlined right">lock</i>Obtener código</button>
+					<button class="btn btn-large waves-effect waves-light orange" id="getCodeButton" ><i class="material-icons-outlined right">lock</i>Ingresar</button>
 				</div>
 			</div>	
 		</div>
