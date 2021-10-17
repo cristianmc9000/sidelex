@@ -118,14 +118,59 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
         </div>
     </div>
     <div class="col s3 offset-s4">
-      <button class="waves-effect waves-light btn-large" onclick="reg_venta()"><i class="material-icons right">shopping_cart</i>Registrar</button>
+      <button class="waves-effect waves-light btn-large modal-trigger" data-target="modal-cliente"><i class="material-icons right">shopping_cart</i>Registrar</button>
     </div>
   </div>
 </div>
 
+<!-- onclick="reg_venta()" -->
 
+  <!-- Modal Cliente -->
+  <div id="modal-cliente" class="modal">
+    <div class="modal-content">
+      <div class="container">
+        <h4>Registrar venta e imprimir factura:</h4><br>
+        <p>
+          <span id="reg_total"></span>
+        </p>
+        <p>
+          <label>
+            <input type="checkbox" id="datos_cliente"/>
+            <span>Registrar datos de cliente</span>
+          </label>
+        </p>
+      </div>
+      <div id="form_registro_venta" class="container" hidden>
+        <form >
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="reg_cedula" type="text" onKeyPress="return checkIt(event)" class="validate">
+              <label for="reg_cedula">Cédula de identidad (*)</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="reg_nombres" type="text" class="validate">
+              <label for="reg_nombres">Nombre (*)</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="reg_apellidos" type="text" class="validate">
+              <label for="reg_apellidos">Apellidos (*)</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="reg_telf" type="text" class="validate">
+              <label for="reg_telf">Teléfono</label>
+            </div>
 
+            <p><small class="helperx">Los campos de texto marcados con un (*) son obligatorios.</small></p>
+          </div>
+        </form>
+      </div>
 
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-light red btn-large left">Cancelar</a>
+      <button class="btn-large" onclick="reg_venta()">Confirmar</button>
+    </div>
+  </div>
 
 
 
@@ -198,11 +243,11 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
       <a href="#!" class="modal-close close right"><i class="material-icons">close</i></a>
       <div class="modal-content">
 
-        <h4>Cantidad</h4>
-
-        <div class="">
-          <input type="number" onKeyPress="return checkIt(event)" max="20" min="1" id="__cantidad" value="1" autocomplete="off">
+        <div class="number-container">
+              <label for="">Cantidad</label>
+              <input class="browser-default" onKeyPress="return checkIt(event)" autocomplete="off" type="number" id="__cantidad" min="1" max="15">
         </div>
+
         <div id="__datosplato" hidden></div>
       </div>
       <div class="modal-footer">
@@ -220,7 +265,26 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
  
   $(document).ready(function() {
      $('.modal').modal();
+     $('input[type="number"]').niceNumber({
+      autoSize: true,
+      autoSizeBuffer: 1,
+      buttonDecrement: "-",
+      buttonIncrement: "+",
+      buttonPosition: 'around'
+    });
   });
+
+$("#datos_cliente").click(function () {
+
+  if (!$('#datos_cliente').is(":checked")){
+    document.getElementById('form_registro_venta').hidden = true
+  }else{
+    document.getElementById('form_registro_venta').hidden = false
+  }
+
+  
+
+})
 
 function confirm_client() {
   let nombre = $("#nombre_c").val()
@@ -325,6 +389,17 @@ function agregar_fila_plato() {
     // let totped = $("#tot_ped").val();
     // let telf = $("#telf").val();
 
+    let datos_cli = "";
+    if ($('#datos_cliente').is(":checked")) {
+      let reg_cedula = $("#reg_cedula").val()
+      let reg_nombres = $("#reg_nombres").val();
+      let reg_apellidos = $("#reg_apellidos").val();
+      datos_cli = "&ci="+reg_cedula+"&nombre="+reg_nombres+"&apellidos="+reg_apellidos;
+      // console.log(reg_cedula, reg_nombres, reg_apellidos)
+      if (reg_cedula.length < 6 || reg_nombres.length < 5 || reg_apellidos < 5) {
+        return M.toast({html: 'Ingrese datos válidos.'})
+      }
+    }
     let bdtotal = total
 
     var x="";
@@ -335,7 +410,7 @@ function agregar_fila_plato() {
 
     // console.log(JSON.parse(json_detalle).length)
 
-    cont = 0;
+    // cont = 0;
     if(JSON.parse(json_detalle).length > 0){
       // reg_pedidos.forEach(function (valor) {
       //   x=x+"&"+cont+"="+valor[0];
@@ -346,7 +421,7 @@ function agregar_fila_plato() {
 
       let subtotal = $("#subtotal").val()
       $.ajax({
-        url: "recursos/ventas/agregar_venta.php?subtotal="+subtotal+"&json="+json_detalle,
+        url: "recursos/ventas/agregar_venta.php?subtotal="+subtotal+"&json="+json_detalle+datos_cli,
         method: "GET",
         success: function(response) {
           // mensaje.html(response)

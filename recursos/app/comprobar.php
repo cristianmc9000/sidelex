@@ -8,6 +8,10 @@ $telf = "+".$telf;
 $result = $conexion->query("SELECT * FROM cliente WHERE Telefono = ".$telf);
 $res = $result->fetch_assoc();
 
+if ($res['Estado'] == '0') {
+	die('ban');
+}
+
 if(mysqli_num_rows($result) > 0){
 	session_start();
 	$_SESSION['id_cliente'] = $res['id'];	

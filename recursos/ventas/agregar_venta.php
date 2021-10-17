@@ -10,9 +10,39 @@ $json = json_decode($_GET['json']);
 
 // die(var_dump(json_decode($json)));
 
-// $ci = $_POST['ci_cliente'];
-// $nombre = $_POST['nombre_cliente'];
-// $ap = $_POST['ap_cliente'];
+$ci = $_GET['ci']; //DEBE UTULIZARSE EL ID NO EL CI
+$nombre = $_GET['nombre'];
+$apellidos = $_GET['apellidos'];
+
+// die(empty($_GET['ci']).'--'.empty($nombre).'--'.empty($apellidos));
+
+$id = 1;
+if(!empty($_GET['ci'])){
+	// $ci = '1';
+	$result = $conexion->query("SELECT * FROM cliente WHERE Ci = ".$ci);
+	$rows = (int)mysqli_num_rows($result);
+	if ((int)$rows < 1) {
+		$insertar_cli = $conexion->query("INSERT INTO cliente (Ci, Nombre, Apellidos) VALUES (".$ci.", '".$nombre."', '".$apellidos."')");
+		if ($insertar_cli == 1) {+
+			$id = mysqli_insert_id($conexion);
+		}else{
+			die(mysqli_error($conexion));
+		}
+	}else{
+		$update = $conexion->query('UPDATE cliente SET Nombre = "'.$nombre.'", Apellidos = "'.$apellidos.'" WHERE Ci = '.$ci);
+		if ($update == 1) {
+			$res = $conexion->query("SELECT id FROM cliente WHERE Ci = ".$ci);
+			$res = mysqli_fetch_assoc($res);
+			$id = $res['id'];
+		}else{
+			die(mysqli_error($conexion));
+		}
+		
+	}
+	// die($result['Ci'].','.$result['Nombre'].'-'.$result['Apellidos']);
+}
+
+
 // $telf = $_POST['telf'];
 // $total = $_POST['tot_ped'];
 // $cont = $_POST['cont'];
@@ -28,8 +58,8 @@ $json = json_decode($_GET['json']);
 //  	die('<script>Materialize.toast("El número de cédula no coincide con el nombre y apellidos." , 4000);</script>');
 // }
 
-
-$consulta = "INSERT INTO venta(Ciusu, idcli, Total) VALUES(".$ciusu.", '1', ".$total.")";
+//DEBE UTILIZARSE EL ID PARA LA INSERCION NO EL CI...
+$consulta = "INSERT INTO venta(Ciusu, idcli, Total) VALUES(".$ciusu.", ".$id.", ".$total.")";
 	if(mysqli_query($conexion, $consulta)){
 
 		// $cOC = "SELECT MAX(Codv) as codv FROM venta WHERE Cicli = '".$ci."' AND Estado = 1";

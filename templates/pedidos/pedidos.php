@@ -21,6 +21,13 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 }
 ?>
 
+<style>
+  .btn-bloquear_cliente{
+    position: absolute;
+    top: 15%;
+    right: 5%;
+  }
+</style>
 <div class="Rubik">
 
 <span><h3>Pedidos
@@ -67,11 +74,16 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 
     <h4 class="center"><b>Ver pedido</b></h4>
+    <input type="text" id="__idcli" hidden>
     <p class="marginless" id="__telf"></p>
     <p class="marginless" id="__ci"></p>
     <p class="marginless" id="__cli"></p>
     <p class="marginless" id="__dir"></p>
     
+    <div class="btn-bloquear_cliente">
+      <a href="#modal_confirmar_bloqueo" id="bloquear_cliente" class="btn-large waves-effect red waves-light modal-trigger">BLOQUEAR CLIENTE</a>
+    </div>
+
     <h5 class="">Detalle del pedido:</h5>
     <table id="tab_det" class="content-table" >
       <thead>
@@ -113,6 +125,23 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
   </div>
 </div>
 
+<div id="modal_confirmar_bloqueo" class="modal">
+
+  <div class="modal-content">
+    <h5>Se procederá a bloquear al cliente del servicio:</h5>
+    <p>El cliente no podrá realizar pedidos mediante la aplicación web.</p>
+
+    <p id="block_ci"></p>
+    <p id="block_name"></p>
+    <p id="block_telf"></p>
+  </div>
+
+  <div class="modal-footer">
+    <a href="#!" class="left modal-action modal-close waves-effect waves-light btn red">Cancelar</a>
+    <button class="waves-effect waves-light btn right" onclick="confirmar_bloqueo()">Confirmar</button>
+  </div>
+</div>
+
 </div>
 <!-- Mensaje -->
 <div id="mensaje"></div>
@@ -125,6 +154,10 @@ $(document).ready(function() {
   $('.modal').modal();
 
 });
+
+var mensaje = $("#mensaje");
+mensaje.hide();
+
 
 function initMap() {
   const myLatLng = { lat: parseFloat($("#__lat").val()), lng: parseFloat($("#__lng").val())};
@@ -140,11 +173,31 @@ function initMap() {
   });
 }
 
+function confirmar_bloqueo() {
+  let idcli = $("#__idcli").val();
+  $.ajax({
+    url: "recursos/pedidos/bloquear_cliente.php?idcli="+idcli,
+    method: "get",
+    success: function(response){
+      if (response == '1') {
+        M.toast({html: 'Cliente bloqueado del servicio.'})
+        $("#modal_confirmar_bloqueo").modal('close')
+      }
+    },
+    error: function(error, data, response){
+      console.log(error)
+    }
+  });
 
-var mensaje = $("#mensaje");
-mensaje.hide();
+}
 
 function vped(cod, cliente, cedula, lat, lng, nombre, apellidos, direccion, telf) {
+  $("#__idcli").val(cliente);
+
+  $("#block_ci").html('<b>Cédula de identidad:</b> '+cedula)
+  $("#block_name").html('<b>Nombre y apellidos:</b> '+nombre+' '+apellidos)
+  $("#block_telf").html('<b>Teléfono:</b> '+telf)
+
   $("#__ci").html("<b>Cédula: </b>"+cedula);
   $("#__telf").html("<b>Teléfono: </b>"+telf);
   $("#__cli").html("<b>Nombres: </b>"+nombre+" "+apellidos);
@@ -250,16 +303,16 @@ function imprimirElemento(cod){
 
   var data = {autx: aut, llavex: llave, nitx: nit, cix: ci, fechax: fecha, montox: total, codped: cod, horax: hora}
   $.ajax({
-  url: "recursos/pedidos/datos_fac.php",
-  data: data,
-  method: "post",
-  success: function(response){
-    // console.log(response)
-    crear_factura(nit, aut, fecha, hora, ci, nombres, filas, total, monto, response, fecha_lim, usuario);
-  },
-  error: function(error, data, response){
-    console.log(error)
-  }
+    url: "recursos/pedidos/datos_fac.php",
+    data: data,
+    method: "post",
+    success: function(response){
+      // console.log(response)
+      crear_factura(nit, aut, fecha, hora, ci, nombres, filas, total, monto, response, fecha_lim, usuario);
+    },
+    error: function(error, data, response){
+      console.log(error)
+    }
   });
 
 

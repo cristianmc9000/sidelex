@@ -28,6 +28,7 @@ $Busq = $conexion->query($Sql);
     <link rel="stylesheet" type="text/css" href="css/datatable.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" type="text/css" href="css/style_sys.css">
+    <link rel="stylesheet" href="css/jquery.nice-number.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="css/materialize.css"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
@@ -42,6 +43,8 @@ $Busq = $conexion->query($Sql);
     <script type="text/javascript" src="js/vfs_fonts.js"></script>
     <script src="js/num2text.js"></script>
     <script src="js/jsPDF.min.js"></script>
+    <script src="js/jquery.nice-number.js"></script>
+    
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0x9mkyg_9x41m82iSIQvJ8M9vo7fXm4">
     </script>

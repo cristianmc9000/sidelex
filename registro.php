@@ -37,7 +37,7 @@
 
 <body id="cuerpo">
 	<div id="section_1">
-		<div class="container" style="margin-top: 20%;">
+		<div class="container" style="margin-top: 10%;">
 			<div class="row">
 				<div class="center">
 					<img src="img/sidelex_sf.png" alt="">
@@ -166,6 +166,10 @@
             method: "GET",
             success: function(response) {
             	console.log(response+" <----- Respuesta de comprobar.php")
+            	if (response == 'ban') {
+            		return M.toast({html: 'El número ingresado está bloqueado del servicio.'})
+            	}
+
                 if (response == 1) {
                 	// existe = true
                 	$("#existe").val('true')

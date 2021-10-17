@@ -414,22 +414,26 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		let json_detalle = reg_pedidos.filter(Boolean)
 		json_detalle = JSON.stringify(json_detalle)
 
-	    $.ajax({
-            url: "recursos/app/nuevo_pedido.php?telf="+telf+"&dir="+dir+"&subtotal="+subtotal+"&colat="+colat+"&colng="+colng+"&json="+json_detalle,
-            method: "GET",
-            success: function(response) {
-            	mensaje.html(response)
-                console.log(response)
-                if (response == true) {
-                	M.toast({html:'<span style="color: #2ecc71">Pedido realizado, puedes ver tu pedido en la sección de Mi pedido</span>', displayLength: 8000, classes: 'rounded'})
-                	$("#modal_ubi").modal('close')
-                	regresar_prod()
-                }
-            },
-            error: function(error) {
-                console.log(error)
-            }
-	    })
+		if(JSON.parse(json_detalle).length > 0){
+		    $.ajax({
+	            url: "recursos/app/nuevo_pedido.php?telf="+telf+"&dir="+dir+"&subtotal="+subtotal+"&colat="+colat+"&colng="+colng+"&json="+json_detalle,
+	            method: "GET",
+	            success: function(response) {
+	            	mensaje.html(response)
+	                console.log(response)
+	                if (response == true) {
+	                	M.toast({html:'<span style="color: #2ecc71">Pedido realizado, puedes ver tu pedido en la sección de Mi pedido</span>', displayLength: 8000, classes: 'rounded'})
+	                	$("#modal_ubi").modal('close')
+	                	regresar_prod()
+	                }
+	            },
+	            error: function(error) {
+	                console.log(error)
+	            }
+		    })
+		}else{
+			M.toast({html: "No se ha seleccionado ningún producto..."});
+		}
 	})
 
 	function sidenav_navi(link) {
