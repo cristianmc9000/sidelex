@@ -32,7 +32,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 <span><h3>Pedidos
   <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn-floating btn-large red" id="modal" href="#modal1"><i class="material-icons left">add</i></a></h3>
+  <!-- <a class="waves-effect waves-light btn-floating btn-large red" id="modal" href="#modal1"><i class="material-icons left">add</i></a> --></h3>
 </span>
 <div class="row">
   <div class="col s12 m12">
@@ -57,16 +57,36 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
           <td align="center"><?php echo $valor["fecha"] ?></td>
           <td align="center"><?php echo $valor["total"] ?></td>
-          <td align="center"><?php if ($valor["estado"] == 1) { ?> Pendiente <?php }else{ ?> Enviado <?php } ?></td>
-          <td class="center"><a onclick="" class="btn-floating modal-trigger"><i class="material-icons">build</i></a>
-          <a href="#modal2" class="btn-floating modal-trigger"><i class="material-icons">delete</i></a>
-          <a onclick="vped('<?php echo $valor["cod"]?>', '<?php echo $valor["cliente"]?>', '<?php echo $valor["cedula"]?>', '<?php echo $valor["lat"]?>', '<?php echo $valor["lng"]?>','<?php echo $valor["nombre"]?>', '<?php echo $valor["apellidos"]?>', '<?php echo $valor["direccion"]?>','<?php echo $valor["telf"]?>');"  class="btn-floating"><i class="material-icons">search</i></a></td>
+          <td align="center">
+            <?php if ($valor["estado"] == 1) { ?> Pendiente <?php }else{if ($valor["estado"] == 2) { ?> Rechazado <?php }else{ ?> Enviado <?php }} ?>
+          </td>
+          <td class="center">
+            <!-- <a onclick="" class="btn-floating modal-trigger"><i class="material-icons">build</i></a> -->
+            <a href="#!" onclick="eliminar_pedido('<?php echo $valor["cod"]?>')" class="btn-floating modal-trigger"><i class="material-icons">delete</i></a>
+            <a onclick="vped('<?php echo $valor["cod"]?>', '<?php echo $valor["cliente"]?>', '<?php echo $valor["cedula"]?>', '<?php echo $valor["lat"]?>', '<?php echo $valor["lng"]?>','<?php echo $valor["nombre"]?>', '<?php echo $valor["apellidos"]?>', '<?php echo $valor["direccion"]?>','<?php echo $valor["telf"]?>');"  class="btn-floating"><i class="material-icons">search</i></a>
+          </td>
         </tr>
         <?php } ?>
       </tbody>
     </table>
   </div>
 </div>
+
+<!-- MODAL eliminar pedido -->
+<div id="modal_elimped" class="modal">
+
+  <div class="modal-content">
+    <input type="text" id="id_ped" hidden>
+
+  </div>
+
+  <div class="modal-footer">
+    <a href="#!" class="left modal-action modal-close waves-effect waves-light btn red">Cancelar</a>
+    <button class="waves-effect waves-light btn right" id="elimped">Confirmar</button>
+  </div>
+</div>
+
+
 <!-- Modal Ver Pedidos -->
 <div id="modal2" class="modal modal-fixed-footer">
 
@@ -172,6 +192,30 @@ function initMap() {
     // title: "Hello World!",
   });
 }
+
+function eliminar_pedido(id) {
+  $("#id_ped").val(id);
+  $("#modal_elimped").modal('open');
+}
+$("#elimped").click(function (argument) {
+  let id = $("#id_ped").val();
+  $.ajax({
+    url: "recursos/pedidos/eliminar_pedido.php?id="+id,
+    method: "get",
+    success: function(response){
+      if (response == '1') {
+        M.toast({html: 'Pedido eliminado.'})
+        $("#modal_elimped").modal('close')
+        $("#cuerpo").load("templates/pedidos/pedidos.php");
+      }
+    },
+    error: function(error, data, response){
+      console.log(error)
+    }
+  });
+})
+
+
 
 function confirmar_bloqueo() {
   let idcli = $("#__idcli").val();

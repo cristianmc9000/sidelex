@@ -106,7 +106,9 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
             </tr>
           </thead>
           <tbody>
-            <tr></tr>
+            <tr >
+              <td colspan = "4">No se ha seleccionado ningún producto...</td>
+            </tr>
           </tbody>
         </table>
         <hr>

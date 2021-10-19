@@ -26,3 +26,7 @@ $consulta = "INSERT INTO venta(Ciusu, idcli, Fecha, Total, Codped ) SELECT b.Ci,
 	die('already');
 }
 ?>
+
+<!-- 1: PEDIDO PENDIENTE -->
+<!-- 0: PEDIDO ACEPTADO -->
+<!-- 2: PEDIDO RECHAZADO -->

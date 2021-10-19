@@ -25,7 +25,7 @@ if($result == 1){
 	// $_SESSION['Nombre'] = $datosNA['Nombre'];
 	// $_SESSION['Apellidos'] = $datosNA['Apellidos'];
 
-	$_SESSION['id_cliente'] = mysql_insert_id($conexion); 
+	$_SESSION['id_cliente'] = mysqli_insert_id($conexion); 
 	$_SESSION['estado_app'] = 'Autenticado';
 	$_SESSION['telf'] = $telf;
 

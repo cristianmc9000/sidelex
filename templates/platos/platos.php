@@ -67,7 +67,7 @@ while($arr = $Busq->fetch_array())
     </div>
 
     <div class="modal-footer">
-      <button class="btn waves-effect waves-light right" form="form_nuevo_plato" type="submit" name="acceso">Agregar</button>
+      <button class="btn waves-effect waves-light right" form="form_nuevo_plato" type="submit" name="acceso">Guardar</button>
       <a href="#!" class=" modal-action modal-close waves-effect waves-red btn red left">Cancelar</a>
     </div>
       

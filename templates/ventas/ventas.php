@@ -63,7 +63,10 @@ overflow-x: hidden;*/
         <!-- <td align="center"><?php echo $valor["cliente"] ?></td> -->
         <td align="center"><?php echo $valor["total"] ?> Bs.</td>
         <td align="center"><?php echo $valor["fecha"] ?></td>
-        <td align="center"><a href="#" class="btn-floating" onclick="ver_ped('<?php echo $valor['codv'] ?>','<?php echo $valor["cliente"] ?>','<?php echo $valor["cicli"] ?>','<?php echo $valor['nombrecli'] ?>', '<?php echo $valor['apcli'] ?>');"><i class="material-icons-outlined">search</i></a></td>
+        <td align="center">
+          <a href="#!" class="btn-floating"><i class="material-icons">delete</i></a>
+          <a href="#" class="btn-floating" onclick="ver_ped('<?php echo $valor['codv'] ?>','<?php echo $valor["cliente"] ?>','<?php echo $valor["cicli"] ?>','<?php echo $valor['nombrecli'] ?>', '<?php echo $valor['apcli'] ?>');"><i class="material-icons">search</i></a>
+        </td>
      </tr>
      <?php } ?>	
   </tbody>
@@ -75,7 +78,7 @@ overflow-x: hidden;*/
 <div id="modal2" class="modal">
 
   <div class="modal-content">
-    <h4 class="center"><b>Ver Venta</b></h4>
+    <h4 class="center"><b>Ver venta</b></h4>
     <h5><p id="__ci"></p></h5>
     <h5><p id="__cli"></p></h5>
     <!-- <h5><p id="__telf"></p></h5> -->
