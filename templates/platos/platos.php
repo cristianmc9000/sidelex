@@ -51,15 +51,15 @@ while($arr = $Busq->fetch_array())
 
         <div class="input-field col s7">
           <input id="nombre" name="nombre" type="text" class="validate" required>
-          <label for="nombre">Nombre del plato</label>
+          <label for="nombre">Nombre del plato (*)</label>
         </div>
         <div class="input-field col s3 offset-s1">
           <input id="precio" name="precio" type="number" onkeypress="return check(event)" class="validate" required>
-          <label for="precio">Precio</label>
+          <label for="precio">Precio (*)</label>
         </div>
         <div class="input-field col s11">
           <input id="descripcion" name="descripcion" type="text" class="validate" required>
-          <label for="descripcion">Descripción</label>
+          <label for="descripcion">Descripción </label>
         </div>
 
 

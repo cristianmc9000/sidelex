@@ -41,6 +41,13 @@
     font-feature-settings: 'liga';
 }
 
+.btn-cancelar{
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
 
 
 .content-table{
@@ -164,6 +171,15 @@ img {
     font-size: 1em;
 }
 @media (max-width: 600px) {
+    .btn-cancelar{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100% !important;
+        -ms-transform: none;
+        transform: none;
+    }
+
     .titulo {
         font-size: 40px;
     }
@@ -189,6 +205,11 @@ img {
         left: 0;
         min-width: 100vw;
         /*min-height: 100vh;*/
+    }
+    #modal_cancelar_pedido{
+        left: 0;
+        min-width: 100vw;
+        /*min-height: 50%;*/
     }
 
 }

@@ -151,9 +151,6 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 				<a class="waves-effect waves-light btn btn-large modal-trigger" id="mod_ubi" href="#modal_ubi">PEDIR!</a>
 			</div>
 		</div>
-
-		<!-- Modal pedidos -->
-		<!-- <div class="row"> class de modal 2 = col s12 m12 l6 offset-l3 fondo_negro_pedidos scr  -->
 			<div id="modal2" class="modal ">
 				<div id="modal_pedidos" class="modal-content row">
 					<div class="col s12" id="cont_foto">
@@ -164,26 +161,11 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 						<h5 id="precio_p"> </h5>
 					</div>
 					<div class="col s4">
-<!-- 						<div class="input-field">
-							<input id="__cantidad" type="number" value="1" min="1" max="10" required>
-							<label for="__cantidad">Cantidad</label>
-						</div> -->
-
 						<div class="number-container">
 							<label for="">Cantidad</label>
 							<input class="browser-default" type="number" name="" id="__cantidad" min="1" max="15" disabled>
 						</div>
-
-
 					</div>
-
-
-<!-- 				  <form action="#">
-				    <p class="range-field">
-				      <input type="range" id="test5" min="0" max="100" />
-				    </p>
-				  </form> -->
-					
 				</div>
 				<div id="__datosplato" hidden></div>
 				<hr>
@@ -192,8 +174,6 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 					<a class="waves-effect waves-light btn btn-large right" onclick="datos_plato();" >Agregar<i class="material-icons right">add_shopping_cart</i></a>
 				</div>
 			</div>
-		<!-- </div> -->
-		<!-- Google Maps -->
 
 			<form id="form_pedido" hidden> <!-- onKeyPress="return checkIt(event)" SOLO NÚMEROS -->
 				<input type="text" id="coordLat" name="coordLat" >

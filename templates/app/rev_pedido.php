@@ -35,21 +35,19 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 			<div class="col s2 offset-s1"><button id="envio_form" class="btn-large waves-effect waves-light right" type="submit" name="acceso"><i class="material-icons">search</i></button></div>
 		</div>
 	</form>
-	<div class="row">
-		<div class="col s3 offset-s5" id="boton-cancelar">
-			<a class="btn-large red">CANCELAR MI PEDIDO</a>
-		</div>
-	</div>
+	
 </div> -->
+	
+
 <div class="row roboto" >
-	<div class="col s12 m12 l8 offset-l2">
+	<div class="col s12">
 		<h5><span id="actped"></span><br>
 		<span id="fecha_ped"></span><br>
 		
 		</h5>
 	</div>
-	<div class="col s12 m12 l8 offset-l2">
-		<table id="pedidos_cliente">
+	<div class="col s12 m12 l12">
+		<table id="pedidos_cliente" class="content-table">
 			<thead>
 				<tr>
 					<th>PRODUCTO</th>
@@ -58,24 +56,30 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<td colspan="3">Sin pedidos activos...</td>
+				</tr>
 			</tbody>
 		</table>
 		<span class="right" id="totped"></span>
 	</div>
+
+
 </div>
+
+
+<a class="btn-large red btn-cancelar" id="boton-cancelar">CANCELAR MI PEDIDO</a>
+
 <!-- Modal cancelar_pedido -->
 <div class="row">
-	<div id="modal_cancelar_pedido" class="modal modal_ancho">
+	<div id="modal_cancelar_pedido" class="modal">
 		<div id="cont_cancelar_pedido" class="modal-content">
 			<p><h4>Se cancelará su pedido.</h4></p>
-			<p><b>Cliente: <span id="nombre_cancelar"></span></b></p>
-			<form id="form_codped">
-				<input type="text" value="" name="cod_pedido" id="codigo_ped_text" hidden>
-			</form>
+			<input type="text" id="codigo_ped" hidden>
 		</div>
-		<div class="modal-footer row">
-			<a href="#!" class="modal-action modal-close waves-effect waves-red btn-large green left">Cerrar</a>
-			<a href="#!" class="waves-effect waves-red btn-large red right" onclick="confirmar_cancel()">Confirmar</a>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-light btn-large green left">Cerrar</a>
+			<a href="#!" class="waves-effect waves-light btn-large red right" onclick="confirmar_cancel()">Confirmar</a>
 		</div>
 	</div>
 </div>
@@ -84,8 +88,8 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 <script>
 	var mensaje = $("#mensaje");
 	mensaje.hide();
-
 	$(document).ready(function() {
+		$(".modal").modal();
 	    $.ajax({
             url: "recursos/app/ver_pedido.php",
             // method: "GET",
@@ -93,29 +97,33 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
             	// mensaje.html(echo)
                 console.log(echo)
 				var arr = echo.split(",");
-			
+				
 				if (echo == "sinpedidos") {
 					$('#actped').css('color', 'red');
 					$('#actped').html("<b>No tienes pedidos activos</b>");
 					$('#totped').html("");
 					$('#fecha_ped').html("");
-					$("#boton-cancelar").html("");
+					$("#boton-cancelar").hide();
+					// document.getElementById("boton-cancelar").hidden = true;
 				}
 
 				if (arr[3] == "PENDIENTE") {
-					$('#actped').css('color', 'yellow');
+					$('#actped').css('color', '#f6e58d');
 					$('#actped').html('<b>Tienes 1 pedido pendiente, tu pedido aun no ha sido aceptado.</b>');
 					$('#totped').html('<b>Total:</b> '+arr[0]+'Bs.');
 					$('#fecha_ped').html('<b>Fecha:</b> '+arr[1]);
-					$("#boton-cancelar").html("<a class='btn-large red' onclick='cancelar_pedido("+arr[2]+")'>CANCELAR MI PEDIDO</a>");
+					// $("#boton-cancelar").html("<a class='btn-large red' onclick='cancelar_pedido("+arr[2]+")'>CANCELAR MI PEDIDO</a>");
+					$("#boton-cancelar").show();
+					$("#boton-cancelar").attr("onclick","cancelar_pedido("+arr[2]+")");
 					tabla_llenar(arr[2]);
 				}
 				if (arr[3] == "ACEPTADO"){
-					$('#actped').css('color', '#00ff00');
+					$('#actped').css('color', '#329f21');
 					$('#actped').html('<b>Tu pedido ha sido aceptado, y enviado.</b>');
 					$('#totped').html('<b>Total:</b> '+arr[0]+'Bs.');
 					$('#fecha_ped').html('<b>Fecha:</b> '+arr[1]);
-					$("#boton-cancelar").html("");
+					// $("#boton-cancelar").html("");
+					$("#boton-cancelar").hide();
 					tabla_llenar(arr[2]);
 				}
             },
@@ -123,60 +131,55 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
                 console.log(error)
             }
 	    })
+
 	});
 
 		
 
 	function tabla_llenar (cod){
-		$('#pedidos_cliente tr:not(:first-child)').slice(0).remove();
-		var table = $("#pedidos_cliente")[0];
+		$("#pedidos_cliente tbody").html("")
+		var table = $("#pedidos_cliente tbody")[0];
+
 		"<?php foreach($fila as $a  => $valor){ ?>";
-		if(cod == "<?php echo $valor['cod'] ?>"){
-		var row = table.insertRow(1);
-		row.insertCell(0).innerHTML = "<?php echo $valor['precio'] ?>";
-		row.insertCell(0).innerHTML = "<?php echo $valor['cant'] ?>";
-		row.insertCell(0).innerHTML = "<?php echo $valor['nombre'] ?>";
-		}
+			if(cod == "<?php echo $valor['cod'] ?>"){
+				var row = table.insertRow(-1);
+				row.insertCell(0).innerHTML = "<?php echo $valor['nombre'] ?>";
+				row.insertCell(1).innerHTML = "<?php echo $valor['cant'] ?>";
+				row.insertCell(2).innerHTML = "<?php echo $valor['precio'] ?>";
+			}
 		"<?php } ?>";
 	}
 
 	function cancelar_pedido(cod) {
-		let nomcli
-		let apcli
-	"<?php foreach($fila as $a  => $valor){ ?>"
-	if(cod == "<?php echo $valor['cod'] ?>"){
-		nomcli = "<?php echo $valor['nombrecli'] ?>"
-		apcli = "<?php echo $valor['apcli'] ?>"
-		$("#codigo_ped_text").val(cod)
-	}
-	"<?php } ?>"
-
-	$("#nombre_cancelar").html(nomcli+" "+apcli);
-	$("#modal_cancelar_pedido").openModal();
+		console.log(cod)
+		$("#codigo_ped").val(cod);
+		$("#modal_cancelar_pedido").modal('open');
 
 	}
 
 	function confirmar_cancel() {
-			var formData = new FormData(document.getElementById("form_codped"));
-			$.ajax({
-				url: "recursos/cancel_ped.php",
-				type: "POST",
-				dataType: "HTML",
-				data: formData,
-				cache: false,
-				contentType: false,
-				processData: false
-			}).done(function(echo){
-					
-					Materialize.toast('Su pedido ha sido eliminado.', 4000); 
-					$('#modal_cancelar_pedido').closeModal();
-					
+
+		let cod = $("#codigo_ped").val();
+		$.ajax({
+            url: "recursos/app/cancel_ped.php?cod="+cod,
+            method: "GET",
+            success: function(response) {
+                console.log(response)
+                if (response == '11') {
+                	M.toast({html:'Su pedido ha sido cancelado.'}); 
+					$('#modal_cancelar_pedido').modal('close');
 					$('#actped').css('color', 'red');
-					$('#actped').html("Pedido cancelado");
+					$('#actped').html("Pedido cancelado, no tienes pedidos activos.");
 					$('#totped').html("");
 					$('#fecha_ped').html("");
-					$("#boton-cancelar").html("");
-			});
+					$('#boton-cancelar').hide();
+                }
+            },
+            error: function(error) {
+                console.log(error)
+            }
+	    })
+
 	}
 
 

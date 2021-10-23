@@ -26,6 +26,7 @@ $Busq = $conexion->query($Sql);
     <meta charset="utf-8">
     <!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
     <link rel="stylesheet" type="text/css" href="css/datatable.css">
+    <link rel="icon" type="image/x-icon" href="img/icono.ico" />
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" type="text/css" href="css/style_sys.css">
     <link rel="stylesheet" href="css/jquery.nice-number.css">
@@ -49,7 +50,7 @@ $Busq = $conexion->query($Sql);
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0x9mkyg_9x41m82iSIQvJ8M9vo7fXm4">
     </script>
     
-    <title> RCR. Delicias Express., Número de teléfono(s): 76191403, E-mail: rcrdelexo@hotmail.com</title>
+    <title> RCR. Delicias Express., Número de teléfono(s): 76191403, E-mail: rcrdelex@hotmail.com</title>
     <style>
     .fuente{
     font-family: 'Segoe UI Light';
@@ -108,7 +109,7 @@ $Busq = $conexion->query($Sql);
     <nav>
       <div id="latbar" class="nav-wrapper" style="background-color: #2980b9;">
         <ul>
-          <li class="center brand-logo" > <img src="images/polloloco.png" width="" height="60px" alt=""></li>
+          <li class="center brand-logo" style="margin-top: 10px;"><img src="img/sidelex_sf.png" width="" height="40px" alt=""><!-- <img src="images/polloloco.png" width="" height="60px" alt=""> --></li>
           <!-- <li class="left brand-logo" > <img src="images/polloloco.png" width="" height="60px" alt=""></li> -->
           <li class=""><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a></li>
         </ul>

@@ -54,6 +54,13 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
     margin-left: 0;
   }
 
+  .centrar_boton{
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
 </style>
 
 
@@ -251,9 +258,9 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
         </div>
 
         <div id="__datosplato" hidden></div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn waves-effect waves-light right" onclick="agregar_fila_plato();">Aceptar</button> 
+      </div><br>
+      <div class="modal-footer centrar_boton_div">
+        <button class="btn waves-effect waves-light centrar_boton" onclick="agregar_fila_plato();">Aceptar</button> 
         <!-- <button class="btn red waves-effect waves-red modal-close left"><i class="material-icons">close</i></button> -->
       </div>
   </div>
