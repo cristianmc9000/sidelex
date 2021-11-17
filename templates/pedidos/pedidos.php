@@ -93,7 +93,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
   <div class="modal-content">
 
 
-    <h4 class="center"><b>Ver pedido</b></h4>
+    <h4 class="center"><b>Detalle de pedido</b></h4>
     <input type="text" id="__idcli" hidden>
     <p class="marginless" id="__telf"></p>
     <p class="marginless" id="__ci"></p>
@@ -139,9 +139,16 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
   <form action="#" id="codiped" method="POST">
     <input type="text" id="__codiped" name="__codiped" value="" hidden>
   </form>
-  <div class="modal-footer">
-    <a href="#!" class="left modal-action modal-close waves-effect waves-light btn red">Cancelar</a>
-    <button class="waves-effect waves-light btn right" type="submit" form="codiped" >Aceptar Pedido</button>
+  <div class="modal-footer row" style="padding: 1rem !important">
+      <div class="col s3">
+      <a href="#!" class="left modal-action modal-close waves-effect waves-light btn red">Cerrar</a>
+      </div>
+      <div class="col s3 offset-s3">
+      <button class="waves-effect orange waves-light btn right" type="submit" form="codiped">Rechazar Pedido</button>
+      </div>
+      <div class="col s3">
+      <button  class="waves-effect waves-light btn right" type="submit" form="codiped">Aceptar Pedido</button>
+      </div>
   </div>
 </div>
 
