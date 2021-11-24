@@ -277,8 +277,8 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 				//borrando tabla
 			// $('#pedidos_cliente tr:not(:first-child)').slice(0).remove();
 			// var table = $("#pedidos_cliente")[0];
-			$("#pedidos_cliente tbody").html("")
-			var table = $("#pedidos_cliente tbody")[0];
+			$("#pedidos_cliente tbody").html("") //limpiar tabla
+			var table = $("#pedidos_cliente tbody")[0]; //obtener tabla
 			
 			total =  0;
 			//llenando tabla
