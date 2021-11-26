@@ -1,13 +1,13 @@
 <?php
 
-require('recursos/conexion.php');
+require('../../recursos/conexion.php');
 
-$Sql = "SELECT * FROM insumo WHERE Estado = 1"; 
-$Busq = $conexion->query($Sql); 
-while($arr = $Busq->fetch_array()) 
-    { 
-        $fila[] = array('nombre'=>$arr['Nombre'], 'costo'=>$arr['Costo'], 'cantidad'=>$arr['Cantidad'], 'fechac'=>$arr['Fecha_compra']); 
-    } 
+// $Sql = "SELECT * FROM insumo WHERE Estado = 1"; 
+// $Busq = $conexion->query($Sql); 
+// while($arr = $Busq->fetch_array()) 
+//     { 
+//         $fila[] = array('nombre'=>$arr['Nombre'], 'costo'=>$arr['Costo'], 'cantidad'=>$arr['Cantidad'], 'fechac'=>$arr['Fecha_compra']); 
+//     } 
 
 ?>
 <!DOCTYPE html>

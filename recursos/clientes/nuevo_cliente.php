@@ -1,5 +1,5 @@
 <?php
-require('conexion.php');
+require('../conexion.php');
 
 $ci = $_POST['ci'];
 $nombre = $_POST['nombre'];
@@ -8,8 +8,7 @@ $telefono = $_POST['telefono'];
 
 $consulta = "INSERT INTO cliente (Ci, Nombre, Apellidos, Telefono) VALUES ('".$ci."', '".$nombre."', '".$apellidos."', '".$telefono."')";
 	if(mysqli_query($conexion, $consulta)){
-		die('<script>$("#modal1").closeModal(); Materialize.toast("Cliente agregado." , 4000);</script>');
+		die('<script>$("#modal1").modal("close"); M.toast({html: "Cliente agregado"});</script>');
 	} else {
-		die('Error');
+		die(mysqli_error($conexion));
 	}
-?>

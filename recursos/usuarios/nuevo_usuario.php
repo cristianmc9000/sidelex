@@ -1,5 +1,5 @@
 <?php
-require('conexion.php');
+require('../conexion.php');
 define ('SITE_ROOT', realpath(dirname(__FILE__)));
 $ci = $_POST['ci'];
 $nombre = $_POST['nombre'];
@@ -37,6 +37,6 @@ $consulta = "INSERT INTO usuario (Ci, Nombre, Apellidos, Direccion, Telefono, Em
 		mysqli_query($conexion, $consulta2);
 		die('<script>$("#modal1").closeModal(); Materialize.toast("Usuario agregado." , 4000);</script>');
 	} else {
-		die('Error');
+		die(mysqli_error($conexion));
 	}
 ?>

@@ -1,5 +1,5 @@
 <?php
-require('recursos/conexion.php');
+require('../../recursos/conexion.php');
 
 // $_SESSION['filas'] = array(); 
 //CONSULTA OBTENER DATOS DE USUARIOS
@@ -34,22 +34,25 @@ while($arr2 = $Busq2->fetch_array())
     width: 40%;
     overflow-x: hidden;
   }
+  .width_modal{
+    width: 30%
+  }
   #modal3{
     max-height: 90% !important;
     margin-top: -3%;
   }
   #perf_f{
-    height: 15em;
+    height: 20em;
   }
 </style>
 
 <span class="fuente"><h3>Usuarios	
   <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn-floating btn-large red" id="modal_nuevo_usuario" href="#modal1"><i class="material-icons left">add</i></a></h3> 
+  <a class="waves-effect waves-light btn-floating btn-large red modal-trigger" id="modal_nuevo_usuario" href="#modal1"><i class="material-icons left">add</i></a></h3> 
 </span>
 <div class="row">
   <div class="col s12 m12 l12">
-   <table id="tabla1" class="highlight">
+   <table id="tabla1" class="content-table">
       <thead>
          <tr>
             <th>Foto</th>
@@ -73,9 +76,9 @@ while($arr2 = $Busq2->fetch_array())
             <td><?php echo $valor["telefono"] ?></td>
             <td><?php echo $valor["email"] ?></td>
             <td align="center"><?php echo $valor["rol"] ?></td>
-            <td class="center"><a href="#" class="btn-floating"><i class="material-icons">build</i></a>
-	          <a href="#" class="btn-floating"><i class="material-icons">delete</i></a>
-	          <a href="#" onclick="vusu('<?php echo $valor['ci'] ?>');" class="btn-floating"><i class="material-icons">search</i></a></td>
+            <td width="25%" class="center"><a href="#" class="btn btn-small"><i class="material-icons">build</i></a>
+	          <a href="#" class="btn btn-small"><i class="material-icons">delete</i></a>
+	          <a href="#" onclick="vusu('<?php echo $valor['ci'] ?>');" class="btn btn-small"><i class="material-icons">search</i></a></td>
          </tr>
          <?php } ?>	
       </tbody>
@@ -84,15 +87,12 @@ while($arr2 = $Busq2->fetch_array())
 
 
 
-  <div id="modal1" class="modal centra_mod">
- 
-      <h5 style="font-family: 'Segoe UI light';">Nuevo Usuario</h5>
-      <form id="form_nuevo_usuario" action="" method="POST" accept-charset="utf-8">
-        <div class="input-field col s12 m6">
-          <input id="ci" name="ci" type="number" class="validate" required>
-          <label for="ci"># Cédula</label>
-        </div>
-        <div class="file-field input-field col s12 m6">
+  <div id="modal1" class="modal width_modal">
+    <div class="modal-content">
+      <h4 style="font-family: 'Segoe UI light';">Nuevo Usuario</h4>
+      <form id="form_nuevo_usuario" accept-charset="utf-8">
+
+        <div class="file-field input-field col s12">
           <div class="btn">
             <span>Foto</span>
             <input type="file" name="imagen">
@@ -100,32 +100,40 @@ while($arr2 = $Busq2->fetch_array())
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text">
           </div>
+
         </div>
-        <div class="input-field col s12 m4">
-          <input id="passw" name="passw" type="text">
-          <label for="passw">Contraseña</label>
+        <div class="input-field col s12">
+          <input id="ci" name="ci" type="number" class="validate" required>
+          <label for="ci"># Cédula (*)</label>
         </div>
-        <div class="input-field col s12 m4">
+        
+        <div class="input-field col s12">
           <input id="nombre" name="nombre" type="text" class="validate" required>
-          <label for="nombre">Nombre</label>
+          <label for="nombre">Nombre (*)</label>
         </div>
-        <div class="input-field col s12 m4">
+        <div class="input-field col s12">
           <input id="apellidos" name="apellidos" type="text" class="validate" required>
-          <label for="apellidos">Apellidos</label>
+          <label for="apellidos">Apellidos (*)</label>
         </div>
-        <div class="input-field col s12 m6">
+
+        <div class="input-field col s12">
           <input id="direccion" name="direccion" type="text" class="validate" required>
-          <label for="direccion">Dirección</label>
+          <label for="direccion">Dirección (*)</label>
         </div>
-        <div class="input-field col s12 m6">
+        <div class="input-field col s12">
           <input id="telefono" name="telefono" type="number" class="validate" required>
-          <label for="telefono">Teléfono</label>
+          <label for="telefono">Teléfono (*)</label>
         </div>
-        <div class="input-field col s12 m4">
+        <div class="input-field col s12">
           <input id="email" name="email" type="email" class="validate">
           <label for="email">E-mail</label>
         </div>
-        <div class="input-field col s12 m4">
+
+        <div class="input-field col s12">
+          <input id="passw" name="passw" type="text">
+          <label for="passw">Contraseña de acceso al sistema (*)</label>
+        </div>
+        <div class="input-field col s12">
           <select name="rol">
             <!-- <option value="" disabled selected>Choose your option</option> -->
             <?php foreach($fila2 as $a  => $valor){ ?>
@@ -134,17 +142,21 @@ while($arr2 = $Busq2->fetch_array())
           </select>
           <label>Selecciona un rol</label>
         </div>
-        <div class="input-field col s12 m4">
+        <div class="input-field col s12">
           <input id="fnac" name="fnac" type="date" class="validate" required>
-          <label for="fnac" class="active">Fecha nacimiento</label>
+          <label for="fnac" class="active">Fecha nacimiento (*)</label>
         </div>
 
-        <div class="left"><label style="color: red;">*La CI será Usada como Login para el acceso al sistema.</label></div>
-        <div class="modal-footer col s12">
-          <button class="btn waves-effect waves-light right" type="submit" name="acceso">Agregar</button>
-          <a href="#!" class=" modal-action modal-close waves-effect waves-red btn red left">Cancelar</a>
+        <div class="left">
+          <label style="color: red;">*La CI será Usada como Login para el acceso al sistema.</label>
         </div>
-      </form>
+        </form>
+      </div>
+      <div class="modal-footer col s12">
+        <button class="btn waves-effect waves-light right" type="submit" form="form_nuevo_usuario">Agregar</button>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-red btn red left">Cancelar</a>
+      </div>
+      
   </div>
 
 
@@ -155,7 +167,7 @@ while($arr2 = $Busq2->fetch_array())
   <div class="modal-content">
 
     <div class="center" id="perf_f">
-      <img src="" id="foto_perf" class="card-image center" height="100%" width="80%;">
+      <img src="" id="foto_perf" class="card-image center" height="100%" width="100%;">
     </div>
 
     <div class="container">
@@ -192,9 +204,22 @@ while($arr2 = $Busq2->fetch_array())
 
 <script>
 $(document).ready(function() {
-    $('#tabla1').dataTable();
-    $('#modal_nuevo_usuario').leanModal();
-    $('select').material_select();
+    $('#tabla1').dataTable({
+      "order": [[ 1, "asc" ]],
+        "language": {
+        "lengthMenu": "Mostrar _MENU_",
+        "zeroRecords": "Lo siento, no se encontraron datos",
+        "info": "Página _PAGE_ de _PAGES_",
+        "infoEmpty": "No hay datos disponibles",
+        "infoFiltered": "(filtrado de _MAX_ resultados)",
+        "paginate": {
+          "next": "Siguiente",
+          "previous": "Anterior"
+        }
+       }
+    });
+    $('.modal').modal();
+    $('select').formSelect();
 });
 
 var mensaje = $("#mensaje");
@@ -205,7 +230,7 @@ $("#form_nuevo_usuario").on("submit", function(e){
 
   var formData = new FormData(document.getElementById("form_nuevo_usuario"));
   $.ajax({
-    url: "recursos/nuevo_usuario.php",
+    url: "recursos/usuarios/nuevo_usuario.php",
     type: "POST",
     dataType: "HTML",
     data: formData,
@@ -217,7 +242,7 @@ $("#form_nuevo_usuario").on("submit", function(e){
       Materialize.toast("El usuario ya existe." , 4000);
     }else{
       mensaje.html(echo);
-      $("#cuerpo").load("usuarios.php");
+      $("#cuerpo").load("templates/usuarios/usuarios.php");
     }
   });
 });
@@ -237,18 +262,18 @@ function vusu (ci) {
     }
 
   '<?php } ?>';
-  $("#modal3").openModal();
+  $("#modal3").modal('open');
 }
 
 $("#nombre").keyup(function(e) {
-  var regex = /^[a-zA-Z@]+$/;
+  var regex = /^[a-zA-Z áéíóúÁÉÍÓÚ@]+$/;
   if (regex.test(this.value) !== true)
-    this.value = this.value.replace(/[^a-zA-Z@]+/, '');
+    this.value = this.value.replace(/[^a-zA-Z áéíóúÁÉÍÓÚ@]+/, '');
 });
 $("#apellidos").keyup(function(e) {
-  var regex = /^[a-zA-Z@]+$/;
+  var regex = /^[a-zA-Z áéíóúÁÉÍÓÚ@]+$/;
   if (regex.test(this.value) !== true)
-    this.value = this.value.replace(/[^a-zA-Z@]+/, '');
+    this.value = this.value.replace(/[^a-zA-Z áéíóúÁÉÍÓÚ@]+/, '');
 });
 
 </script>

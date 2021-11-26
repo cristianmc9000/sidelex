@@ -1,6 +1,6 @@
 
 <?php
-require('recursos/conexion.php');
+require('../../recursos/conexion.php');
 
 $_SESSION['filas'] = array(); 
 $Sql = "SELECT Codrol, Nombre, Descripcion FROM `rol` where Estado = 1;"; 
@@ -31,7 +31,7 @@ while($arr = $Busq->fetch_array())
 
 <div class="row">
   <div class="col s12 m12">
-     <table id="tabla1" class="highlight">
+     <table id="tabla1" class="content-table">
         <thead>
            <tr>
            	<th>Código</th>
@@ -50,9 +50,9 @@ while($arr = $Busq->fetch_array())
               <td align="center"><?php echo $valor["nombre"] ?></td>
               <td align="center"><?php echo $valor["des"] ?></td>
 
-              <td><a href="#"><i class="material-icons">build</i></a>
+              <td><a href="#" class="btn btn-small"><i class="material-icons">build</i></a>
   	          <!-- <a href="#"><i class="material-icons">delete</i></a> -->
-  	          <a href="#"><i class="material-icons">search</i></a></td>
+  	          <a href="#" class="btn btn-small"><i class="material-icons">search</i></a></td>
            </tr>
            <?php } ?>	
         </tbody>

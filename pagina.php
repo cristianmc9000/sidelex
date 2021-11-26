@@ -25,7 +25,8 @@ $Busq = $conexion->query($Sql);
   <head>
     <meta charset="utf-8">
     <!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
-    <link rel="stylesheet" type="text/css" href="css/datatable.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/datatable.css"> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="icon" type="image/x-icon" href="img/icono.ico" />
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" type="text/css" href="css/style_sys.css">
@@ -35,13 +36,24 @@ $Busq = $conexion->query($Sql);
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
     <!-- Compiled and minified JavaScript -->
-    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <script src="js/jquery-3.0.0.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
     <!-- <script src="js/materialize.js"></script> -->
-    <script src="js/datatable.js"></script>
+    <!-- <script src="js/datatable.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css"/>
+    <link rel="stylesheet" type="text/css" href="css/buttons.dataTables.css"/>
+    <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="js/dataTables.buttons.js"></script>
+
+    <script type="text/javascript" src="js/jszip.js"></script>
+    <script type="text/javascript" src="js/pdfmake.js"></script>
     <script type="text/javascript" src="js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="js/buttons.print.js"></script>
+    <script type="text/javascript" src="js/buttons.html5.js"></script>
     <script src="js/num2text.js"></script>
     <script src="js/jsPDF.min.js"></script>
     <script src="js/jquery.nice-number.js"></script>
@@ -170,14 +182,17 @@ $Busq = $conexion->query($Sql);
           <div class="spacx"><a href="#!" style="color: white;" onclick="location.reload();"><i class=" material-icons-outlined" style="padding-right: 17px;">home</i> Inicio</a></div>
           <div class="spacx"><a href="#!" onclick="cargar('templates/ventas/ventas');"><i class="material-icons-outlined" style="padding-right: 17px;">shopping_cart</i> Ventas</a></div>
           <div class="spacx"><a href="#!" onclick="cargar('templates/platos/platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></div>
-          <div class="spacx"><a href="#!" onclick="cargar('templates/pedidos/pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">receipt</i> Pedidos</a></div>
+          <div class="spacx"><a href="#!" onclick="cargar('templates/pedidos/pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">dining</i> Pedidos</a></div>
 
           <ul class="collapsible" data-collapsible="expandable">
             <li>
                 <div style="font-family: 'Rubik'" class="collapsible-header"><i class="material-icons-outlined">admin_panel_settings</i>Administración</div>
-                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('usuarios');"><i class="material-icons-outlined">people</i> Usuarios</a></span></div>
-                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('clientes');"><i class="material-icons-outlined">airline_seat_recline_normal</i> Clientes</a></span></div>
-                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('roles');"><i class="material-icons-outlined">switch_account</i> Roles</a></span></div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/usuarios/usuarios');"><i class="material-icons-outlined">people</i> Usuarios</a></span></div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/clientes/clientes');"><i class="material-icons-outlined">airline_seat_recline_normal</i> Clientes</a></span></div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/roles/roles');"><i class="material-icons-outlined">switch_account</i> Roles</a></span></div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/facturacion/facturacion');"><i class="material-icons-outlined">receipt</i> Facturación</a></span></div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/reportes/reportes');"><i class="material-icons-outlined">assignment</i> Reportes</a></span></div>
+
             </li>
           </ul>
           <?php echo $salir; ?>
