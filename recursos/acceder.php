@@ -30,7 +30,7 @@ if(strlen($passPOST) > $maxCaracteresPassword) {
 
 
 //Escribimos la consulta necesaria
-$consulta = "SELECT * FROM datos WHERE Usuario='".$userPOST."'";
+$consulta = "SELECT * FROM datos WHERE Usuario='".$userPOST."' AND Estado = '1'";
 
 //Obtenemos los resultados
 $resultado = mysqli_query($conexion, $consulta);
@@ -69,7 +69,7 @@ if($userBD == $userPOST and  $passPOST == $passwordBD){
 //Si los datos no son correctos, o están vacíos, muestra un error
 //Además, hay un script que vacía los campos con la clase "acceso" (formulario)
 } else {
-	die('<script>Materialize.toast("Datos de acceso incorrectos.", 4000)</script>');
+	die('<script>M.toast({html: "Datos de acceso incorrectos..."})</script>');
 }
 
 ?>

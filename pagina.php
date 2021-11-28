@@ -241,6 +241,34 @@ $Busq = $conexion->query($Sql);
       return false
     }
   }
+
+  function checkIt(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      status = "Este campo acepta números solamente.";
+      return false;
+    }
+    status = "";
+    return true;
+  }
+
+  // function checkText(e) {
+  //   console.log(e.currentTarget)
+  //   var regex = /^[a-zA-Z áéíóúÁÉÍÓÚ@]+$/;
+  //   if (regex.test(e.currentTarget.value) !== true){
+  //     e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z áéíóúÁÉÍÓÚ@]+/, '');
+  //     // return false
+  //   }
+  // }
+  function checkText(e) {
+    // console.log(e.key)
+    var regex = /^[a-zA-Z áéíóúÁÉÍÓÚñ@]+$/;
+    if (regex.test(e.key) !== true){
+      // e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z áéíóúÁÉÍÓÚ@]+/, '');
+      return false
+    }
+  }
   </script>
       
   </body>

@@ -149,7 +149,21 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
           </label>
         </p>
       </div>
-      <div id="form_registro_venta" class="container" hidden>
+
+      <div id="tipo_cliente_radios" class="container" hidden>
+        <form action="radio_clientes">
+          <label>
+            <input class="with-gap" name="rad_client" value="0" type="radio" />
+            <span>Persona física</span>
+          </label>
+          <label>
+            <input class="with-gap" name="rad_client" value="1" type="radio" />
+            <span>Persona jurídica</span>
+          </label>
+        </form>
+      </div>
+
+      <div id="form_registro_venta_fisica" class="container" hidden>
         <form >
           <div class="row">
             <div class="input-field col s12">
@@ -157,16 +171,41 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
               <label for="reg_cedula">Cédula de identidad (*)</label>
             </div>
             <div class="input-field col s12">
-              <input id="reg_nombres" type="text" class="validate">
+              <input id="reg_nombres" type="text" onKeyPress="return checkText(event)" class="validate">
               <label for="reg_nombres">Nombre (*)</label>
             </div>
             <div class="input-field col s12">
-              <input id="reg_apellidos" type="text" class="validate">
+              <input id="reg_apellidos" type="text" onKeyPress="return checkText(event)" class="validate">
               <label for="reg_apellidos">Apellidos (*)</label>
             </div>
             <div class="input-field col s12">
-              <input id="reg_telf" type="text" class="validate">
-              <label for="reg_telf">Teléfono</label>
+              <input id="reg_telf" type="text" onKeyPress="return checkIt(event)" class="validate">
+              <label for="reg_telf">Teléfono/Celular</label>
+            </div>
+
+            <p><small class="helperx">Los campos de texto marcados con un (*) son obligatorios.</small></p>
+          </div>
+        </form>
+      </div>
+
+      <div id="form_registro_venta_juridica" class="container" hidden>
+        <form >
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="reg_cedula" type="text" onKeyPress="return checkIt(event)" class="validate">
+              <label for="reg_cedula">NIT (*)</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="reg_nombres" type="text" class="validate">
+              <label for="reg_nombres">Razón social / nombre comercial (*)</label>
+            </div>
+<!--             <div class="input-field col s12">
+              <input id="reg_apellidos" type="text" class="validate">
+              <label for="reg_apellidos">Apellidos (*)</label>
+            </div> -->
+            <div class="input-field col s12">
+              <input id="reg_telf" type="text" onKeyPress="return checkIt(event)" class="validate">
+              <label for="reg_telf">Teléfono/Celular</label>
             </div>
 
             <p><small class="helperx">Los campos de texto marcados con un (*) son obligatorios.</small></p>
@@ -286,14 +325,30 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 $("#datos_cliente").click(function () {
 
   if (!$('#datos_cliente').is(":checked")){
-    document.getElementById('form_registro_venta').hidden = true
+    // document.getElementById('form_registro_venta').hidden = true
+    document.getElementById('tipo_cliente_radios').hidden = true
+    document.getElementById('form_registro_venta_fisica').hidden = true
+    document.getElementById('form_registro_venta_juridica').hidden = true
   }else{
-    document.getElementById('form_registro_venta').hidden = false
+    // document.getElementById('form_registro_venta').hidden = false
+    document.getElementById('tipo_cliente_radios').hidden = false
+
+  }
+})
+
+$('input[name="rad_client"]').click(function(){
+  let value = $('input[name="rad_client"]:checked').val();
+
+  if (value == '0') {
+    document.getElementById('form_registro_venta_fisica').hidden = false
+    document.getElementById('form_registro_venta_juridica').hidden = true
+  }else{
+    document.getElementById('form_registro_venta_fisica').hidden = true
+    document.getElementById('form_registro_venta_juridica').hidden = false
   }
 
-  
+});
 
-})
 
 function confirm_client() {
   let nombre = $("#nombre_c").val()
@@ -315,11 +370,35 @@ $( "#regresar" ).click(function() {
 
 $('#tabla_platos').dataTable({
   bInfo: false,
-  "lengthMenu": [[5, 10], [5, 10]]
+  "lengthMenu": [[5, 10], [5, 10]],
+  "order": [[ 0, "desc" ]],
+  "language": {
+    "lengthMenu": "_MENU_ Mostrar",
+    "zeroRecords": "Lo siento, no se encontraron datos",
+    "info": "Página _PAGE_ de _PAGES_",
+    "infoEmpty": "No hay datos disponibles",
+    "infoFiltered": "(filtrado de _MAX_ resultados)",
+    "paginate": {
+      "next": "Siguiente",
+      "previous": "Anterior"
+    }
+  }
 });
 $('#tabla_bebidas').dataTable({
   bInfo: false,
-  "lengthMenu": [[5, 10], [5, 10]]
+  "lengthMenu": [[5, 10], [5, 10]],
+  "order": [[ 0, "desc" ]],
+    "language": {
+    "lengthMenu": "_MENU_ Mostrar",
+    "zeroRecords": "Lo siento, no se encontraron datos",
+    "info": "Página _PAGE_ de _PAGES_",
+    "infoEmpty": "No hay datos disponibles",
+    "infoFiltered": "(filtrado de _MAX_ resultados)",
+    "paginate": {
+      "next": "Siguiente",
+      "previous": "Anterior"
+    }
+  }
 });
 
 function agregar_plato(cod, nombre, precio) {
@@ -397,16 +476,29 @@ function agregar_fila_plato() {
     // let apc = $("#ap_c").val();
     // let totped = $("#tot_ped").val();
     // let telf = $("#telf").val();
+    let value = $('input[name="rad_client"]:checked').val();
 
     let datos_cli = "";
     if ($('#datos_cliente').is(":checked")) {
-      let reg_cedula = $("#reg_cedula").val()
-      let reg_nombres = $("#reg_nombres").val();
-      let reg_apellidos = $("#reg_apellidos").val();
-      datos_cli = "&ci="+reg_cedula+"&nombre="+reg_nombres+"&apellidos="+reg_apellidos;
-      // console.log(reg_cedula, reg_nombres, reg_apellidos)
-      if (reg_cedula.length < 6 || reg_nombres.length < 5 || reg_apellidos < 5) {
-        return M.toast({html: 'Ingrese datos válidos.'})
+      if (value == '0') {
+        let reg_cedula = $("#reg_cedula").val()
+        let reg_nombres = $("#reg_nombres").val();
+        let reg_apellidos = $("#reg_apellidos").val();
+        datos_cli = "&ci="+reg_cedula+"&nombre="+reg_nombres+"&apellidos="+reg_apellidos+"&value="+value;
+        // console.log(reg_cedula, reg_nombres, reg_apellidos)
+        if (reg_cedula.length < 6 || reg_nombres.length < 5 || reg_apellidos < 5) {
+          return M.toast({html: 'Ingrese datos válidos.'})
+        }
+      }
+      else{
+        let reg_cedula = $("#reg_cedula").val()
+        let reg_nombres = $("#reg_nombres").val();
+        let reg_apellidos = $("#reg_apellidos").val();
+        datos_cli = "&ci="+reg_cedula+"&nombre="+reg_nombres+"&value="+value;
+        // console.log(reg_cedula, reg_nombres, reg_apellidos)
+        if (reg_cedula.length < 6 || reg_nombres.length < 5 || reg_apellidos < 5) {
+          return M.toast({html: 'Ingrese datos válidos.'})
+        }
       }
     }
     let bdtotal = total
@@ -665,6 +757,7 @@ return true;
 });
 }
 
+
 // function buscar_cliente() {
 
 //   let ci_cliente = $("#ci_c").val();
@@ -688,16 +781,5 @@ return true;
 //   }
 // }
 
-
-function checkIt(evt) {
-  evt = (evt) ? evt : window.event;
-  var charCode = (evt.which) ? evt.which : evt.keyCode;
-  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-  status = "Este campo acepta números solamente.";
-  return false;
-  }
-  status = "";
-  return true;
-}
 
 </script>

@@ -54,16 +54,14 @@ while($arr = $Busq->fetch_array())
           <label for="nombre">Nombre del plato (*)</label>
         </div>
         <div class="input-field col s3 offset-s1">
-          <input id="precio" name="precio" type="number" onkeypress="return check(event)" class="validate" required>
+          <input id="precio" name="precio" type="text" onkeypress="return check(event)" class="validate" required>
           <label for="precio">Precio (*)</label>
         </div>
         <div class="input-field col s11">
           <input id="descripcion" name="descripcion" type="text" class="validate" required>
           <label for="descripcion">Descripción </label>
         </div>
-
-
-        </form>
+      </form>
     </div>
 
     <div class="modal-footer">
@@ -136,7 +134,20 @@ var mensaje = $("#mensaje");
 mensaje.hide();
 
 $(document).ready(function() {
-    $('#tabla1').dataTable();
+    $('#tabla1').dataTable({
+      "order": [[ 0, "desc" ]],
+        "language": {
+        "lengthMenu": "Mostrar _MENU_ ",
+        "zeroRecords": "Lo siento, no se encontraron datos",
+        "info": "Página _PAGE_ de _PAGES_",
+        "infoEmpty": "No hay datos disponibles",
+        "infoFiltered": "(filtrado de _MAX_ resultados)",
+        "paginate": {
+          "next": "Siguiente",
+          "previous": "Anterior"
+        }
+      }
+    });
     $('.modal').modal();
 });
 

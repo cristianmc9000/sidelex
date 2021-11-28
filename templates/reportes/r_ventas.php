@@ -118,10 +118,10 @@ $(document).ready(function() {
 	        titleAttr:  'Imprimir',
 	        className:  'btn-flat blue',
 	        title: 			`<span style="font-size:30; line-height: 100%;">Reporte del ventas del periodo: <?php echo $_GET["ges"] ?></span> 
-	        						<p style="font-size:25; line-height: 25%;">Total ventas: <?php echo mysqli_num_rows($result) ?></p>
-	        						<p style="font-size:25; line-height: 25%;">Ventas locales: <?php echo $cant_local?></p>
-	        						<p style="font-size:25; line-height: 25%;">Ventas por pedido: <?php echo $cant_pedido?></p>
-	        						<p style="font-size:25; line-height: 25%;">Ingresos totales: <?php echo $ingreso_total ?> Bs.</p>`
+	        						<p style="font-size:18; line-height: 25%;">Total ventas: <?php echo mysqli_num_rows($result) ?></p>
+	        						<p style="font-size:18; line-height: 25%;">Ventas locales: <?php echo $cant_local?></p>
+	        						<p style="font-size:18; line-height: 25%;">Ventas por pedido: <?php echo $cant_pedido?></p>
+	        						<p style="font-size:18; line-height: 25%;">Ingresos totales: <?php echo $ingreso_total ?> Bs.</p>`
 	      }
 	    ]
 	    });

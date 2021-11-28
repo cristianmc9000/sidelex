@@ -68,11 +68,11 @@ while($arr = $Busq->fetch_array())
           <label for="ci"># Cédula</label>
         </div>
         <div class="input-field col s12 m12">
-          <input id="nombre" name="nombre" type="text" class="validate" required>
+          <input id="nombre" name="nombre" type="text" onKeyPress="return checkText(event)" class="validate" required>
           <label for="nombre">Nombre</label>
         </div>
         <div class="input-field col s12 m12">
-          <input id="apellidos" name="apellidos" type="text" class="validate" required>
+          <input id="apellidos" name="apellidos" type="text" onKeyPress="return checkText(event)" class="validate" required>
           <label for="apellidos">Apellidos</label>
         </div>
 
