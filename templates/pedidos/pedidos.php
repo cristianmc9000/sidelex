@@ -62,7 +62,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
           </td>
           <td class="center">
             <!-- <a onclick="" class="btn-floating modal-trigger"><i class="material-icons">build</i></a> -->
-            <a href="#!" onclick="eliminar_pedido('<?php echo $valor["cod"]?>')" class="btn-floating modal-trigger"><i class="material-icons">delete</i></a>
+            <a href="#!" onclick="eliminar_pedido('<?php echo $valor['cod']?>')" class="btn-floating"><i class="material-icons">delete</i></a>
             <a onclick="vped('<?php echo $valor["cod"]?>', '<?php echo $valor["cliente"]?>', '<?php echo $valor["cedula"]?>', '<?php echo $valor["lat"]?>', '<?php echo $valor["lng"]?>','<?php echo $valor["nombre"]?>', '<?php echo $valor["apellidos"]?>', '<?php echo $valor["direccion"]?>','<?php echo $valor["telf"]?>');"  class="btn-floating"><i class="material-icons">search</i></a>
           </td>
         </tr>
@@ -76,6 +76,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 <div id="modal_elimped" class="modal">
 
   <div class="modal-content">
+    <h4>Se cancelará el pedido seleccionado.</h4>
     <input type="text" id="id_ped" hidden>
 
   </div>
@@ -136,7 +137,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 
 
-  <form action="#" id="codiped" method="POST">
+  <form id="codiped">
     <input type="text" id="__codiped" name="__codiped" value="" hidden>
   </form>
   <div class="modal-footer row" style="padding: 1rem !important">
@@ -144,7 +145,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
       <a href="#!" class="left modal-action modal-close waves-effect waves-light btn red">Cerrar</a>
       </div>
       <div class="col s3 offset-s3">
-      <button class="waves-effect orange waves-light btn right" type="submit" form="codiped">Rechazar Pedido</button>
+      <button class="waves-effect orange waves-light btn right" id="rechazar_ped">Rechazar Pedido</button>
       </div>
       <div class="col s3">
       <button  class="waves-effect waves-light btn right" type="submit" form="codiped">Aceptar Pedido</button>
@@ -210,11 +211,33 @@ function initMap() {
     // title: "Hello World!",
   });
 }
+  
+$("#rechazar_ped").click(function () {
+  let id = $("#__codiped").val()
+  $.ajax({
+    url: "recursos/pedidos/eliminar_pedido.php?id="+id,
+    method: "get",
+    success: function(response){
+      if (response == '1') {
+        M.toast({html: 'Pedido cancelado.'})
+        $("#modal2").modal('close')
+        $("#cuerpo").load("templates/pedidos/pedidos.php");
+      }
+    },
+    error: function(error, data, response){
+      console.log(error)
+    }
+  });
+
+})
+
+
 
 function eliminar_pedido(id) {
   $("#id_ped").val(id);
   $("#modal_elimped").modal('open');
 }
+
 $("#elimped").click(function (argument) {
   let id = $("#id_ped").val();
   $.ajax({
@@ -237,13 +260,17 @@ $("#elimped").click(function (argument) {
 
 function confirmar_bloqueo() {
   let idcli = $("#__idcli").val();
+  let codped = $("#__codiped").val();
+
   $.ajax({
-    url: "recursos/pedidos/bloquear_cliente.php?idcli="+idcli,
+    url: "recursos/pedidos/bloquear_cliente.php?idcli="+idcli+"&codped="+codped,
     method: "get",
     success: function(response){
+      console.log(response)
       if (response == '1') {
         M.toast({html: 'Cliente bloqueado del servicio.'})
         $("#modal_confirmar_bloqueo").modal('close')
+        $("#cuerpo").load("templates/pedidos/pedidos.php");
       }
     },
     error: function(error, data, response){
@@ -305,10 +332,14 @@ $("#codiped").on("submit", function(e){
   }).done(function(echo){
     console.log(echo)
     if (echo == "aceptado") {
+      // console.log(echo)
       $("#modal2").modal('close');
       M.toast({html: 'Pedido aceptado.'});
       $("#cuerpo").load("templates/pedidos/pedidos.php");
       imprimirElemento($("#__codiped").val());
+    }
+    if (echo == 'rechazado') {
+      M.toast({html: "Este pedido fué rechazado previamente."});
     }
     if(echo == "already"){
       M.toast({html:'Este pedido ya ha sido aceptado previamente.'});
@@ -369,7 +400,6 @@ function imprimirElemento(cod){
     data: data,
     method: "post",
     success: function(response){
-      // console.log(response)
       crear_factura(nit, aut, fecha, hora, ci, nombres, filas, total, monto, response, fecha_lim, usuario);
     },
     error: function(error, data, response){

@@ -15,7 +15,7 @@ $fecha_c = $_POST['fechax'];
 $monto_compra = $_POST['montox'];
 $clave = $_POST['llavex'];
 
-
+// die($codped." ".$fecha." ".$hora." ".$nit_cliente." ".$numero_autorizacion." ".$fecha_c." ".$monto_compra." ".$clave);
 
 $fecha_compra = strtotime(str_replace("/", "-", $fecha_c));
 
@@ -25,6 +25,7 @@ $datosCNF = mysqli_fetch_array($resultadoConsultaNF);
 
 $numero_factura = (int)$datosCNF['numfac'] + 1; //para bd factura
 
+// die($numero_factura."<<<");
 // $codigo_control = CodigoControlV7::generar($numero_autorizacion, $numero_factura, $nit_cliente, $fecha_compra, $monto_compra, $clave);
 
 $codigo_control = CodigoControlV7::generar($numero_autorizacion, $numero_factura, $nit_cliente, $fecha_compra, $monto_compra, $clave);
@@ -36,7 +37,10 @@ $codigo_control = CodigoControlV7::generar($numero_autorizacion, $numero_factura
 $consultaInsertarNuevaFactura = "INSERT INTO factura (Codtal, Codp, Fecha, Hora, Nro_fac) VALUES((SELECT MAX(Codtal) FROM talonario WHERE Estado = 1), ".$codped.", '".$fecha."', '".$hora."', ".$numero_factura.")";	
 
 	if(mysqli_query($conexion, $consultaInsertarNuevaFactura)){
-		die($codigo_control.','.$numero_factura);
+		$result = $conexion->query("UPDATE `talonario` SET `Cant_emitidos`= ".$numero_factura." WHERE Codtal = (SELECT MAX(Codtal))");	
+		if ($result) {
+			die($codigo_control.','.$numero_factura);
+		}
 		
 	} else {
 		die(mysqli_error($conexion));

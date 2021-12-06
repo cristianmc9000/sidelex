@@ -2,7 +2,14 @@
 	require('../conexion.php');
 
 	$idcli = $_GET['idcli'];
-	$result = $conexion->query('UPDATE cliente SET Estado = 0 WHERE id = '.$idcli);
+	$codped = $_GET['codped'];
 
-	echo $result.'';
+	$result = $conexion->query('UPDATE cliente SET Estado = 0 WHERE id = '.$idcli);
+	$res = $conexion->query("UPDATE pedido SET Estado = 2 WHERE Codped = ".$codped);
+
+	if ($res) {
+		echo '1';
+	}else{
+		echo mysqli_error($conexion);
+	}
 ?>

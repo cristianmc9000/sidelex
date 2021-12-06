@@ -49,7 +49,7 @@ overflow-x: hidden;*/
      <tr>
         <th>Código de venta</th>
         <th>Usuario</th>
-        <!-- <th>Cliente</th> -->
+        <th>Cliente</th>
         <th>Total</th>
         <th>Fecha</th>
         <th>Acciones</th>
@@ -60,7 +60,7 @@ overflow-x: hidden;*/
      <tr>
         <td align="center"><?php echo $valor["codv"] ?></td>
         <td align="center"><?php echo $valor["usuario"] ?></td>
-        <!-- <td align="center"><?php echo $valor["cliente"] ?></td> -->
+        <td align="center"><?php echo $valor["nombrecli"]." ".$valor["apcli"] ?></td>
         <td align="center"><?php echo $valor["total"] ?> Bs.</td>
         <td align="center"><?php echo $valor["fecha"] ?></td>
         <td align="center">

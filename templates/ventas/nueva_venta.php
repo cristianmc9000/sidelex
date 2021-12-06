@@ -154,7 +154,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
         <form action="radio_clientes">
           <label>
             <input class="with-gap" name="rad_client" value="0" type="radio" />
-            <span>Persona física</span>
+            <span>Persona natural</span>
           </label>
           <label>
             <input class="with-gap" name="rad_client" value="1" type="radio" />
@@ -167,19 +167,19 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
         <form >
           <div class="row">
             <div class="input-field col s12">
-              <input id="reg_cedula" type="text" onKeyPress="return checkIt(event)" class="validate">
+              <input id="reg_cedula" type="text" onKeyPress="return checkIt(event)" minlength="7" maxlength="7" class="validate">
               <label for="reg_cedula">Cédula de identidad (*)</label>
             </div>
             <div class="input-field col s12">
-              <input id="reg_nombres" type="text" onKeyPress="return checkText(event)" class="validate">
+              <input id="reg_nombres" type="text" onKeyPress="return checkText(event)" minlength="3" maxlength="20" class="validate">
               <label for="reg_nombres">Nombre (*)</label>
             </div>
             <div class="input-field col s12">
-              <input id="reg_apellidos" type="text" onKeyPress="return checkText(event)" class="validate">
+              <input id="reg_apellidos" type="text" onKeyPress="return checkText(event)" minlength="3" maxlength="20" class="validate">
               <label for="reg_apellidos">Apellidos (*)</label>
             </div>
             <div class="input-field col s12">
-              <input id="reg_telf" type="text" onKeyPress="return checkIt(event)" class="validate">
+              <input id="reg_telf" type="text" onKeyPress="return checkIt(event)" minlength="8" maxlength="8" class="validate">
               <label for="reg_telf">Teléfono/Celular</label>
             </div>
 
@@ -192,19 +192,19 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
         <form >
           <div class="row">
             <div class="input-field col s12">
-              <input id="reg_cedula" type="text" onKeyPress="return checkIt(event)" class="validate">
-              <label for="reg_cedula">NIT (*)</label>
+              <input id="reg_nit" type="text" onKeyPress="return checkIt(event)" minlength="9" maxlength="11" onpaste="return false" class="validate" required>
+              <label for="reg_nit">NIT (*)</label>
             </div>
             <div class="input-field col s12">
-              <input id="reg_nombres" type="text" class="validate">
-              <label for="reg_nombres">Razón social / nombre comercial (*)</label>
+              <input id="reg_razon" type="text" onKeyPress="return checkText(event)" minlength="3" maxlength="25" class="validate" required>
+              <label for="reg_razon">Razón social / nombre comercial (*)</label>
             </div>
 <!--             <div class="input-field col s12">
               <input id="reg_apellidos" type="text" class="validate">
               <label for="reg_apellidos">Apellidos (*)</label>
             </div> -->
             <div class="input-field col s12">
-              <input id="reg_telf" type="text" onKeyPress="return checkIt(event)" class="validate">
+              <input id="reg_telf" type="text" onKeyPress="return checkIt(event)" minlength="8" maxlength="8" class="validate">
               <label for="reg_telf">Teléfono/Celular</label>
             </div>
 
@@ -491,12 +491,12 @@ function agregar_fila_plato() {
         }
       }
       else{
-        let reg_cedula = $("#reg_cedula").val()
-        let reg_nombres = $("#reg_nombres").val();
-        let reg_apellidos = $("#reg_apellidos").val();
-        datos_cli = "&ci="+reg_cedula+"&nombre="+reg_nombres+"&value="+value;
-        // console.log(reg_cedula, reg_nombres, reg_apellidos)
-        if (reg_cedula.length < 6 || reg_nombres.length < 5 || reg_apellidos < 5) {
+        let reg_nit = $("#reg_nit").val()
+        let reg_razon = $("#reg_razon").val();
+
+        datos_cli = "&ci="+reg_nit+"&nombre="+reg_razon+"&value="+value;
+        console.log(reg_nit, reg_razon)
+        if (reg_cedula.length < 9 || reg_razon.length < 4 ) {
           return M.toast({html: 'Ingrese datos válidos.'})
         }
       }
@@ -676,8 +676,8 @@ var miHtml = `
   <body>
   
     <center>Restaurante de comida rápida Delicias Express.</center>
-    <center>B. IV Centenario, Calle Zamora. </center>
-    <center>Telf.: 6637037 </center>
+    <center>B. IV Centenario, Calle Zamora. #423</center>
+    <center>Telf.: 76191403 </center>
     <center>TARIJA - BOLIVIA</center>
     <center>FACTURA</center>
     <center>----------------------------------------</center>

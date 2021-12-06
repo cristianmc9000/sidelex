@@ -35,7 +35,7 @@ $consulta = "INSERT INTO usuario (Ci, Nombre, Apellidos, Direccion, Telefono, Em
 	if(mysqli_query($conexion, $consulta)){
 		$consulta2 = "INSERT INTO datos (Ci, Usuario, Password) VALUES ('".$ci."', '".$ci."', '".$password."')";
 		mysqli_query($conexion, $consulta2);
-		die('<script>$("#modal1").closeModal(); Materialize.toast("Usuario agregado." , 4000);</script>');
+		die('1');
 	} else {
 		die(mysqli_error($conexion));
 	}

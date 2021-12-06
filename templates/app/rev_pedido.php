@@ -13,7 +13,7 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 <style>
 	body{
 		/*font-family: 'Segoe UI Light';*/
-		background-color: #74b9ff;
+		background-color: #ffbb00;
 	}
 	.textrev{
 		color: #eeee00;
@@ -47,7 +47,7 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 		</h5>
 	</div>
 	<div class="col s12 m12 l12">
-		<table id="pedidos_cliente" class="content-table">
+		<table id="pedidos_cliente" class="content-table z-depth-4">
 			<thead>
 				<tr>
 					<th>PRODUCTO</th>
@@ -123,6 +123,18 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 					$('#totped').html('<b>Total:</b> '+arr[0]+'Bs.');
 					$('#fecha_ped').html('<b>Fecha:</b> '+arr[1]);
 					// $("#boton-cancelar").html("");
+					$("#boton-cancelar").hide();
+					tabla_llenar(arr[2]);
+				}
+
+				if (arr[3] == "RECHAZADO") {
+					$('#actped').css('color', 'orange');
+					$('#actped').html('<b>Tu pedido fue rechazado.</b>');
+					$('#totped').html('<b>Total:</b> '+arr[0]+'Bs.');
+					$('#fecha_ped').html('<b>Fecha:</b> '+arr[1]);
+					// $("#boton-cancelar").html("<a class='btn-large red' onclick='cancelar_pedido("+arr[2]+")'>CANCELAR MI PEDIDO</a>");
+					// $("#boton-cancelar").show();
+					// $("#boton-cancelar").attr("onclick","cancelar_pedido("+arr[2]+")");
 					$("#boton-cancelar").hide();
 					tabla_llenar(arr[2]);
 				}

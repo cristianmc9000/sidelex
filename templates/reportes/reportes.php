@@ -43,6 +43,8 @@
               <select name="tipo_reporte" id="tipo_reporte">
                 <option value="r_ventas.php" selected><b>Reportes de ventas</b></option>
                 <option value="r_compras.php" ><b>Reportes de pedidos</b></option>
+                <option value="r_productos.php"><b>Reporte de productos</b></option>
+                <option value="r_gastos.php"><b>Reporte de gastos</b></option>
                 <!-- <option value="r_le.php"><b>Reportes de Lider/Experta</b></option> -->
                 <!-- <option value="r_dev.php" ><b>Reportes de devoluciones</b></option> -->
               </select>
@@ -69,7 +71,7 @@
       <div class="col s12">
             <div class="input-field">
                 <select name="mes" id="mes">
-                  <option value="0">Reporte anual</option>
+                  <option value="0" selected>Reporte anual</option>
                   <option value="01"><b>Enero</b></option>
                   <option value="02"><b>Febrero</b></option>
                   <option value="03"><b>Marzo</b></option>
@@ -189,9 +191,11 @@ function reporte(periodo) {
 }
 //reporte anual
 function reporte_ges(){
-  let per = 0
+  let per = $("#mes").val()
   gestion = document.getElementById('gestion').value
   tipo = document.getElementById('tipo_reporte').value
+
+  // console.log(per, gestion, tipo)
   $("#cuerpo").load("templates/reportes/"+tipo+"?ges="+gestion+"&per="+per)
 }
 

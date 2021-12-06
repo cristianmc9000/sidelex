@@ -6,9 +6,8 @@
 		<link rel="icon" type="image/x-icon" href="img/icono.ico" />
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		    	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
+    	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" >
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-		<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
 		<link rel="stylesheet" href="css/materialize.css">
 		<script src="js/jquery-3.0.0.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -131,12 +130,12 @@
 				cache: false,
 				contentType: false,
 				processData: false
-			}).done(function(echo){
-				if (echo !== "") {
-					mensaje.html(echo);
-					mensaje.show();
-				} else {
+			}).done(function(data){
+				console.log(data)
+				if (data.includes("1")) {
 					window.location.replace("index.php");
+				} else {
+					M.toast({html: "Datos de acceso incorrectos..."});
 				}
 			});
 		});

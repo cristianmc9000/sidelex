@@ -32,8 +32,45 @@ while($arr = $Busq->fetch_array())
     <a class="waves-effect waves-light btn-floating btn-large red modal-trigger" href="#modal1"><i class="material-icons left">add</i></a>
   </h3> 
 </span>
-<!-- Modal estructure -->
 
+<!-- Modal nuevo plato -->
+  <div id="modal1" class="modal" style="width: 30%">
+    <div class="modal-content">
+      <h5><b>Nuevo plato</b></h5>
+      <form id="form_nuevo_plato" action="" method="POST" accept-charset="utf-8">
+        
+        <div class="file-field input-field col s11">
+          <div class="btn">
+            <span>Foto</span>
+            <input type="file" name="imagen" required>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
+
+        <div class="input-field col s7">
+          <input id="nombre" name="nombre" type="text" minlength="5" maxlength="25" class="validate" required>
+          <label for="nombre">Nombre del plato (*)</label>
+        </div>
+        <div class="input-field col s3 offset-s1">
+          <input id="precio" name="precio" type="text" onkeypress="return checkIt(event)" class="validate" required>
+          <label for="precio">Precio (*)</label>
+        </div>
+        <div class="input-field col s11">
+          <input id="descripcion" name="descripcion" type="text" minlength="5" maxlength="50" class="validate" required>
+          <label for="descripcion">Descripción </label>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light" form="form_nuevo_plato" type="submit" name="acceso">Guardar</button>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-red btn red left">Cancelar</a>
+    </div>
+  </div>
+
+<!-- Modal nuevo plato -->
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h5><b>Nuevo plato</b></h5>
@@ -50,15 +87,15 @@ while($arr = $Busq->fetch_array())
         </div>
 
         <div class="input-field col s7">
-          <input id="nombre" name="nombre" type="text" class="validate" required>
+          <input id="nombre" name="nombre" type="text" minlength="5" maxlength="25" class="validate" required>
           <label for="nombre">Nombre del plato (*)</label>
         </div>
         <div class="input-field col s3 offset-s1">
-          <input id="precio" name="precio" type="text" onkeypress="return check(event)" class="validate" required>
+          <input id="precio" name="precio" type="text" onkeypress="return checkIt(event)" class="validate" required>
           <label for="precio">Precio (*)</label>
         </div>
         <div class="input-field col s11">
-          <input id="descripcion" name="descripcion" type="text" class="validate" required>
+          <input id="descripcion" name="descripcion" type="text" minlength="5" maxlength="50" class="validate" required>
           <label for="descripcion">Descripción </label>
         </div>
       </form>
@@ -68,9 +105,46 @@ while($arr = $Busq->fetch_array())
       <button class="btn waves-effect waves-light right" form="form_nuevo_plato" type="submit" name="acceso">Guardar</button>
       <a href="#!" class=" modal-action modal-close waves-effect waves-red btn red left">Cancelar</a>
     </div>
-      
   </div>
 
+  <!-- Modal modificar plato -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <h5><b>Modificar plato</b></h5>
+      <form id="form_mod_plato" action="" method="POST" accept-charset="utf-8">
+        
+        <div class="file-field input-field col s11">
+          <div class="btn">
+            <span>Foto</span>
+            <input type="file" name="imagen">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+          <input type="text" id="old_pic" name="old_pic">
+        </div>
+
+        <div class="input-field col s7">
+          <input type="text" id="mod_codpla" name="mod_codpla" hidden>
+          <input id="mod_nombre" name="mod_nombre" type="text" minlength="5" maxlength="25" class="validate" required>
+          <label for="mod_nombre">Nombre del plato (*)</label>
+        </div>
+        <div class="input-field col s3 offset-s1">
+          <input id="mod_precio" name="mod_precio" type="text" onkeypress="return checkIt(event)" class="validate" required>
+          <label for="mod_precio">Precio (*)</label>
+        </div>
+        <div class="input-field col s11">
+          <input id="mod_descripcion" name="mod_descripcion" type="text" minlength="5" maxlength="50" class="validate" required>
+          <label for="mod_descripcion">Descripción </label>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light right" form="form_mod_plato" type="submit" name="acceso">Guardar</button>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-red btn red left">Cancelar</a>
+    </div>
+  </div>
 
   <!-- Modal borrar plato -->
   <div id="modal3" class="modal">
@@ -106,7 +180,7 @@ while($arr = $Busq->fetch_array())
             <td class="center"><?php echo $valor["nombre"] ?></td>
             <td class="center"><?php echo $valor["precio"] ?></td>
             <td class="center"><?php echo $valor["descripcion"] ?></td>
-            <td class="center"><a href="#!" class="btn btn-floating" onclick="mod_plato();"><i class="material-icons">build</i></a>
+            <td class="center"><a href="#!" class="btn btn-floating" onclick="mod_plato(`<?php echo $valor['codpla']?>`, `<?php echo $valor['nombre']?>`, `<?php echo $valor['precio']?>`, `<?php echo $valor['descripcion']?>`, `<?php echo $valor['foto']?>`);"><i class="material-icons">build</i></a>
             <a href="#!" class="btn btn-floating" onclick="borrar_plato('<?php echo $valor['codpla'] ?>', '<?php echo $valor['nombre'] ?>', '<?php echo $valor['precio'] ?>', '<?php echo $valor['foto'] ?>');"><i class="material-icons">delete</i></a></td>
 
          </tr>
@@ -118,16 +192,7 @@ while($arr = $Busq->fetch_array())
 
 
 <!--MODAL PARA RECIBIR MENSAJES DESDE PHP-->  
-<div class="row">
-  <div id="modal2" class="modal col s4 offset-s4">
-    <div id="mensaje" class="modal-content">
-      
-    </div>
-    <div class="modal-footer row">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-    </div>
-  </div>
-</div>
+    <div id="mensaje" ></div>
 
 <script>
 var mensaje = $("#mensaje");
@@ -176,9 +241,38 @@ $("#form_nuevo_plato").on("submit", function(e){
   });
 });
 
-function mod_plato (){
-  alert("modificando plato");
+function mod_plato (id, nombre, precio, descripcion, foto){
+  // console.log(id, nombre, precio, descripcion)
+  $("#mod_codpla").val(id)
+  $("#mod_nombre").val(nombre)
+  $("#mod_precio").val(precio)
+  $("#mod_descripcion").val(descripcion)
+  $("#old_pic").val(foto)
+  M.updateTextFields()
+  $("#modal2").modal('open')
+
 }
+
+$("#form_mod_plato").on("submit", function(e){
+  e.preventDefault();
+  var formData = new FormData(document.getElementById("form_mod_plato"));
+  $.ajax({
+    url: "recursos/platos/mod_plato.php",
+    type: "POST",
+    data: formData,
+    contentType: false,
+    processData: false
+  }).done(function(echo){
+    if (echo == '1') {
+      $("#modal2").modal("close"); 
+      M.toast({html: "Datos de plato modificado."});
+      $("#cuerpo").load("templates/platos/platos.php");
+    }else{
+      console.log(echo);
+    }
+    
+  });
+});
 
 function borrar_plato (codpla, nombre, precio){
   $("#borr_codp").val(codpla)

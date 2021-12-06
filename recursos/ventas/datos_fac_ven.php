@@ -30,10 +30,13 @@ $codigo_control = CodigoControlV7::generar($numero_autorizacion, $numero_factura
 $consultaInsertarNuevaFactura = "INSERT INTO factura (Codtal, Codv, Ci_cli, Fecha, Hora, Nro_fac) VALUES((SELECT MAX(Codtal) FROM talonario WHERE Estado = 1), ".$codv.", ".$nit_cliente.", '".$fecha."', '".$hora."', ".$numero_factura.")";
 
 	if(mysqli_query($conexion, $consultaInsertarNuevaFactura)){
-		die($codigo_control.','.$numero_factura);
+		$result = $conexion->query("UPDATE `talonario` SET `Cant_emitidos`= ".$numero_factura." WHERE Codtal = (SELECT MAX(Codtal))");	
+		if ($result) {
+			die($codigo_control.','.$numero_factura);
+		}
 		
 	} else {
-		die('<script>Materialize.toast("OCURRIÓ UN ERROR...");</script>');
+		die(mysqli_error($conexion));
 	}
 
 

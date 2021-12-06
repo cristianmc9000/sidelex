@@ -106,34 +106,34 @@ while($arr2 = $Busq2->fetch_array())
 
         </div>
         <div class="input-field col s12">
-          <input id="ci" name="ci" type="text" onKeyPress="return checkIt(event)" class="validate" required>
+          <input id="ci" name="ci" type="text" onKeyPress="return checkIt(event)" minlength="7" maxlength="7" class="validate" required>
           <label for="ci"># Cédula (*)</label>
         </div>
         
         <div class="input-field col s12">
-          <input id="nombre" name="nombre" type="text" onKeyPress="return checkText(event)" class="validate" required>
+          <input id="nombre" name="nombre" type="text" onKeyPress="return checkText(event)" minlength="3" maxlength="25" class="validate" required>
           <label for="nombre">Nombre (*)</label>
         </div>
         <div class="input-field col s12">
-          <input id="apellidos" name="apellidos" type="text" onKeyPress="return checkText(event)" class="validate" required>
+          <input id="apellidos" name="apellidos" type="text" onKeyPress="return checkText(event)" minlength="3" maxlength="25" class="validate" required>
           <label for="apellidos">Apellidos (*)</label>
         </div>
 
         <div class="input-field col s12">
-          <input id="direccion" name="direccion" type="text" class="validate" required>
+          <input id="direccion" name="direccion" type="text" minlength="10" maxlength="30" class="validate" required>
           <label for="direccion">Dirección (*)</label>
         </div>
         <div class="input-field col s12">
-          <input id="telefono" name="telefono" type="text" onKeyPress="return checkIt(event)"class="validate" required>
+          <input id="telefono" name="telefono" type="text" onKeyPress="return checkIt(event)" minlength="8" maxlength="8" class="validate" required>
           <label for="telefono">Teléfono (*)</label>
         </div>
         <div class="input-field col s12">
-          <input id="email" name="email" type="email" class="validate">
+          <input id="email" name="email" type="email" minlength="12" maxlength="40" class="validate">
           <label for="email">E-mail</label>
         </div>
 
         <div class="input-field col s12">
-          <input id="passw" name="passw" type="text">
+          <input id="passw" name="passw" type="text" minlength="4" maxlength="15">
           <label for="passw">Contraseña de acceso al sistema (*)</label>
         </div>
         <div class="input-field col s12">
@@ -360,10 +360,13 @@ $("#form_nuevo_usuario").on("submit", function(e){
   }).done(function(echo){
     if (echo == "existe") {
       M.toast({html: "El usuario ya existe."});
-    }else{
-      mensaje.html(echo);
-      $("#cuerpo").load("templates/usuarios/usuarios.php");
     }
+    if (echo == "1") {
+      M.toast({html: "Usuario agregado"})
+      $("#modal1").modal('close')
+      $("#cuerpo").load("templates/usuarios/usuarios.php")
+    }
+
   });
 });
 

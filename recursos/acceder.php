@@ -49,12 +49,12 @@ if($userBD == $userPOST and  $passPOST == $passwordBD){
 
 	session_start();
 	$_SESSION['Ci_Usuario'] = $ciBD;
-	$consultaNA = "SELECT Nombre, Apellidos, Foto FROM usuario WHERE Ci = ".$ciBD.";";
+	$consultaNA = "SELECT Nombre, Apellidos, Foto, Codrol FROM usuario WHERE Ci = ".$ciBD.";";
 	$resultadoNA = mysqli_query($conexion, $consultaNA);
 	if(empty($resultadoNA)){
-		$datosNA = array('Nombre' => '', 'Apellidos' => '', 'Foto' => '', 'estado' => '', 'user' => '');
+		$datosNA = array('Nombre' => '', 'Apellidos' => '', 'Foto' => '', 'estado' => '', 'user' => '', 'rol' => '');
 	}else{
-		$datosNA = mysqli_fetch_array($resultadoNA) or die("Error...");
+		$datosNA = mysqli_fetch_array($resultadoNA) or die(mysqli_error($conexion));
 	}
 	
 	$_SESSION['Nombre'] = $datosNA['Nombre'];
@@ -62,15 +62,15 @@ if($userBD == $userPOST and  $passPOST == $passwordBD){
 	$_SESSION['estado'] = 'Autenticado';
 	$_SESSION['user'] = $userBD;
 	$_SESSION['Foto'] = $datosNA['Foto'];
+	$_SESSION['rol'] = $datosNA['Codrol'];
 
-	die();
+	die('1');
 	/* Sesión iniciada, si se desea, se puede redireccionar desde el servidor */
 
 //Si los datos no son correctos, o están vacíos, muestra un error
 //Además, hay un script que vacía los campos con la clase "acceso" (formulario)
 } else {
-	die('<script>M.toast({html: "Datos de acceso incorrectos..."})</script>');
+	die('2');
 }
 
 ?>
-<!-- AGREGAR TABLA INSUMOS CON TODOS LOS GASTOS DEL DIA, PARA LUEGO HACER UNA DIFERENCIA CON LA GANANCIA DEL DIA TOTAL -->

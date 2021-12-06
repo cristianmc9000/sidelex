@@ -15,7 +15,6 @@ $password = $_POST['mod_passw'];
 $old_ci = $_POST['old_ci'];
 $old_pic = $_POST['old_pic'];
 
-// die($old_ci."...".$ci);
 
 if(!empty($archivo)){
 $ruta = $_SERVER['DOCUMENT_ROOT']."/sidelex/images";
@@ -25,6 +24,8 @@ $ruta2 = "images/".$nombreimg;
 }else{
 	$ruta2 = $old_pic;
 }
+
+
 if ($ci != $old_ci) {
 	$res_vu = $conexion->query("SELECT * FROM usuario WHERE Ci = ".$ci);
 	if (mysqli_num_rows($res_vu) > 0) {

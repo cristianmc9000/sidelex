@@ -20,8 +20,12 @@ $consulta = "INSERT INTO venta(Ciusu, idcli, Fecha, Total, Codped ) SELECT b.Ci,
 		
 		die('aceptado');
 	} else {
-		die('Error');
+		die(mysqli_error($conexion));
 	}
+}
+
+if ($dVE['Estado'] == 2) {
+	die('rechazado');
 }else{
 	die('already');
 }

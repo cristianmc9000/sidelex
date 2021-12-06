@@ -25,6 +25,12 @@ if ($rvp['Estado'] == 1) {
 
 	$array = $rvp['Total'].",".$rvp['Fecha'].",".$rvp['Codped'].",PENDIENTE";
 	die($array);
+}
+
+if ($rvp['Estado'] == 2) {
+
+	$array = $rvp['Total'].",".$rvp['Fecha'].",".$rvp['Codped'].",RECHAZADO";
+	die($array);
 }else{
 	die("sinpedidos");
 }

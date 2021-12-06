@@ -5,12 +5,14 @@ session_start();
 //Comprobamos si el usario está logueado
 //Si no lo está, se le redirecciona al index
 //Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
+$sp = $_GET['sp'];
 if(!isset($_SESSION['user']) and $_SESSION['estado'] != 'Autenticado') {
 header('Location: index.php');
 } else {
 $foto = $_SESSION['Foto'];
 $estado = $_SESSION['Nombre']." ".$_SESSION['Apellidos'];
 $ciactual = $_SESSION['Ci_Usuario'];
+$rol = $_SESSION['rol'];
 $salir = '<a href="recursos/salir.php" class="right" target="_self">Cerrar sesión</a>';
 
 };
@@ -115,12 +117,16 @@ $Busq = $conexion->query($Sql);
       display: inline-flex;
       vertical-align: top;
     }
+    .width-modal{
+      width: 25%;
+    }
     </style>
   </head>
   <body>
     <nav>
-      <div id="latbar" class="nav-wrapper" style="background-color: #2980b9;">
+      <div id="latbar" class="nav-wrapper" style="background-color: #e67e22;">
         <ul>
+          <li class="left"><a href="#modal1" class="waves-effect waves-light btn modal-trigger"><i class="left"><img width="40px" src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-money-finance-kiranshastry-lineal-kiranshastry-3.png"/></i>Gasto diario</a></li>
           <li class="center brand-logo" style="margin-top: 10px;"><img src="img/sidelex_sf.png" width="" height="40px" alt=""><!-- <img src="images/polloloco.png" width="" height="60px" alt=""> --></li>
           <!-- <li class="left brand-logo" > <img src="images/polloloco.png" width="" height="60px" alt=""></li> -->
           <li class=""><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a></li>
@@ -167,9 +173,9 @@ $Busq = $conexion->query($Sql);
           <!-- <li class="mg"><a href="#!" onclick="cargar('facturas');">Facturas</a></li> -->
           <!-- <li class="mg"><a href="#!" onclick="cargar('reportes');">Reportes</a></li> -->
 
-          <ul class="collapsible" data-collapsible="expandable">
+          <ul class="collapsible" data-collapsible="expandable" >
             <li>
-                <div class="collapsible-header"><i class="material-icons-outlined">admin_panel_settings</i>Administración</div>
+                <div class="collapsible-header"><i class="material-icons-outlined" 7215511>admin_panel_settings</i>Administración</div>
                 <div style="color: black; background-color: #2980b9;" class="collapsible-body"><a href="#!" onclick="cargar('usuarios');"><i class="material-icons-outlined">people</i> Usuarios</a></div>
                 <div style="color: black; background-color: #2980b9;" class="collapsible-body"><a href="#!" onclick="cargar('clientes');"><i class="material-icons-outlined">airline_seat_recline_normal</i> Clientes</a></div>
                 <div style="color: black; background-color: #2980b9;" class="collapsible-body"><a href="#!" onclick="cargar('roles');"><i class="material-icons-outlined">switch_account</i> Roles</a></div>
@@ -184,21 +190,66 @@ $Busq = $conexion->query($Sql);
           <div class="spacx"><a href="#!" onclick="cargar('templates/platos/platos');"><i class="material-icons-outlined" style="padding-right: 17px;">fastfood</i> Platos</a></div>
           <div class="spacx"><a href="#!" onclick="cargar('templates/pedidos/pedidos');"><i class="material-icons-outlined" style="padding-right: 17px;">dining</i> Pedidos</a></div>
 
-          <ul class="collapsible" data-collapsible="expandable">
+          <ul class="collapsible" data-collapsible="expandable" <?php if ($rol == '3') echo "hidden" ?>>
             <li>
-                <div style="font-family: 'Rubik'" class="collapsible-header"><i class="material-icons-outlined">admin_panel_settings</i>Administración</div>
-                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/usuarios/usuarios');"><i class="material-icons-outlined">people</i> Usuarios</a></span></div>
-                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/clientes/clientes');"><i class="material-icons-outlined">airline_seat_recline_normal</i> Clientes</a></span></div>
-                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/roles/roles');"><i class="material-icons-outlined">switch_account</i> Roles</a></span></div>
-                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/facturacion/facturacion');"><i class="material-icons-outlined">receipt</i> Facturación</a></span></div>
-                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body"><span><a href="#!" onclick="cargar('templates/reportes/reportes');"><i class="material-icons-outlined">assignment</i> Reportes</a></span></div>
+                <div style="font-family: 'Rubik'" class="collapsible-header">
+                  <i class="material-icons-outlined">admin_panel_settings</i>Administración
+                </div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body">
+                  <span>
+                    <a href="#!" onclick="cargar('templates/usuarios/usuarios');">
+                      <i class="material-icons-outlined">people</i> Usuarios
+                    </a>
+                  </span>
+                </div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body">
+                  <span>
+                    <a href="#!" onclick="cargar('templates/clientes/clientes');">
+                      <i class="material-icons-outlined">airline_seat_recline_normal</i> Clientes
+                    </a>
+                  </span>
+                </div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body">
+                  <span>
+                    <a href="#!" onclick="cargar('templates/roles/roles');">
+                      <i class="material-icons-outlined">switch_account</i> Roles
+                    </a>
+                  </span>
+                </div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body">
+                  <span>
+                    <a href="#!" onclick="cargar('templates/facturas/facturacion');">
+                      <i class="material-icons-outlined">receipt</i> Facturación
+                    </a>
+                  </span>
+                </div>
+                <div style="color: black; background-color: #1a1a1a;" class="collapsible-body">
+                  <span>
+                    <a href="#!" onclick="cargar('templates/reportes/reportes');">
+                      <i class="material-icons-outlined">assignment</i> Reportes
+                    </a>
+                  </span>
+                </div>
 
             </li>
           </ul>
           <?php echo $salir; ?>
         </div>
 
-    
+    <div id="modal1" class="modal width-modal" >
+      <div class="modal-content">
+        <center><h5 class="roboto">Gasto diario:</h5></center>
+        <p id="title_spend" class="roboto"></p>
+        <div class="input-field">
+          <input type="text" mame="gasto" onkeypress="return checkIt(event)" id="gasto" value="" >
+          <label for="gasto">Gasto diario</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" id="enviar_gasto" class="waves-effect waves-green btn">Aceptar</a>
+      </div>
+    </div>
+
     <!-- <div class="container"> -->
       <div class="row">
         <div id="cuerpo" class="col s12 m12 l9 offset-l3 xl9 offset-xl2">
@@ -206,18 +257,42 @@ $Busq = $conexion->query($Sql);
         </div>
       </div>
     <!-- </div> -->
-  <script>
-      $(document).ready(function() {
 
-        // $(".dropdown-button").dropdown({ hover: true });
-        // $(".button-collapse").sideNav();
-        // $('.collapsible').collapsible({  
-           
-        // });
-        // $('.sidenav').sidenav();
-        // var elems = document.querySelectorAll('.sidenav');
-        // var instances = M.Sidenav.init(elems,{});
-      });
+
+
+  <script>
+    $(document).ready(function() {
+      let fecha = new Date();
+      $('.modal').modal();
+      $("#modal1").modal({'dismissible':false});
+
+      $.ajax({
+        url: "recursos/stock/check_spend.php",
+        method: "GET",
+        success: function(response) {
+            if (response == '0') {
+              $("#modal1").modal('open');
+            }else{
+              $("#gasto").val(response)
+            }
+        },
+        error: function(error) {
+            console.log(error)
+        }
+      })
+
+      
+      $("#title_spend").html("Fecha: "+fecha.getDate()+"-"+(fecha.getMonth()+1)+"-"+fecha.getFullYear())
+
+      // DAILY_STOCK
+      const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      let actual = fecha.getFullYear()+"-"+(fecha.getMonth()+1);
+      let year = fecha.getFullYear();
+      let per = months[fecha.getMonth()];
+      $("#cuerpo").load("templates/inicio/daily_stock.php?mes="+actual+"&year="+year+"&per="+per);
+      //END DAILY_STOCK
+
+    });
     document.addEventListener('DOMContentLoaded', function() {
       var elems = document.querySelectorAll('.sidenav');
       var instances = M.Sidenav.init(elems);
@@ -226,49 +301,63 @@ $Busq = $conexion->query($Sql);
       var instances = M.Collapsible.init(elems);
 
     });
-    //controlar overflow de la sidenav
+
+    $("#enviar_gasto").click(function (e) {
+      let gasto = $("#gasto").val()
+      if( !$("#gasto").val() ) {
+        return M.toast({html: "Inserte un monto válido."})
+      }
+      $.ajax({
+        url: "recursos/stock/daily_spend.php?spend="+gasto,
+        method: "GET",
+        success: function(response) {
+            if (response == '1') {
+              M.toast({html: "Gasto diario agregado."})
+              $("#modal1").modal('close')
+            }
+        },
+        error: function(error) {
+            console.log(error)
+        }
+      })
+    })
+
+      //controlar overflow de la sidenav
     function overhid () {$("#mobile-demo").css('overflow', 'auto');}
     function overshow () {$("#mobile-demo").css('overflow', 'hidden');}
+
     function cargar(x){
     var y=".php";
     $("#cuerpo").load(x+y);
     }
 
-  function check(e){
-    if ((e.charCode >= 48 && e.charCode <= 57) || e.charCode == 46) {
-      return true
-    }else{
-      return false
+    function check(e){
+      if ((e.charCode >= 48 && e.charCode <= 57) || e.charCode == 46) {
+        return true
+      }else{
+        return false
+      }
     }
-  }
 
-  function checkIt(evt) {
-    evt = (evt) ? evt : window.event;
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      status = "Este campo acepta números solamente.";
-      return false;
+    function checkIt(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        status = "Este campo acepta números solamente.";
+        return false;
+      }
+      status = "";
+      return true;
     }
-    status = "";
-    return true;
-  }
 
-  // function checkText(e) {
-  //   console.log(e.currentTarget)
-  //   var regex = /^[a-zA-Z áéíóúÁÉÍÓÚ@]+$/;
-  //   if (regex.test(e.currentTarget.value) !== true){
-  //     e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z áéíóúÁÉÍÓÚ@]+/, '');
-  //     // return false
-  //   }
-  // }
-  function checkText(e) {
-    // console.log(e.key)
-    var regex = /^[a-zA-Z áéíóúÁÉÍÓÚñ@]+$/;
-    if (regex.test(e.key) !== true){
-      // e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z áéíóúÁÉÍÓÚ@]+/, '');
-      return false
+    function checkText(e) {
+      // console.log(e.key)
+      var regex = /^[a-zA-Z áéíóúÁÉÍÓÚñ@]+$/;
+      if (regex.test(e.key) !== true){
+        // e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z áéíóúÁÉÍÓÚ@]+/, '');
+        return false
+      }
     }
-  }
   </script>
       
   </body>

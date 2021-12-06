@@ -22,6 +22,14 @@ $consultaVP = "SELECT * FROM pedido WHERE idcli = ".$id." ORDER BY Codped DESC L
 $resultadoVP = mysqli_query($conexion, $consultaVP) or die(mysqli_error($conexion));
 $rvp = mysqli_fetch_array($resultadoVP);
 
+$resc = $conexion->query("SELECT Estado FROM cliente WHERE id = ".$id);
+$resc = $resc->fetch_all(MYSQLI_ASSOC);
+
+if ($resc[0]['Estado'] == '0') {
+	die('<script>M.toast({html: "Usted ha sido bloqueado del servicio."});</script>');
+}
+
+
 if ($rvp['Estado'] == 1) {
 	die('<script>M.toast({html: "Usted ya tiene un pedido activo."});</script>');
 }
@@ -43,7 +51,7 @@ if($result == 1){
 	$id_pedido = mysqli_insert_id($conexion); 
 	foreach ($json as $key => $value) {
 		$consulta_detped = "INSERT INTO det_ped (Codped, Codpla, Cant, Precio) VALUES (".$id_pedido.", ".$value[0].", ".$value[2].", (SELECT Precio FROM plato WHERE Codpla = ".$value[0]."))";
-		if(!(mysqli_query($conexion, $consulta_detped))) {die('<script>M.toast({html: "Error en consulta inserción detalle pedido"});</script>');}
+		if(!(mysqli_query($conexion, $consulta_detped))) {die(mysqli_error($conexion));}
 	}
 
 	die(true);

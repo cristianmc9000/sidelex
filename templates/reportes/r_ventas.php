@@ -4,7 +4,7 @@ require("../../recursos/conexion.php");
 session_start();
 
 $gestion = $_GET['ges'];
-$mes = $_GET['mes'];
+$mes = $_GET['per'];
 
 if ($mes == 0) {
 	$result = $conexion->query("SELECT a.Codv, a.Fecha, a.Total, a.Ciusu, IF((IFNULL((a.Codped),'local')) = 'local', 'local', 'pedido') as Tipo, CONCAT(b.Nombre,' ',b.Apellidos) as cliente FROM venta a, cliente b WHERE a.idcli = b.id AND a.Estado = 1 AND a.Fecha LIKE '".$gestion."%'");
@@ -83,6 +83,12 @@ if ($mes == 0) {
 <script>
 	    
 $(document).ready(function() {
+	const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+	let per = months[parseInt('<?php echo $mes ?>')-1];
+	if (!per) {
+		per = "";
+	}
+
 	$('#tabla1').dataTable({
       "order": [[ 0, "asc" ]],
         "language": {
@@ -117,7 +123,7 @@ $(document).ready(function() {
 	        text:       '<i class="material-icons-outlined">print</i>',
 	        titleAttr:  'Imprimir',
 	        className:  'btn-flat blue',
-	        title: 			`<span style="font-size:30; line-height: 100%;">Reporte del ventas del periodo: <?php echo $_GET["ges"] ?></span> 
+	        title: 			`<span style="font-size:30; line-height: 100%;">Reporte del ventas del periodo: <?php echo $_GET["ges"] ?> - ${per}</span> 
 	        						<p style="font-size:18; line-height: 25%;">Total ventas: <?php echo mysqli_num_rows($result) ?></p>
 	        						<p style="font-size:18; line-height: 25%;">Ventas locales: <?php echo $cant_local?></p>
 	        						<p style="font-size:18; line-height: 25%;">Ventas por pedido: <?php echo $cant_pedido?></p>
