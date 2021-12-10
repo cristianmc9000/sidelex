@@ -70,7 +70,7 @@ if ($mes == 0) {
 					<td><?php echo $valor['codv']?></td>
 					<td><?php echo $valor['ciusu']?></td>
 					<td><?php echo $valor['cliente']?></td>
-					<td><?php echo $valor['fecha']?></td>
+					<td><?php echo date('d-m-Y', strtotime($valor['fecha']))?></td>
 					<td><?php echo $valor['tipo']?></td>
 					<td><?php echo $valor['total']." Bs."?></td>
 				</tr>

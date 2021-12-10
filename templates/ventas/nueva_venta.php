@@ -10,11 +10,11 @@ while($arr0 = $Busq0->fetch_array())
 }
 
 
-$Sql = "SELECT * FROM plato WHERE Estado = 1"; 
+$Sql = "SELECT a.*, b.Stock FROM plato a, stock b WHERE a.Codpla = b.Codpla AND Estado = 1"; 
 $Busq = $conexion->query($Sql); 
 while($arr = $Busq->fetch_array()) 
     { 
-        $fila[] = array('cod'=>$arr['Codpla'], 'nombre'=>$arr['Nombre'], 'precio'=>$arr['Precio'], 'foto'=>$arr['Foto']); 
+        $fila[] = array('cod'=>$arr['Codpla'], 'nombre'=>$arr['Nombre'], 'precio'=>$arr['Precio'], 'descripcion'=>$arr['Descripcion'], 'foto'=>$arr['Foto'], 'stock'=>$arr['Stock']);
     } 
 
 $Sqlb = "SELECT * FROM bebida WHERE Estado = 1"; 
@@ -237,7 +237,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
           </thead>
           <tbody>
              <?php foreach($fila as $a  => $valor){ ?>
-             <tr style="cursor: pointer;" onclick="agregar_plato('<?php echo $valor['cod'] ?>','<?php echo $valor['nombre'] ?>', '<?php echo $valor['precio'] ?>');">
+             <tr style="cursor: pointer;" onclick="agregar_plato('<?php echo $valor['cod'] ?>', '<?php echo $valor['nombre'] ?>', '<?php echo $valor['precio'] ?>', '<?php echo $valor['stock'] ?>')">
                 <td align="center"><img src="<?php echo $valor['foto'] ?>" width="50px" alt=""></td>
                 <td align="center"><?php echo $valor["nombre"] ?></td>
                 <td align="center"><?php echo $valor["precio"] ?></td>
@@ -290,7 +290,10 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
   <div id="modal_cant_plato" class="modal fuente col s12 m2 offset-m3">
       <a href="#!" class="modal-close close right"><i class="material-icons">close</i></a>
       <div class="modal-content">
-
+        <div>
+          <input type="text" id="current_sell" hidden>
+          <input type="text" id="current_stock" hidden>
+        </div>
         <div class="number-container">
               <label for="">Cantidad</label>
               <input class="browser-default" onKeyPress="return checkIt(event)" autocomplete="off" type="number" id="__cantidad" min="1" max="15">
@@ -320,6 +323,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
       buttonIncrement: "+",
       buttonPosition: 'around'
     });
+
   });
 
 $("#datos_cliente").click(function () {
@@ -401,21 +405,51 @@ $('#tabla_bebidas').dataTable({
   }
 });
 
-function agregar_plato(cod, nombre, precio) {
-
+function agregar_plato(cod, nombre, precio, stock) {
+  console.log(cod, nombre, precio, stock)
   $("#__datosplato").html("<input id='__datosp' cp='"+cod+"' np='"+nombre+"' pp='"+precio+"' />");
 
-  $("#modal_cant_plato").modal('open');
+  $.ajax({
+    url: "recursos/app/check_stock.php?id="+cod,
+    method: "GET",
+    success: function(response) {
+      $("#current_sell").val(response)
+      $("#current_stock").val(stock)
+      console.log(stock, response)
+      if (parseInt(stock) > parseInt(response)) {
+        $("#modal_cant_plato").modal('open');
+      }else{
+        M.toast({html: "Producto agotado, puede aumentar el stock en la pantalla de inicio."})
+      }
+    },
+    error: function(error) {
+        console.log(error)
+    }
+  })
+
+  
   
 }
 var reg_pedidos = new Array();
 function agregar_fila_plato() {
       console.log(reg_pedidos)
+
+      let c_sell = $("#current_sell").val()
+      let c_stock = $("#current_stock").val()
+      var cantp = $("#__cantidad").val();
+
+      let disp = parseInt(c_stock) - parseInt(c_sell)
+      if (disp < cantp) {
+        return M.toast({html: "Cantidad solicitada insuficiente en stock, "+disp+" disponible."})
+      }else{
+        M.toast({html: "Agregado al detalle de venta."})
+      }
+
       var cp = $("#__datosp").attr("cp");
       var np = $("#__datosp").attr("np");
       var pp = $("#__datosp").attr("pp");
       // var fp = $("#__datosp").attr("fp");
-      var cantp = $("#__cantidad").val();
+      
       if (parseInt(cantp) > 35 || cantp == "") {M.toast({html: "El pedido no puede superar las 35 unidades"})}
         else{
       if (parseInt(cantp) < 1 || cantp == "") { M.toast({html: "Ingresa una cantidad válida."}); }
@@ -576,8 +610,9 @@ var total = response.Total
 
 var date = new Date();
 
-var fecha = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
-var hora = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+var fecha = ("0"+date.getDate()).slice(-2)+"-"+("0"+(date.getMonth()+1)).slice(-2)+"-"+date.getFullYear() //2 DIGITOS
+var hora = ("0"+(date.getHours())).slice(-2)+":"+("0"+(date.getMinutes())).slice(-2)+":"+("0"+(date.getSeconds())).slice(-2)
+
 // NUMEROS A LETRAS
 var monto = numeroALetras(total, {
 plural: 'BS.',
@@ -612,7 +647,7 @@ $.ajax({
 
 
 //ENVIO CON AJAX --
-var data = {autx: aut, llavex: llave, nitx: nit, cix: ci, fechax: fecha, montox: total, codped: cod, horax: hora}
+var data = {autx: aut, llavex: llave, nitx: nit, cix: ci, fechax: (fecha.split("-").reverse().join("-")), montox: total, codped: cod, horax: hora}
 $.ajax({
   url: "recursos/ventas/datos_fac_ven.php",
   data: data,
@@ -703,7 +738,7 @@ var miHtml = `
     Son: ${monto}
     <center>----------------------------------------</center>
     Código de Control: ${codctrl}<br>
-    Fecha Límite de emisión: ${fecha_lim}<br>
+    Fecha Límite de emisión: ${(fecha_lim.split("-").reverse().join("-"))}<br>
     Usuario: ${usuario}
     <div> <center><img src="${qrcod}" alt="" height="120px" /></center></div>
     <center><p>ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS. EL USO ILÍCITO DE ESTA SERÁ SANCIONADO DE ACUERDO A LEY</p></center>

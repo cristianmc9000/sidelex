@@ -51,7 +51,7 @@ $(document).ready(function() {
 	}
 
 	$('#tabla1').dataTable({
-      "order": [[ 0, "desc" ]],
+      "order": [[ 1, "desc" ]],
         "language": {
         "lengthMenu": "Mostrar _MENU_ registros por página",
         "zeroRecords": "Lo siento, no se encontraron datos",

@@ -121,7 +121,7 @@ while($arr = $Busq->fetch_array())
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text">
           </div>
-          <input type="text" id="old_pic" name="old_pic">
+          <input type="text" id="old_pic" name="old_pic" hidden>
         </div>
 
         <div class="input-field col s7">
@@ -141,7 +141,7 @@ while($arr = $Busq->fetch_array())
     </div>
 
     <div class="modal-footer">
-      <button class="btn waves-effect waves-light right" form="form_mod_plato" type="submit" name="acceso">Guardar</button>
+      <button class="btn waves-effect waves-light right" style="width: 10%" form="form_mod_plato" type="submit" name="acceso">Guardar</button>
       <a href="#!" class=" modal-action modal-close waves-effect waves-red btn red left">Cancelar</a>
     </div>
   </div>
@@ -150,7 +150,7 @@ while($arr = $Busq->fetch_array())
   <div id="modal3" class="modal">
     <div class="modal-content">
       <input type="text" id="borr_codp" hidden>
-      <h5><b>Se borrará el producto:</b></h5>
+      <h5><b>Se dará de baja el producto:</b></h5>
       <p id="borr_nombre" class="marginless"></p>
       <p id="borr_precio" class="marginless"></p>
     </div>

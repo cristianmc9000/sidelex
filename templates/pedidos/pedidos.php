@@ -55,7 +55,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
           
           <td align="center"><?php echo $valor["cod"]?></td>
 
-          <td align="center"><?php echo $valor["fecha"] ?></td>
+          <td align="center"><?php echo date('d-m-Y H:m:s', strtotime($valor['fecha'])) ?></td>
           <td align="center"><?php echo $valor["total"] ?></td>
           <td align="center">
             <?php if ($valor["estado"] == 1) { ?> Pendiente <?php }else{if ($valor["estado"] == 2) { ?> Rechazado <?php }else{ ?> Enviado <?php }} ?>
@@ -63,7 +63,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
           <td class="center">
             <!-- <a onclick="" class="btn-floating modal-trigger"><i class="material-icons">build</i></a> -->
             <a href="#!" onclick="eliminar_pedido('<?php echo $valor['cod']?>')" class="btn-floating"><i class="material-icons">delete</i></a>
-            <a onclick="vped('<?php echo $valor["cod"]?>', '<?php echo $valor["cliente"]?>', '<?php echo $valor["cedula"]?>', '<?php echo $valor["lat"]?>', '<?php echo $valor["lng"]?>','<?php echo $valor["nombre"]?>', '<?php echo $valor["apellidos"]?>', '<?php echo $valor["direccion"]?>','<?php echo $valor["telf"]?>');"  class="btn-floating"><i class="material-icons">search</i></a>
+            <a onclick="vped('<?php echo $valor["cod"]?>', '<?php echo $valor["cliente"]?>', '<?php echo $valor["cedula"]?>', '<?php echo $valor["lat"]?>', '<?php echo $valor["lng"]?>','<?php echo $valor["nombre"]?>', '<?php echo $valor["apellidos"]?>', '<?php echo $valor["direccion"]?>','<?php echo $valor["telf"]?>','<?php echo $valor["estado"]?>');"  class="btn-floating"><i class="material-icons">search</i></a>
           </td>
         </tr>
         <?php } ?>
@@ -76,7 +76,8 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 <div id="modal_elimped" class="modal">
 
   <div class="modal-content">
-    <h4>Se cancelará el pedido seleccionado.</h4>
+    <h4 class="roboto">Se eliminaran los datos del pedido seleccionado.</h4>
+    <p class="rubik">Se anulará la factura y se dará de baja la venta en caso de haber sido realizada.</p>
     <input type="text" id="id_ped" hidden>
 
   </div>
@@ -90,12 +91,10 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
 
 <!-- Modal Ver Pedidos -->
 <div id="modal2" class="modal modal-fixed-footer">
-
   <div class="modal-content">
-
-
     <h4 class="center"><b>Detalle de pedido</b></h4>
     <input type="text" id="__idcli" hidden>
+    <input type="text" id="__status" hidden>
     <p class="marginless" id="__telf"></p>
     <p class="marginless" id="__ci"></p>
     <p class="marginless" id="__cli"></p>
@@ -213,11 +212,20 @@ function initMap() {
 }
   
 $("#rechazar_ped").click(function () {
+  let status = $("#__status").val()
+  if (status == '0') {
+    return M.toast({html: "Este pedido ya ha sido aceptado previamente."})
+  }
+  if (status == '2') {
+    return M.toast({html: "Este pedido ya ha sido rechazado previamente."})
+  }
+
   let id = $("#__codiped").val()
   $.ajax({
-    url: "recursos/pedidos/eliminar_pedido.php?id="+id,
+    url: "recursos/pedidos/rechazar_ped.php?id="+id,
     method: "get",
     success: function(response){
+      console.log(response)
       if (response == '1') {
         M.toast({html: 'Pedido cancelado.'})
         $("#modal2").modal('close')
@@ -244,8 +252,9 @@ $("#elimped").click(function (argument) {
     url: "recursos/pedidos/eliminar_pedido.php?id="+id,
     method: "get",
     success: function(response){
+      console.log(response)
       if (response == '1') {
-        M.toast({html: 'Pedido eliminado.'})
+        M.toast({html: 'El pedido y sus detalles han sido eliminados.'})
         $("#modal_elimped").modal('close')
         $("#cuerpo").load("templates/pedidos/pedidos.php");
       }
@@ -280,9 +289,9 @@ function confirmar_bloqueo() {
 
 }
 
-function vped(cod, cliente, cedula, lat, lng, nombre, apellidos, direccion, telf) {
+function vped(cod, cliente, cedula, lat, lng, nombre, apellidos, direccion, telf, estado) {
   $("#__idcli").val(cliente);
-
+  $("#__status").val(estado)
   $("#block_ci").html('<b>Cédula de identidad:</b> '+cedula)
   $("#block_name").html('<b>Nombre y apellidos:</b> '+nombre+' '+apellidos)
   $("#block_telf").html('<b>Teléfono:</b> '+telf)
@@ -354,8 +363,13 @@ function imprimirElemento(cod){
     if (<?php echo $valor['cod']; ?> == cod) {
     date = new Date("<?php echo $valor['fecha']; ?>")
 
-    var fecha = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
-    var hora = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+    // var fecha = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+    // var hora = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+
+    var fecha = ("0"+date.getDate()).slice(-2)+"-"+("0"+(date.getMonth()+1)).slice(-2)+"-"+date.getFullYear() //2 DIGITOS
+    var hora = ("0"+(date.getHours())).slice(-2)+":"+("0"+(date.getMinutes())).slice(-2)+":"+("0"+(date.getSeconds())).slice(-2)
+
+
     var ci = "<?php echo $valor['cedula']; ?>"
     var nombres ="<?php echo $valor['nombre']; ?>"+" "+"<?php echo $valor['apellidos']; ?>"
     var usuario = "<?php echo $_SESSION['Nombre'] ; echo ' '.$_SESSION['Apellidos']; ?>"
@@ -394,7 +408,7 @@ function imprimirElemento(cod){
   //ENVIO CON AJAX --
 
 
-  var data = {autx: aut, llavex: llave, nitx: nit, cix: ci, fechax: fecha, montox: total, codped: cod, horax: hora}
+  var data = {autx: aut, llavex: llave, nitx: nit, cix: ci, fechax: (fecha.split("-").reverse().join("-")), montox: total, codped: cod, horax: hora}
   $.ajax({
     url: "recursos/pedidos/datos_fac.php",
     data: data,
@@ -483,7 +497,7 @@ var miHtml = `
     Son: ${monto}
     <center>----------------------------------------</center>
     Código de Control: ${codctrl}<br>
-    Fecha Límite de emisión: ${fecha_lim}<br>
+    Fecha Límite de emisión: ${(fecha_lim.split("-").reverse().join("-"))}<br>
     Usuario: ${usuario}
     <div> <center><img src="${qrcod}" alt="" height="120px" /></center></div>
     <center><p>ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS. EL USO ILÍCITO DE ESTA SERÁ SANCIONADO DE ACUERDO A LEY</p></center>

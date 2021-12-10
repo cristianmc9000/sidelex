@@ -4,11 +4,11 @@ session_start();
 //Pedimos el archivo que controla la duración de las sesiones
 require('recursos/sesiones.php');
 require('recursos/conexion.php');
-$Sql = "SELECT * FROM plato WHERE Estado = 1";
+$Sql = "SELECT a.*, b.Stock FROM plato a, stock b WHERE a.Codpla = b.Codpla AND Estado = 1";
 $Busq = $conexion->query($Sql);
 while($arr = $Busq->fetch_array())
 {
-$fila[] = array('codpla'=>$arr['Codpla'], 'nombre'=>$arr['Nombre'], 'precio'=>$arr['Precio'], 'descripcion'=>$arr['Descripcion'], 'foto'=>$arr['Foto']);
+$fila[] = array('codpla'=>$arr['Codpla'], 'nombre'=>$arr['Nombre'], 'precio'=>$arr['Precio'], 'descripcion'=>$arr['Descripcion'], 'foto'=>$arr['Foto'], 'stock'=>$arr['Stock']);
 }
 $Sql2 = "SELECT Ci, Nombre, Apellidos, Telefono FROM cliente WHERE Estado = 1";
 $Busq2 = $conexion->query($Sql2);
@@ -75,7 +75,7 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 			<a href="#email"><span class="white-text email"><?php $_SESSION['correo'] ?></span></a>
 			</div></li>
 			<li><a href="#!" onclick="location.reload()" class="waves-effect waves-purple"><i class="material-icons">home</i>Inicio</a></li>
-			<li><a href="#!" class="waves-effect waves-purple"><i class="material-icons">face</i>Mi perfil</a></li>
+			<li><a href="#!" onclick="sidenav_navi('templates/app/perfil.php')" class="waves-effect waves-purple"><i class="material-icons">face</i>Mi perfil</a></li>
 			<li><a href="#!" onclick="sidenav_navi('templates/app/rev_pedido.php')" class="waves-effect waves-purple"><i class="material-icons">assignment</i>Mi pedido</a></li>
 
 			<li><div class="divider"></div></li>
@@ -93,12 +93,12 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 				<h5>Productos disponibles:</h5>
 				<?php foreach($fila as $a  => $valor){ ?>
 					<!-- antes era s12 m6 l6 xl6 -->
-				<div class="col s12 m6 l6 xl4 rubik" onclick="cantidad_plato('<?php echo $valor['codpla'] ?>','<?php echo $valor['nombre'] ?>','<?php echo $valor['precio'] ?>','<?php echo $valor['foto'] ?>')">
+				<div class="col s12 m6 l6 xl4 rubik" onclick="cantidad_plato('<?php echo $valor['codpla'] ?>','<?php echo $valor['nombre'] ?>','<?php echo $valor['precio'] ?>','<?php echo $valor['foto'] ?>', '<?php echo $valor['stock'] ?>')">
 					<div class="z-depth-3 card horizontal card__pad">
 					  <div class="card-stacked">
 					    <div class="">
 					    	<p><?php echo $valor['nombre']; ?></p>
-					      	<small><?php echo $valor['descripcion']; ?></small>
+					      	<small><?php echo $valor['descripcion'] ?></small>
 					      	<p style="position: absolute; bottom: 0px;"><?php echo 'Bs. '.$valor['precio']; ?></p>
 					    </div>
 					  </div>
@@ -151,63 +151,65 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 				<a class="waves-effect waves-light btn btn-large modal-trigger" id="mod_ubi" href="#modal_ubi">PEDIR!</a>
 			</div>
 		</div>
-			<div id="modal2" class="modal ">
-				<div id="modal_pedidos" class="modal-content row">
-					<div class="col s12" id="cont_foto">
-						<img id="foto_plato" src="" >
-					</div>
-					<div class="col s8 black-text">
-						<h5 id="nombre_p"> </h5>
-						<h5 id="precio_p"> </h5>
-					</div>
-					<div class="col s4">
-						<div class="number-container">
-							<label for="">Cantidad</label>
-							<input class="browser-default" type="number" name="" id="__cantidad" min="1" max="15" disabled>
-						</div>
-					</div>
+		<div id="modal2" class="modal ">
+			<div id="modal_pedidos" class="modal-content row">
+				<div class="col s12" id="cont_foto">
+					<img id="foto_plato" src="" >
 				</div>
-				<div id="__datosplato" hidden></div>
-				<hr>
-				<div class="modal-footer row ">
-					<a href="#!" class="left modal-action modal-close waves-effect waves-light btn btn-large red"><i class="material-icons">close</i></a>
-					<a class="waves-effect waves-light btn btn-large right" onclick="datos_plato();" >Agregar<i class="material-icons right">add_shopping_cart</i></a>
+				<div class="col s8 black-text">
+					<input type="text" id="current_sell" hidden>
+					<input type="text" id="current_stock" hidden>
+					<h5 id="nombre_p"> </h5>
+					<h5 id="precio_p"> </h5>
+				</div>
+				<div class="col s4">
+					<div class="number-container">
+						<label for="">Cantidad</label>
+						<input class="browser-default" type="number" name="" id="__cantidad" min="1" max="15" disabled>
+					</div>
 				</div>
 			</div>
-
-			<form id="form_pedido" hidden> <!-- onKeyPress="return checkIt(event)" SOLO NÚMEROS -->
-				<input type="text" id="coordLat" name="coordLat" >
-				<input type="text" id="coordLng" name="coordLng" >
-				<input type="text" id="tot_ped" name="tot_ped" value="" >
-			</form>
-
-			<div id="modal_ubi" class="modal"> <!-- arreglar esta wea -->
-				<div class="modal-content" id="modal_ubi_content">
-					<h4>Dirección</h4>
-					
-					<div class="row">
-						<div class="col s12">
-						  
-						  <div class="input-field">
-						    <input id="direccion" type="text" class="validate">
-						    <label for="direccion">Escribe aquí tu dirección</label>
-						    <!-- <span class="helper-text" data-error="wrong" data-success="right">Helper text</span> -->
-						  </div>
-						</div>
-					</div>
-
-					<!-- <div class="container"> -->
-						<!-- <input type="text" id="direccion" placeholder="Escribe tu dirección"> -->
-					<!-- </div> -->
-					<div id="map"></div>
-
-				</div>
-				<div class="modal-footer" id="footer_ubi">
-					<a href="#!" class="modal-close waves-effect waves-green btn red left">Cancelar</a>
-					<button type="submit" form="form_pedido" class="btn waves-effect waves-purple">Aceptar</button>
-				</div>
+			<div id="__datosplato" hidden></div>
+			<hr>
+			<div class="modal-footer row ">
+				<a href="#!" class="left modal-action modal-close waves-effect waves-light btn btn-large red"><i class="material-icons">close</i></a>
+				<a class="waves-effect waves-light btn btn-large right" onclick="datos_plato();" >Agregar<i class="material-icons right">add_shopping_cart</i></a>
 			</div>
-		<!-- </div> -->
+		</div>
+
+		<form id="form_pedido" hidden> <!-- onKeyPress="return checkIt(event)" SOLO NÚMEROS -->
+			<input type="text" id="coordLat" name="coordLat" >
+			<input type="text" id="coordLng" name="coordLng" >
+			<input type="text" id="tot_ped" name="tot_ped" value="" >
+		</form>
+
+		<div id="modal_ubi" class="modal"> <!-- arreglar esta wea -->
+			<div class="modal-content" id="modal_ubi_content">
+				<h4>Dirección</h4>
+				
+				<div class="row">
+					<div class="col s12">
+					  
+					  <div class="input-field">
+					    <input id="direccion" type="text" class="validate">
+					    <label for="direccion">Escribe aquí tu dirección</label>
+					    <!-- <span class="helper-text" data-error="wrong" data-success="right">Helper text</span> -->
+					  </div>
+					</div>
+				</div>
+
+				<!-- <div class="container"> -->
+					<!-- <input type="text" id="direccion" placeholder="Escribe tu dirección"> -->
+				<!-- </div> -->
+				<div id="map"></div>
+
+			</div>
+			<div class="modal-footer" id="footer_ubi">
+				<a href="#!" class="modal-close waves-effect waves-green btn red left">Cancelar</a>
+				<button type="submit" form="form_pedido" class="btn waves-effect waves-purple">Aceptar</button>
+			</div>
+		</div>
+	<!-- </div> -->
 
 		
 
@@ -264,12 +266,31 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 
 	var reg_pedidos = new Array();
 
-	function cantidad_plato(cod, nombre, precio, foto) {
+	function cantidad_plato(cod, nombre, precio, foto, stock) {
 		$("#foto_plato").attr("src", foto);
 		$("#nombre_p").html(nombre);
 		$("#precio_p").html(precio+" Bs.");
-		$("#modal2").modal('open');
+		
 		$("#__datosplato").html("<input id='__datosp' cp='"+cod+"' np='"+nombre+"' pp='"+precio+"' fp='"+foto+"' hidden/>");
+
+		$.ajax({
+	        url: "recursos/app/check_stock.php?id="+cod,
+	        method: "GET",
+	        success: function(response) {
+	        	$("#current_sell").val(response)
+	        	$("#current_stock").val(stock)
+	        	console.log(stock, response)
+	        	if (parseInt(stock) > parseInt(response)) {
+	        		$("#modal2").modal('open');
+	        	}else{
+	        		M.toast({html: "Producto agotado."})
+	        	}
+	        },
+	        error: function(error) {
+	            console.log(error)
+	        }
+      	})
+		
 	}
 
 	function borr_pla(x) {
@@ -299,12 +320,22 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		function datos_plato(){
 
 			// console.log(reg_pedidos.length)
+			let c_sell = $("#current_sell").val()
+			let c_stock = $("#current_stock").val()
+			var cantp = $("#__cantidad").val();
+			let disp = parseInt(c_stock) - parseInt(c_sell)
+
+			if (disp < cantp) {
+				return M.toast({html: "Cantidad solicitada insuficiente en stock, "+disp+" disponible."})
+			}else{
+				M.toast({html: "Agregado al detalle de compra."})
+			}
 
 			var cp = $("#__datosp").attr("cp");
 			var np = $("#__datosp").attr("np");
 			var pp = $("#__datosp").attr("pp");
 			var fp = $("#__datosp").attr("fp");
-			var cantp = $("#__cantidad").val();
+			
 			if (parseInt(cantp) > 15 || cantp == "") {M.toast({html: "El pedido no puede superar las 15 unidades"})}
 				else{
 			if (parseInt(cantp) < 1 || cantp == "") { M.toast({html: "Ingresa una cantidad válida."})}

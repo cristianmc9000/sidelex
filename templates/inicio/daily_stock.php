@@ -3,8 +3,11 @@
 	$mes = $_GET['mes'];
 	$year = $_GET['year'];
 	$per = $_GET['per'];
+	date_default_timezone_set("America/La_Paz");
+	$daily = date("Y-m-d");
 	// echo $year." ".$per;
-	$result = $conexion->query("SELECT a.Codpla, a.Nombre, a.Precio, a.Descripcion, a.Foto, d.Stock, (SELECT IF (SUM(b.Cantidad)>0, SUM(b.Cantidad),0) FROM det_plato b, venta c WHERE a.Codpla = b.Codpla AND b.Codv = c.Codv AND c.Fecha LIKE '%".$mes."%' AND b.Estado = 1) as Cantidad FROM plato a, stock d WHERE a.Codpla = d.Codpla AND a.Estado = 1 GROUP BY a.Codpla ORDER BY Cantidad DESC");
+	// $result = $conexion->query("SELECT a.Codpla, a.Nombre, a.Precio, a.Descripcion, a.Foto, d.Stock, (SELECT IF (SUM(b.Cantidad)>0, SUM(b.Cantidad),0) FROM det_plato b, venta c WHERE a.Codpla = b.Codpla AND b.Codv = c.Codv AND c.Fecha LIKE '%".$mes."%' AND b.Estado = 1) as Cantidad FROM plato a, stock d WHERE a.Codpla = d.Codpla AND a.Estado = 1 GROUP BY a.Codpla ORDER BY Cantidad DESC");
+	$result = $conexion->query("SELECT a.Codpla, a.Nombre, a.Precio, a.Descripcion, a.Foto, d.Stock, (SELECT IF (SUM(b.Cantidad)>0, SUM(b.Cantidad),0) FROM det_plato b, venta c WHERE a.Codpla = b.Codpla AND b.Codv = c.Codv AND c.Fecha LIKE '%".$mes."%' AND b.Estado = 1) as Cantidad, (SELECT IF (SUM(b.Cantidad)>0, SUM(b.Cantidad),0) FROM det_plato b, venta c WHERE a.Codpla = b.Codpla AND b.Codv = c.Codv AND c.Fecha LIKE '%".$daily."%' AND b.Estado = 1) as daily FROM plato a, stock d WHERE a.Codpla = d.Codpla AND a.Estado = 1 GROUP BY a.Codpla ORDER BY Cantidad DESC");
 	$result = $result->fetch_all();
 
 ?>
@@ -64,10 +67,20 @@
 					    </div>
 					    <div class="card-content">
 					      <span class="card-title activator grey-text text-darken-4"><?php echo $key[1]?><i class="material-icons right">more_vert</i></span>
-					      <div class="">
+					      <div class="" > 
 					      	<!-- <p class="trunc"><?php echo $key[3] ?></p> -->
+					      	
+					      	<span class="trunc rubik" >Cantidad vendida hoy: <?php echo $key[7]?></span>
+					      	
+					      </div>
+
+					      <div>
 					      	<small>
-					      		<span class="trunc">Cantidad vendida para el periodo <?php echo $per." ".$year?>: <?php echo $key[6]?></span>
+					      		<span class="rubik" style="position: absolute; bottom: 20px; color:red;">
+					      			<?php if ((((int)$key[5])-((int)$key[7])) <= 5): ?>
+					      				Producto escaso.
+					      			<?php endif ?>
+					      		</span>
 					      	</small>
 					      </div>
 

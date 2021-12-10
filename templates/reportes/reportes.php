@@ -42,7 +42,7 @@
           <div class="input-field">
               <select name="tipo_reporte" id="tipo_reporte">
                 <option value="r_ventas.php" selected><b>Reportes de ventas</b></option>
-                <option value="r_compras.php" ><b>Reportes de pedidos</b></option>
+                <!-- <option value="r_compras.php" ><b>Reportes de pedidos</b></option> -->
                 <option value="r_productos.php"><b>Reporte de productos</b></option>
                 <option value="r_gastos.php"><b>Reporte de gastos</b></option>
                 <!-- <option value="r_le.php"><b>Reportes de Lider/Experta</b></option> -->

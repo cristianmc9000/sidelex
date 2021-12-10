@@ -125,7 +125,7 @@ while($arr = $Busq->fetch_array())
 <!-- Modal borrar cliente -->
   <div id="modal3" class="modal" style="width: 30%;">
     <div class="modal-content">
-      <h4>Se eliminará al cliente seleccionado.</h4>
+      <h4>Se dará de baja al cliente seleccionado.</h4>
       <input type="text" id="del_id" hidden>
     </div>
     <div class="modal-footer col s12">

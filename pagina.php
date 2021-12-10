@@ -124,9 +124,9 @@ $Busq = $conexion->query($Sql);
   </head>
   <body>
     <nav>
-      <div id="latbar" class="nav-wrapper" style="background-color: #e67e22;">
+      <div id="latbar" class="nav-wrapper" style="background-color: #3498db;">
         <ul>
-          <li class="left"><a href="#modal1" class="waves-effect waves-light btn modal-trigger"><i class="left"><img width="40px" src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-money-finance-kiranshastry-lineal-kiranshastry-3.png"/></i>Gasto diario</a></li>
+          <li class="left"><a href="#modal_gasto" class="waves-effect waves-light btn modal-trigger"><i class="left"><img width="40px" src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-money-finance-kiranshastry-lineal-kiranshastry-3.png"/></i>Gasto diario</a></li>
           <li class="center brand-logo" style="margin-top: 10px;"><img src="img/sidelex_sf.png" width="" height="40px" alt=""><!-- <img src="images/polloloco.png" width="" height="60px" alt=""> --></li>
           <!-- <li class="left brand-logo" > <img src="images/polloloco.png" width="" height="60px" alt=""></li> -->
           <li class=""><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a></li>
@@ -236,12 +236,12 @@ $Busq = $conexion->query($Sql);
           <?php echo $salir; ?>
         </div>
 
-    <div id="modal1" class="modal width-modal" >
+    <div id="modal_gasto" class="modal width-modal" >
       <div class="modal-content">
         <center><h5 class="roboto">Gasto diario:</h5></center>
         <p id="title_spend" class="roboto"></p>
         <div class="input-field">
-          <input type="text" mame="gasto" onkeypress="return checkIt(event)" id="gasto" value="" >
+          <input type="text" mame="gasto" maxlength="5" minlength="1" onkeypress="return checkIt(event)" id="gasto" value="" >
           <label for="gasto">Gasto diario</label>
         </div>
       </div>
@@ -264,14 +264,14 @@ $Busq = $conexion->query($Sql);
     $(document).ready(function() {
       let fecha = new Date();
       $('.modal').modal();
-      $("#modal1").modal({'dismissible':false});
+      $("#modal_gasto").modal({'dismissible':false});
 
       $.ajax({
         url: "recursos/stock/check_spend.php",
         method: "GET",
         success: function(response) {
             if (response == '0') {
-              $("#modal1").modal('open');
+              $("#modal_gasto").modal('open');
             }else{
               $("#gasto").val(response)
             }
@@ -313,7 +313,7 @@ $Busq = $conexion->query($Sql);
         success: function(response) {
             if (response == '1') {
               M.toast({html: "Gasto diario agregado."})
-              $("#modal1").modal('close')
+              $("#modal_gasto").modal('close')
             }
         },
         error: function(error) {

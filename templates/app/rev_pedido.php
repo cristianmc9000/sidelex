@@ -18,13 +18,16 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 	.textrev{
 		color: #eeee00;
 	}
-	
+	.det{
+		/*border: 3px solid black;*/
+		background-color: white;
+	}
 </style>
 
 <!-- <div class="col s12"> -->
 	<!-- <a href="../../pedidos.php" class="btn-large orange"><i class="material-icons">keyboard_return</i></a> -->
 <!-- </div> -->
-<div class="center"><h4>Estado de tu pedido</h4></div>
+<div class="center roboto"><h4>Estado de tu pedido</h4></div> <!-- ESTADO -->
 <!-- <div class="row">
 	<form id="rev_pedido" class="col s12 m12 l4 offset-l4">
 		<div class="row">
@@ -41,10 +44,23 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 
 <div class="row roboto" >
 	<div class="col s12">
-		<h5><span id="actped"></span><br>
-		<span id="fecha_ped"></span><br>
-		
-		</h5>
+		<table class="det rubik z-depth-4">
+			<tr>
+				<th>Estado: </th>
+				<td><span id="actped"></span></td>
+			</tr>
+			<tr>
+				<th>Fecha: </th>
+				<td><span id="fecha_ped"></span></td>
+			</tr>
+			<tr>
+				<th>Hora: </th>
+				<td><span id="hora_ped"></span></td>
+			</tr>
+		</table>
+		<!-- <p class="rubik">Estado del pedido: <span id="actped"></span></p> -->
+		<!-- <span id="fecha_ped"></span> -->
+
 	</div>
 	<div class="col s12 m12 l12">
 		<table id="pedidos_cliente" class="content-table z-depth-4">
@@ -100,7 +116,7 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 				
 				if (echo == "sinpedidos") {
 					$('#actped').css('color', 'red');
-					$('#actped').html("<b>No tienes pedidos activos</b>");
+					$('#actped').html("No tienes pedidos activos.");
 					$('#totped').html("");
 					$('#fecha_ped').html("");
 					$("#boton-cancelar").hide();
@@ -108,10 +124,11 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 				}
 
 				if (arr[3] == "PENDIENTE") {
-					$('#actped').css('color', '#f6e58d');
-					$('#actped').html('<b>Tienes 1 pedido pendiente, tu pedido aun no ha sido aceptado.</b>');
+					// $('#actped').css('color', '#f6e58d');
+					$('#actped').html('Tienes 1 pedido pendiente, tu pedido aun no ha sido aceptado.');
 					$('#totped').html('<b>Total:</b> '+arr[0]+'Bs.');
-					$('#fecha_ped').html('<b>Fecha:</b> '+arr[1]);
+					$('#fecha_ped').html(arr[4]);
+					$("#hora_ped").html(arr[5]);
 					// $("#boton-cancelar").html("<a class='btn-large red' onclick='cancelar_pedido("+arr[2]+")'>CANCELAR MI PEDIDO</a>");
 					$("#boton-cancelar").show();
 					$("#boton-cancelar").attr("onclick","cancelar_pedido("+arr[2]+")");
@@ -119,9 +136,10 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 				}
 				if (arr[3] == "ACEPTADO"){
 					$('#actped').css('color', '#329f21');
-					$('#actped').html('<b>Tu pedido ha sido aceptado, y enviado.</b>');
+					$('#actped').html('Tu pedido ha sido aceptado, y enviado.');
 					$('#totped').html('<b>Total:</b> '+arr[0]+'Bs.');
-					$('#fecha_ped').html('<b>Fecha:</b> '+arr[1]);
+					$('#fecha_ped').html(arr[4]);
+					$("#hora_ped").html(arr[5]);
 					// $("#boton-cancelar").html("");
 					$("#boton-cancelar").hide();
 					tabla_llenar(arr[2]);
@@ -129,9 +147,10 @@ $fila[] = array('cod'=>$arr['Codped'], 'nombre'=>$arr['nompla'], 'cant'=>$arr['C
 
 				if (arr[3] == "RECHAZADO") {
 					$('#actped').css('color', 'orange');
-					$('#actped').html('<b>Tu pedido fue rechazado.</b>');
+					$('#actped').html('Tu pedido fue rechazado.');
 					$('#totped').html('<b>Total:</b> '+arr[0]+'Bs.');
-					$('#fecha_ped').html('<b>Fecha:</b> '+arr[1]);
+					$('#fecha_ped').html(arr[4]);
+					$("#hora_ped").html(arr[5]);
 					// $("#boton-cancelar").html("<a class='btn-large red' onclick='cancelar_pedido("+arr[2]+")'>CANCELAR MI PEDIDO</a>");
 					// $("#boton-cancelar").show();
 					// $("#boton-cancelar").attr("onclick","cancelar_pedido("+arr[2]+")");

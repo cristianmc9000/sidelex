@@ -62,9 +62,9 @@ overflow-x: hidden;*/
         <td align="center"><?php echo $valor["usuario"] ?></td>
         <td align="center"><?php echo $valor["nombrecli"]." ".$valor["apcli"] ?></td>
         <td align="center"><?php echo $valor["total"] ?> Bs.</td>
-        <td align="center"><?php echo $valor["fecha"] ?></td>
+        <td align="center"><?php echo date('d-m-Y', strtotime($valor['fecha'])) ?></td>
         <td align="center">
-          <a href="#!" class="btn-floating"><i class="material-icons">delete</i></a>
+          <a href="#!" onclick="eliminar_venta('<?php echo $valor['codv'] ?>')" class="btn-floating"><i class="material-icons">delete</i></a>
           <a href="#" class="btn-floating" onclick="ver_ped('<?php echo $valor['codv'] ?>','<?php echo $valor["cliente"] ?>','<?php echo $valor["cicli"] ?>','<?php echo $valor['nombrecli'] ?>', '<?php echo $valor['apcli'] ?>');"><i class="material-icons">search</i></a>
         </td>
      </tr>
@@ -103,6 +103,22 @@ overflow-x: hidden;*/
   </div>
 </div>
 
+<!-- MODAL eliminar pedido -->
+<div id="modal_elim" class="modal">
+
+  <div class="modal-content">
+    <h4 class="roboto">Se eliminaran los datos de la venta seleccionada.</h4>
+    <p class="rubik">Se anulará la factura y se dará de baja la venta.</p>
+    <input type="text" id="id_ped" hidden>
+
+  </div>
+
+  <div class="modal-footer">
+    <a href="#!" class="left modal-action modal-close waves-effect waves-light btn red">Cancelar</a>
+    <button class="waves-effect waves-light btn right" id="elimped">Confirmar</button>
+  </div>
+</div>
+
 
 <script>
 $(document).ready(function() {
@@ -126,6 +142,29 @@ $( "#nv_venta" ).click(function() {
   $("#cuerpo").load("templates/ventas/nueva_venta.php");
 });
 
+
+function eliminar_venta(id) {
+  $("#id_ped").val(id);
+  $("#modal_elim").modal('open');
+}
+$("#elimped").click(function (argument) {
+  let id = $("#id_ped").val();
+  $.ajax({
+    url: "recursos/ventas/eliminar_venta.php?id="+id,
+    method: "get",
+    success: function(response){
+      console.log(response)
+      if (response == '1') {
+        M.toast({html: 'La venta y su detalle ha sido eliminada.'})
+        $("#modal_elim").modal('close')
+        $("#cuerpo").load("templates/ventas/ventas.php");
+      }
+    },
+    error: function(error, data, response){
+      console.log(error)
+    }
+  });
+})
 
 function ver_ped(cod, idcli, cicli, nombrecli, apcli) {
   $("#__ci").html("<b>Cédula: </b>"+cicli);
