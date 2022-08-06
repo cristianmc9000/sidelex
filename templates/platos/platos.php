@@ -108,7 +108,7 @@ while($arr = $Busq->fetch_array())
   </div>
 
   <!-- Modal modificar plato -->
-  <div id="modal2" class="modal">
+  <div id="modal2" class="modal" style="width: 30%">
     <div class="modal-content">
       <h5><b>Modificar plato</b></h5>
       <form id="form_mod_plato" action="" method="POST" accept-charset="utf-8">
@@ -141,7 +141,7 @@ while($arr = $Busq->fetch_array())
     </div>
 
     <div class="modal-footer">
-      <button class="btn waves-effect waves-light right" style="width: 10%" form="form_mod_plato" type="submit" name="acceso">Guardar</button>
+      <button class="btn waves-effect waves-light" form="form_mod_plato" type="submit" name="acceso">Guardar</button>
       <a href="#!" class=" modal-action modal-close waves-effect waves-red btn red left">Cancelar</a>
     </div>
   </div>

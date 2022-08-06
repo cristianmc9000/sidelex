@@ -17,7 +17,7 @@ $clave = $_POST['llavex'];
 $fecha_compra = strtotime(str_replace("/", "-", $fecha_c));
 
 $consultaNumFac = "SELECT count(*) as numfac FROM factura WHERE Estado = 1";
-$resultadoConsultaNF = mysqli_query($conexion, $consultaNumFac) or die(mysql_error());
+$resultadoConsultaNF = mysqli_query($conexion, $consultaNumFac) or die(mysqli_error($conexion));
 $datosCNF = mysqli_fetch_array($resultadoConsultaNF);
 
 $numero_factura = (int)$datosCNF['numfac'] + 1; //para bd factura

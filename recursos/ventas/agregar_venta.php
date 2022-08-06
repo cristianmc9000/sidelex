@@ -13,7 +13,8 @@ $json = json_decode($_GET['json']);
 $ci = $_GET['ci']; //DEBE UTULIZARSE EL ID NO EL CI
 $nombre = $_GET['nombre'];
 $apellidos = $_GET['apellidos'];
-$razon = $_GET['razon'];
+$telf = $_GET['telf'];
+// $razon = $_GET['razon'];
 $val = $_GET['value'];
 
 // die(empty($_GET['ci']).'--'.empty($nombre).'--'.empty($apellidos));
@@ -26,16 +27,16 @@ $id = 1;
 if(!empty($_GET['ci'])){
 	// $ci = '1';
 	$result = $conexion->query("SELECT * FROM cliente WHERE Ci = ".$ci);
-	$rows = (int)mysqli_num_rows($result);
-	if ((int)$rows < 1) {
-		$insertar_cli = $conexion->query("INSERT INTO cliente (Ci, Nombre, Apellidos, tipo) VALUES (".$ci.", '".$nombre."', '".$apellidos."', ".$val.")");
+	// $rows = mysqli_num_rows($result);
+	if (!empty($result) AND mysqli_num_rows($result) < 1) {
+		$insertar_cli = $conexion->query("INSERT INTO cliente (Ci, Nombre, Apellidos, Telefono, tipo) VALUES (".$ci.", '".$nombre."', '".$apellidos."', '".$telf."',".$val.")");
 		if ($insertar_cli == 1) {+
 			$id = mysqli_insert_id($conexion);
 		}else{
 			die(mysqli_error($conexion));
 		}
 	}else{
-		$update = $conexion->query('UPDATE cliente SET Nombre = "'.$nombre.'", Apellidos = "'.$apellidos.'", tipo = '.$val.' WHERE Ci = '.$ci);
+		$update = $conexion->query('UPDATE cliente SET Nombre = "'.$nombre.'", Apellidos = "'.$apellidos.'", Telefono = "'.$telf.'", tipo = '.$val.' WHERE Ci = '.$ci);
 		if ($update == 1) {
 			$res = $conexion->query("SELECT id FROM cliente WHERE Ci = ".$ci);
 			$res = mysqli_fetch_assoc($res);

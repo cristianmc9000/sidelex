@@ -10,18 +10,18 @@ while($arr0 = $Busq0->fetch_array())
 }
 
 
-$Sql = "SELECT a.*, b.Stock FROM plato a, stock b WHERE a.Codpla = b.Codpla AND Estado = 1"; 
+$Sql = "SELECT a.*, b.Stock FROM plato a, stock b WHERE a.Codpla = b.Codpla AND a.beb = 0 AND a.Estado = 1"; 
 $Busq = $conexion->query($Sql); 
 while($arr = $Busq->fetch_array()) 
     { 
         $fila[] = array('cod'=>$arr['Codpla'], 'nombre'=>$arr['Nombre'], 'precio'=>$arr['Precio'], 'descripcion'=>$arr['Descripcion'], 'foto'=>$arr['Foto'], 'stock'=>$arr['Stock']);
     } 
 
-$Sqlb = "SELECT * FROM bebida WHERE Estado = 1"; 
+$Sqlb = "SELECT a.*, b.Stock FROM plato a, stock b WHERE a.Codpla = b.Codpla AND a.beb = 1 AND a.Estado = 1"; 
 $Busqb = $conexion->query($Sqlb); 
-while($arrb = $Busqb->fetch_array()) 
+while($arr = $Busqb->fetch_array()) 
     { 
-        $filab[] = array('nombre'=>$arrb['Nombre'], 'precio'=>$arrb['Precio']); 
+        $filab[] = array('cod'=>$arr['Codpla'], 'nombre'=>$arr['Nombre'], 'precio'=>$arr['Precio'], 'descripcion'=>$arr['Descripcion'], 'foto'=>$arr['Foto'], 'stock'=>$arr['Stock']);
     }
 
 
@@ -179,8 +179,8 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
               <label for="reg_apellidos">Apellidos (*)</label>
             </div>
             <div class="input-field col s12">
-              <input id="reg_telf" type="text" onKeyPress="return checkIt(event)" minlength="8" maxlength="8" class="validate">
-              <label for="reg_telf">Teléfono/Celular</label>
+              <input id="f_reg_telf" name="f_reg_telf" type="text" onKeyPress="return checkIt(event)" minlength="8" maxlength="8" class="validate">
+              <label for="f_reg_telf">Teléfono/Celular</label>
             </div>
 
             <p><small class="helperx">Los campos de texto marcados con un (*) son obligatorios.</small></p>
@@ -192,8 +192,8 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
         <form >
           <div class="row">
             <div class="input-field col s12">
-              <input id="reg_nit" type="text" onKeyPress="return checkIt(event)" minlength="9" maxlength="11" onpaste="return false" class="validate" required>
-              <label for="reg_nit">NIT (*)</label>
+              <input id="j_reg_nit" name="j_reg_nit" type="text" onKeyPress="return checkIt(event)" minlength="9" maxlength="11" onpaste="return false" class="validate" required>
+              <label for="j_reg_nit">NIT (*)</label>
             </div>
             <div class="input-field col s12">
               <input id="reg_razon" type="text" onKeyPress="return checkText(event)" minlength="3" maxlength="25" class="validate" required>
@@ -240,7 +240,7 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
              <tr style="cursor: pointer;" onclick="agregar_plato('<?php echo $valor['cod'] ?>', '<?php echo $valor['nombre'] ?>', '<?php echo $valor['precio'] ?>', '<?php echo $valor['stock'] ?>')">
                 <td align="center"><img src="<?php echo $valor['foto'] ?>" width="50px" alt=""></td>
                 <td align="center"><?php echo $valor["nombre"] ?></td>
-                <td align="center"><?php echo $valor["precio"] ?></td>
+                <td align="center"><?php echo $valor["precio"]." Bs." ?> </td>
              </tr>
              <?php } ?> 
           </tbody>
@@ -270,10 +270,10 @@ $fila3[] = array('aut'=>$arr3['Autorizacion'], 'llave'=>$arr3['Llave_dosif'], 'n
           </thead>
           <tbody>
              <?php foreach($filab as $a  => $valor){ ?>
-             <tr>
-                <td align="center"><img src="images/cocacola.png" height="45" width="30"></td>
+             <tr style="cursor: pointer;" onclick="agregar_plato('<?php echo $valor['cod'] ?>', '<?php echo $valor['nombre'] ?>', '<?php echo $valor['precio'] ?>', '<?php echo $valor['stock'] ?>')">
+                <td align="center"><img src="<?php echo $valor['foto'] ?>" height="35" width=""></td>
                 <td align="center"><?php echo $valor["nombre"] ?></td>
-                <td align="center"><?php echo $valor["precio"] ?></td>
+                <td align="center"><?php echo $valor["precio"]." Bs." ?></td>
              </tr>
              <?php } ?> 
           </tbody>
@@ -518,7 +518,8 @@ function agregar_fila_plato() {
         let reg_cedula = $("#reg_cedula").val()
         let reg_nombres = $("#reg_nombres").val();
         let reg_apellidos = $("#reg_apellidos").val();
-        datos_cli = "&ci="+reg_cedula+"&nombre="+reg_nombres+"&apellidos="+reg_apellidos+"&value="+value;
+        let telf = $("#f_reg_telf").val();
+        datos_cli = "&ci="+reg_cedula+"&nombre="+reg_nombres+"&apellidos="+reg_apellidos+"&telf="+telf+"&value="+value;
         // console.log(reg_cedula, reg_nombres, reg_apellidos)
         if (reg_cedula.length < 6 || reg_nombres.length < 5 || reg_apellidos < 5) {
           return M.toast({html: 'Ingrese datos válidos.'})
@@ -527,8 +528,8 @@ function agregar_fila_plato() {
       else{
         let reg_nit = $("#reg_nit").val()
         let reg_razon = $("#reg_razon").val();
-
-        datos_cli = "&ci="+reg_nit+"&nombre="+reg_razon+"&value="+value;
+        let telf = $("#j_reg_nit").val();
+        datos_cli = "&ci="+reg_nit+"&nombre="+reg_razon+"&telf="+telf+"&value="+value;
         console.log(reg_nit, reg_razon)
         if (reg_cedula.length < 9 || reg_razon.length < 4 ) {
           return M.toast({html: 'Ingrese datos válidos.'})
@@ -639,29 +640,27 @@ $.ajax({
   success: function(response){
     console.log(response)
     filas = response;
+    //ENVIO CON AJAX --
+    var data = {autx: aut, llavex: llave, nitx: nit, cix: ci, fechax: (fecha.split("-").reverse().join("-")), montox: total, codped: cod, horax: hora}
+
+    $.ajax({
+      url: "recursos/ventas/datos_fac_ven.php",
+      data: data,
+      method: "post",
+      success: function(response){
+        console.log(response)
+        crear_factura(nit, aut, fecha, hora, ci, nombres, filas, total, monto, response, fecha_lim, usuario);
+      },
+      error: function(error, data, response){
+        console.log(error)
+      }
+    });
+
   },
   error: function(error, data, response){
     console.log(error)
   }
 });
-
-
-//ENVIO CON AJAX --
-var data = {autx: aut, llavex: llave, nitx: nit, cix: ci, fechax: (fecha.split("-").reverse().join("-")), montox: total, codped: cod, horax: hora}
-$.ajax({
-  url: "recursos/ventas/datos_fac_ven.php",
-  data: data,
-  method: "post",
-  success: function(response){
-    console.log(response)
-    crear_factura(nit, aut, fecha, hora, ci, nombres, filas, total, monto, response, fecha_lim, usuario);
-  },
-  error: function(error, data, response){
-    console.log(error)
-  }
-});
-
-
 //FIN ENVIO AJAX
 
 }

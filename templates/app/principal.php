@@ -4,7 +4,7 @@ session_start();
 //Pedimos el archivo que controla la duración de las sesiones
 require('recursos/sesiones.php');
 require('recursos/conexion.php');
-$Sql = "SELECT a.*, b.Stock FROM plato a, stock b WHERE a.Codpla = b.Codpla AND Estado = 1";
+$Sql = "SELECT a.*, b.Stock FROM plato a, stock b WHERE a.Codpla = b.Codpla AND a.beb = 0 AND a.Estado = 1";
 $Busq = $conexion->query($Sql);
 while($arr = $Busq->fetch_array())
 {

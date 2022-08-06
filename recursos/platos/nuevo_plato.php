@@ -16,8 +16,14 @@ $ruta2 = "images/".$nombreimg;
 
 $consulta = "INSERT INTO plato (Nombre, Precio, Descripcion, Foto) VALUES ('".$nombre."', '".$precio."', '".$descripcion."' , '".$ruta2."')";
 	if(mysqli_query($conexion, $consulta)){
-		die('1');
+		$id = mysqli_insert_id($conexion);
+		$res = $conexion->query("INSERT INTO `stock`(`Codpla`, `Stock`) VALUES (".$id.",'0')");
+		if ($res) {
+			die('1');
+		}else{
+			die(mysqli_error($conexion));
+		}
 	} else {
-		die('Error');
+		die(mysqli_error($conexion));
 	}
 ?>

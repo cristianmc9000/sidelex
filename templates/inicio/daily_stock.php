@@ -95,9 +95,7 @@
 
 					      </div>
 					      <div>
-					      	
-					      		<span>Cantidad vendida para el periodo <?php echo $per." ".$year?>: <?php echo $key[6]?></span>
-					      	
+					      		<span>Cantidad total vendida para el periodo <?php echo $per." ".$year?>: <b><?php echo $key[6]?></b></span>
 					      </div>
 					    </div>
 				    </div>
