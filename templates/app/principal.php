@@ -17,8 +17,9 @@ while($arr2 = $Busq2->fetch_array())
 $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr2['Apellidos'], 'telf'=>$arr2['Telefono']);
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="esES">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no">
@@ -40,8 +41,6 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<!-- <script src="js/firebase.js" ></script> -->
 		
 		<title>Bienvenido, Pedidos Delicias Express</title>
-		<style>
-		</style>
 	</head>
 	<body>
 		<nav style="background: rgba(255, 255, 255, 0.5);">
@@ -236,6 +235,8 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	<div id="mensaje"></div>
 
 	</body>
+</html>
+
 	<script>
 	var total = 0;
 	$(document).ready(function() {
@@ -473,6 +474,6 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 	}
 
 	</script>
-</html>
+
 
 <!-- <script type="module" src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"></script> -->
