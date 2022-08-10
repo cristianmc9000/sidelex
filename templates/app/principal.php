@@ -34,9 +34,9 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 		<!-- <script src="js/materialize.js"></script> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script src="js/maps.js"></script>
-		<!-- <script async defer -->
-		<!-- src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0x9mkyg_9x41m82iSIQvJ8M9vo7fXm4&callback=initMap"> -->
-		<!-- </script> -->
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0x9mkyg_9x41m82iSIQvJ8M9vo7fXm4&callback=initMap">
+		</script>
 		<script src="js/jquery.nice-number.js"></script>
 		<!-- <script src="js/firebase.js" ></script> -->
 		
