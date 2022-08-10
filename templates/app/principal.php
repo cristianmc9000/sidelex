@@ -18,8 +18,8 @@ $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr
 }
 ?>
 <!DOCTYPE html>
-<html>
-	<head lang="es">
+<html lang="es">
+	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<link rel="icon" type="image/x-icon" href="img/icono.ico" />
