@@ -1,21 +1,16 @@
 <?php
-//Iniciamos la sesión
-session_start();
-//Pedimos el archivo que controla la duración de las sesiones
-require('recursos/sesiones.php');
-require('recursos/conexion.php');
-$Sql = "SELECT a.*, b.Stock FROM plato a, stock b WHERE a.Codpla = b.Codpla AND a.beb = 0 AND a.Estado = 1";
-$Busq = $conexion->query($Sql);
-while($arr = $Busq->fetch_array())
-{
-$fila[] = array('codpla'=>$arr['Codpla'], 'nombre'=>$arr['Nombre'], 'precio'=>$arr['Precio'], 'descripcion'=>$arr['Descripcion'], 'foto'=>$arr['Foto'], 'stock'=>$arr['Stock']);
-}
-$Sql2 = "SELECT Ci, Nombre, Apellidos, Telefono FROM cliente WHERE Estado = 1";
-$Busq2 = $conexion->query($Sql2);
-while($arr2 = $Busq2->fetch_array())
-{
-$fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr2['Apellidos'], 'telf'=>$arr2['Telefono']);
-}
+	require('recursos/conexion.php');
+    
+    $Sql = "SELECT a.*, b.Stock FROM plato a, stock b WHERE a.Codpla = b.Codpla AND a.beb = 0 AND a.Estado = 1";
+    $Busq = $conexion->query($Sql);
+    while($arr = $Busq->fetch_array()){
+        $fila[] = array('codpla'=>$arr['Codpla'], 'nombre'=>$arr['Nombre'], 'precio'=>$arr['Precio'], 'descripcion'=>$arr['Descripcion'], 'foto'=>$arr['Foto'], 'stock'=>$arr['Stock']);
+    }
+    $Sql2 = "SELECT Ci, Nombre, Apellidos, Telefono FROM cliente WHERE Estado = 1";
+    $Busq2 = $conexion->query($Sql2);
+    while($arr2 = $Busq2->fetch_array()) {
+        $fila2[] = array('ci'=>$arr2['Ci'], 'nombre'=>$arr2['Nombre'], 'apellidos'=>$arr2['Apellidos'], 'telf'=>$arr2['Telefono']);
+    }
 ?>
 
 <!DOCTYPE html>
