@@ -269,23 +269,20 @@
 		
 		$("#__datosplato").html("<input id='__datosp' cp='"+cod+"' np='"+nombre+"' pp='"+precio+"' fp='"+foto+"' hidden/>");
 
-		$.ajax({
-	        url: "recursos/app/check_stock.php?id="+cod,
-	        method: "GET",
-	        success: function(response) {
-	        	$("#current_sell").val(response)
-	        	$("#current_stock").val(stock)
-	        	console.log(stock, response)
-	        	if (parseInt(stock) > parseInt(response)) {
-	        		$("#modal2").modal('open');
-	        	}else{
-	        		M.toast({html: "Producto agotado."})
-	        	}
-	        },
-	        error: function(error) {
-	            console.log(error)
-	        }
-      	})
+
+		fetch("recursos/app/check_stock.php?id="+cod)
+		.then(response => response.text())
+		.then(response => {
+			$("#current_sell").val(response)
+        	$("#current_stock").val(stock)
+        	console.log(stock, response)
+        	if (parseInt(stock) > parseInt(response)) {
+        		$("#modal2").modal('open');
+        	}else{
+        		M.toast({html: "Producto agotado."})
+        	}
+		})
+		
 		
 	}
 
